@@ -1,0 +1,42 @@
+{
+  "name": "app",
+  "version": "0.1.8",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "zhangzhihua <zzh627@126.com>",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "index.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Umajs/Uma.git"
+  },
+  "scripts": {
+    "koa": "ts-node-dev --respawn src/app.ts --koa",
+    "app": "ts-node-dev --respawn src/app.ts"
+  },
+  "dependencies": {
+    "@umajs/core": "^0.1.8",
+    "@umajs/plugin-i18n": "^0.1.8",
+    "@umajs/plugin-session": "^0.1.8",
+    "@umajs/plugin-static": "^0.1.7",
+    "@umajs/plugin-status": "^0.1.7",
+    "@umajs/router": "^0.1.8",
+    "koa": "^2.11.0",
+    "koa-views": "^6.2.1",
+    "nunjucks": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/koa-views": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.8.1",
+    "ts-node-dev": "^1.0.0-pre.44"
+  }
+}

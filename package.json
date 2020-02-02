@@ -1,0 +1,34 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "init": "del -f packages/*/node_modules && del -f packages/*/lib && lerna bootstrap",
+    "commit": "npx git-cz",
+    "test:core": "jest ./packages/core/__tests__ --runInBand",
+    "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
+    "test:i18n": "jest ./packages/plugin-i18n/__tests__ --runInBand --forceExit",
+    "test:session": "jest ./packages/plugin-session/__tests__ --runInBand --forceExit",
+    "test": "npm run test:core && npm run test:router && npm run test:i18n && npm run test:session",
+    "prepublish": "npm test && lerna run lint && lerna run build",
+    "publish": "lerna publish",
+    "postinstall": "npx checker-init"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.27",
+    "commit-msg-checker": "^1.0.6",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "del-cli": "^3.0.1",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

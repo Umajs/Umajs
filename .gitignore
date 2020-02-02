@@ -1,0 +1,15 @@
+.idea
+.cache
+node_modules
+.DS_Store
+dist
+lib
+/node_modules
+lerna-debug.log
+/packages/*/*/*/*.log
+.history/
+packages/plugin-logger/__tests__/app/src/logs/
+packages/logger/__tests__/__mocks__/log/
+packages/app/logs/home.log
+yarn-error.log
+yarn.lock

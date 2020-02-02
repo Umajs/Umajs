@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run cli",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/packages/cli/node_modules/ts-node/dist/bin.js",
+            "args": [
+                "src/index.ts",
+                "project",
+                "uma-demo"
+            ],
+            "cwd": "${workspaceRoot}/packages/cli",
+            "protocol": "inspector"
+        },
+        {
+            "name": "Run app",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/packages/app/node_modules/ts-node/dist/bin.js",
+            "args": [
+                "src/app.ts"
+            ],
+            "cwd": "${workspaceRoot}/packages/app",
+            "protocol": "inspector"
+        }
+    ]
+}
