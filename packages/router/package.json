@@ -14,7 +14,8 @@
     "index.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://ires.58corp.com/repository/npm/"
+    "registry": "http://registry.npmjs.org",
+    "access": "public"
   },
   "scripts": {
     "lint": "esw src --clear --ext .ts",
@@ -46,5 +47,12 @@
     "supertest": "^4.0.2",
     "typescript": "^3.2.2"
   },
-  "gitHead": "23e9211bf5940c92e3fe3a59d11ac90f0cd93973"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ursajs/Ursa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ursajs/Ursa/issues"
+  },
+  "homepage": "https://github.com/Ursajs/Ursa#readme"
 }
