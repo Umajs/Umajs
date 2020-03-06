@@ -10,7 +10,6 @@ import ServiceLoader from '../loader/ServiceLoader';
 import ResourceLoader from '../loader/ResourceLoader';
 import ConfigLoader from '../loader/ConfigLoader';
 import PluginLoader from '../loader/PluginLoader';
-import reload from '../loader/reload';
 import controllerInfo from '../info/controllerInfo';
 import { packageInfo } from '../info/packageInfo';
 
@@ -168,10 +167,6 @@ export default class Ursa {
         if (instance) return instance;
 
         instance = new Ursa(options);
-
-        // if (instance.env === 'development') {
-        //     setTimeout(() => reload, 0);
-        // }
 
         return instance;
     }
