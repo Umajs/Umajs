@@ -1,6 +1,6 @@
 {
   "name": "@ursajs/plugin-status",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
   "license": "ISC",
@@ -28,7 +28,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@ursajs/core": "^0.0.1"
+    "@ursajs/core": "^0.0.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.24",

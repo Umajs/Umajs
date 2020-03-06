@@ -1,6 +1,6 @@
 {
   "name": "@ursajs/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
   "license": "ISC",
@@ -26,8 +26,6 @@
     "prebuild": "esw src --ext .ts",
     "build": "tsc",
     "prepublish": "npm run build"
-  },
-  "dependencies": {
   },
   "devDependencies": {
     "@types/jest": "^24.0.24",
