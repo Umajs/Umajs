@@ -1,11 +1,11 @@
-# `@wf-node/router`
+# `@ursa/router`
 
 > TODO: description
 
 ## Usage
 
 ```
-const router = require('@wf-node/router');
+const router = require('@ursa/router');
 
 // TODO: DEMONSTRATE API
 ```

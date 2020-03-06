@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@wf-node/core';
+import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@ursa/core';
 
 export default class Index extends BaseController {
     index() {

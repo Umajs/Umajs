@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Result } from '@wf-node/core';
+import { BaseController, Path, Private, Result } from '@ursa/core';
 
 @Path('/tpl')
 export default class Template extends BaseController {
