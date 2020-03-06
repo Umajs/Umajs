@@ -1,0 +1,40 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "index.d.ts"
+  ],
+  "publishConfig": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@igit.58corp.com:node/ursa.git"
+  },
+  "scripts": {
+    "app": "ts-node-dev src/app.ts"
+  },
+  "dependencies": {
+    "@ursa/core": "^0.0.1",
+    "@ursa/router": "^0.0.1",
+    "koa": "^2.11.0",
+    "koa-views": "^6.2.1",
+    "nunjucks": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/koa-views": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.2.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.2.2"
+  }
+}

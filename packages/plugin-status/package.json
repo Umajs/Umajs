@@ -1,0 +1,48 @@
+{
+  "name": "@ursa/plugin-status",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "index.d.ts"
+  ],
+  "publishConfig": {
+  },
+  "scripts": {
+    "fix": "esw src --fix --ext .ts",
+    "lint": "esw src --clear --ext .ts",
+    "lint-w": "esw src --clear -w --ext .ts",
+    "build-w": "tsc -w --inlineSourceMap",
+    "start": "run-p lint-w build-w",
+    "prebuild": "esw src --ext .ts",
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "@ursa/core": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.24",
+    "@types/koa": "^2.0.51",
+    "@types/node": "^10.12.15",
+    "@typescript-eslint/eslint-plugin": "^1.1.0",
+    "@typescript-eslint/parser": "^1.1.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-typescript": "^0.14.0",
+    "eslint-watch": "^4.0.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.2.2"
+  },
+  "gitHead": "23e9211bf5940c92e3fe3a59d11ac90f0cd93973"
+}

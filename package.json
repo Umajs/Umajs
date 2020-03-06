@@ -1,0 +1,30 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "init": "del -f packages/*/node_modules && del -f packages/*/lib && lerna bootstrap",
+    "commit": "npx git-cz",
+    "test:core": "jest ./packages/core/__tests__ --runInBand",
+    "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
+    "test": "npm run test:core && npm run test:router",
+    "prepublish": "npm test && lerna run lint && lerna run build",
+    "publish": "lerna publish"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.8",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "del-cli": "^3.0.0",
+    "jest": "^24.8.0",
+    "lerna": "^3.16.4",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
