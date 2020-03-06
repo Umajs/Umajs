@@ -1,4 +1,4 @@
-import { TControllerInfo } from '@ursa/core';
+import { TControllerInfo } from '@ursajs/core';
 
 import { ClazzMap, RegexpRouterMap } from './router';
 

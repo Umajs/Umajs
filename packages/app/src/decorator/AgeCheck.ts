@@ -1,4 +1,4 @@
-import { createArgDecorator, Result, IContext } from '@ursa/core';
+import { createArgDecorator, Result, IContext } from '@ursajs/core';
 
 /**
  * 1、参数的聚合 Entity

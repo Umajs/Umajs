@@ -1,4 +1,4 @@
-import { Resource } from '@ursa/core';
+import { Resource } from '@ursajs/core';
 
 @Resource('Ursa', 18)
 export default class User {

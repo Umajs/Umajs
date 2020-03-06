@@ -23,8 +23,8 @@
     "app": "ts-node-dev src/app.ts"
   },
   "dependencies": {
-    "@ursa/core": "^0.0.1",
-    "@ursa/router": "^0.0.1",
+    "@ursajs/core": "^0.0.1",
+    "@ursajs/router": "^0.0.1",
     "koa": "^2.11.0",
     "koa-views": "^6.2.1",
     "nunjucks": "^3.2.0"

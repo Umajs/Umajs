@@ -1,4 +1,4 @@
-import { IAspect, middlewareToAround } from '@ursa/core';
+import { IAspect, middlewareToAround } from '@ursajs/core';
 
 
 

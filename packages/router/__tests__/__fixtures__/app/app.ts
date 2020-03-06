@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as request from 'supertest';
-import { Ursa, IResponse } from '@ursa/core';
+import { Ursa, IResponse } from '@ursajs/core';
 
 import { Router } from '../../../src/index';
 

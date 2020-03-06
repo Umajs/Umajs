@@ -1,5 +1,5 @@
 import * as pathToRegexp from 'path-to-regexp';
-import Ursa, { TMethodInfo } from '@ursa/core';
+import Ursa, { TMethodInfo } from '@ursajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import router, { StaticRouterMap, RegexpRouterMap, ClazzMap } from './router';

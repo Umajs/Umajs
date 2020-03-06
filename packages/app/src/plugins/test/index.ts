@@ -1,4 +1,4 @@
-import { IContext, TPlugin } from "@ursa/core";
+import { IContext, TPlugin } from "@ursajs/core";
 
 export default <TPlugin>{
     context: {

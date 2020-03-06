@@ -1,4 +1,4 @@
-import { BaseService } from '@ursa/core';
+import { BaseService } from '@ursajs/core';
 
 
 export default class test extends BaseService {

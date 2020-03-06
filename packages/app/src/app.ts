@@ -1,5 +1,5 @@
-import Ursa from '@ursa/core';
-import { Router } from '@ursa/router';
+import Ursa from '@ursajs/core';
+import { Router } from '@ursajs/router';
 
 const ursa = Ursa.instance({
     Router,

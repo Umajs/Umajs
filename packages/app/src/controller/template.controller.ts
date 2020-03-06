@@ -1,4 +1,4 @@
-import { BaseController, Path, Aspect, Query, Result, Param } from '@ursa/core';
+import { BaseController, Path, Aspect, Query, Result, Param } from '@ursajs/core';
 import { AgeCheck } from '../decorator/AgeCheck';
 
 @Path('/tpl')

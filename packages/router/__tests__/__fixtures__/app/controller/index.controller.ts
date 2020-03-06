@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@ursa/core';
+import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@ursajs/core';
 
 export default class Index extends BaseController {
     index() {

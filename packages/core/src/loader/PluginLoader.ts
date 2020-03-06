@@ -93,7 +93,7 @@ export default class PluginLoader {
         for (const [name, config] of Object.entries(pluginConfig)) {
             if (typeHelper.isBoolean(config)) continue;
 
-            const packageName = config.packageName || `@ursa/plugin-${name}`;
+            const packageName = config.packageName || `@ursajs/plugin-${name}`;
             let isDirExist = false;
 
             for (const dir of dirs) {
