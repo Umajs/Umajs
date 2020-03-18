@@ -1,8 +1,7 @@
 {
-  "name": "@wf-node/cli",
-  "version": "0.2.2",
-  "private": true,
-  "description": "router",
+  "name": "@ursajs/cli",
+  "version": "0.0.2",
+  "description": "ursa cli",
   "author": "",
   "license": "ISC",
   "directories": {
@@ -10,7 +9,8 @@
     "test": "__tests__"
   },
   "bin": {
-    "wf-node": "./bin/index.js"
+    "ursa": "./bin/index.js",
+    "ursajs": "./bin/index.js"
   },
   "files": [
     "lib",
@@ -18,11 +18,8 @@
     "index.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://ires.58corp.com/repository/npm/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@igit.58corp.com:node/wf-node.git"
+    "registry": "http://registry.npmjs.org",
+    "access": "public"
   },
   "scripts": {
     "init": "ts-node ./src/init.ts",
@@ -63,5 +60,12 @@
     "npm-run-all": "^4.1.5",
     "ts-node": "^8.2.0"
   },
-  "gitHead": "23e9211bf5940c92e3fe3a59d11ac90f0cd93973"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ursajs/Ursa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ursajs/Ursa/issues"
+  },
+  "homepage": "https://github.com/Ursajs/Ursa#readme"
 }
