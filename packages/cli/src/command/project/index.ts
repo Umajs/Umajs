@@ -45,7 +45,7 @@ export default async (projectName: string) => {
     // 1) 获取项目的模板 （所有的）
     let repos = await waitFnloading(fetchRepoList, 'fetching template ....')();
 
-    repos = repos.map((item: repoItem) => item.name);
+    repos = JSON.parse(repos).map((item:repoItem) => item.name);
     // 选择模板 inquirer
     const { repo } = await inquirer.prompt({
         name: 'repo', // 获取选择后的结果
