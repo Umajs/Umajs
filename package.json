@@ -4,9 +4,10 @@
   "scripts": {
     "init": "del -f packages/*/node_modules && del -f packages/*/lib && lerna bootstrap",
     "commit": "npx git-cz",
+    "test:cli": "jest ./packages/cli/__tests__ --runInBand --forceExit",
     "test:core": "jest ./packages/core/__tests__ --runInBand",
     "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
-    "test": "npm run test:core && npm run test:router",
+    "test": "npm run test:cli && npm run test:core && npm run test:router",
     "prepublish": "npm test && lerna run lint && lerna run build",
     "publish": "lerna publish"
   },
