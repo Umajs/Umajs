@@ -1,5 +1,5 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 
-'use strict';
+// 是一个可执行文件
 
 require('../lib/index');
