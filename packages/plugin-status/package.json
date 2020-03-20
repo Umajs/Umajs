@@ -1,6 +1,6 @@
 {
   "name": "@ursajs/plugin-status",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
   "license": "ISC",
@@ -27,15 +27,13 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "@types/jest": "^24.0.24",
     "@types/koa": "^2.0.51",
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^1.1.0",
     "@typescript-eslint/parser": "^1.1.0",
-    "@ursajs/core": "^0.0.2",
+    "@ursajs/core": "^0.0.3",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
