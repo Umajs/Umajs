@@ -5,8 +5,9 @@ import * as path from 'path';
 import * as MetalSmith from 'MetalSmith'; // 遍历文件夹 找需不需要渲染
 import * as git from 'simple-git/promise';
 import { delPath } from '../../utils/delPath';
+import { writeJson, readJson } from '../../utils/writeReadFile';
 import packageConfig from '../../utils/packageConfig';
-import { fetchRepoList } from '../../api';
+import { fetchRepoList, fechRepoCommits } from '../../api';
 import { waitFnloading } from '../../utils/utils';
 import { downloadDirectory } from '../../utils/constants';
 
@@ -22,17 +23,23 @@ const download = async (repo: string, tag: string) => {
         api += `#${tag}`;
     }
 
-    // /user/xxxx/.template/repo
+    // /Users/xxx/.ursa-templates/ursa
     const dest = `${downloadDirectory}/${repo}`;
-    // 获取版本信息
-    // const gitCommits = await fechRepoCommits();
-    // const commitSha = gitCommits[0].sha;
+    // 获取版本信息 若为最新版本则重新下载，若不是则直接拉取本地
+    const gitCommits: any = await fechRepoCommits();
+    const commitSha = JSON.parse(gitCommits)[0].sha;
+    const descJson = readJson(dest);
+    const sha = descJson.commit_sha ? descJson.commit_sha : '';
 
-    // console.log(commitSha);
-    delPath(dest);
-    await git().silent(true).clone(api, dest);
+    if (sha !== commitSha) {
+        delPath(dest);
+        await git().silent(true).clone(api, dest);
+        await writeJson(dest, commitSha);
 
-    return dest; // 下载的最终目录
+        return dest; // 下载的最终目录
+    }
+
+    return dest;
 };
 
 interface repoItem {
@@ -43,15 +50,20 @@ interface repoItem {
 }
 export default async (projectName: string) => {
     // 1) 获取项目的模板 （所有的）
-    let repos = await waitFnloading(fetchRepoList, 'fetching template ....')();
+    const repos = await waitFnloading(fetchRepoList, 'fetching template ....')();
 
-    repos = JSON.parse(repos).map((item:repoItem) => item.name);
+    const newRepos = [];
+
+    JSON.parse(repos).forEach((item: repoItem) => {
+        // 获取文件夹
+        if (item.size === 0) newRepos.push(item.name);
+    });
     // 选择模板 inquirer
     const { repo } = await inquirer.prompt({
         name: 'repo', // 获取选择后的结果
         type: 'list',
         message: 'please choise a template to create project',
-        choices: repos, // 选择
+        choices: newRepos, // 选择
     });
 
 
@@ -67,7 +79,7 @@ export default async (projectName: string) => {
     // });
 
     // 把模板放到一个临时目录里 存好，以备后期使用 download-git-repo
-    const result = await waitFnloading(download, 'download template')(repo);
+    const result = await waitFnloading(download, 'download template')('ursa');
     const newResult = path.join(result, repo);
     // 需要配置的模版,让用户填写信息
 
