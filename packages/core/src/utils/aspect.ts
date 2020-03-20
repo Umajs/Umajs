@@ -73,8 +73,6 @@ export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator
                 let resultType: string = '';
 
                 const proceed = async (...proceedArgs: any[]) => {
-                    resultType = ENotice.afterReturning;
-
                     if (notices.includes(ENotice.before) && before) {
                         await Promise.resolve(Reflect.apply(before, aspectInstance, [point]));
                     }
@@ -97,8 +95,6 @@ export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator
                     resultType = ENotice.afterThrowing;
                 }
 
-                if (!resultType) return;
-
                 if (notices.includes(ENotice.after) && after) {
                     await Promise.resolve(Reflect.apply(after, aspectInstance, [point]));
                 }
@@ -112,7 +108,7 @@ export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator
                     }
                 }
 
-                if (resultType === ENotice.afterReturning && notices.includes(ENotice.afterReturning) && afterReturning) {
+                if (resultType !== ENotice.afterThrowing && notices.includes(ENotice.afterReturning) && afterReturning) {
                     await Promise.resolve(Reflect.apply(afterReturning, aspectInstance, [point, methodResult]));
                 }
 
