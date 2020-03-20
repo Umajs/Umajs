@@ -155,6 +155,10 @@ export default class Ursa {
         Ursa.instance().use(mw);
     }
 
+    static get options() {
+        return Ursa.instance().options;
+    }
+
     static get config() {
         return ConfigLoader.config;
     }
