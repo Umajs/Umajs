@@ -1,3 +1,4 @@
+import Result from './Result';
 import { IContext, BaseContext } from '../types/IContext';
 import { IRequest } from '../types/IRequest';
 import { IResponse } from '../types/IResponse';
@@ -22,19 +23,19 @@ export class BaseController implements BaseContext {
     }
 
     send(data: string, status?: number) {
-        this.ctx.send(data, status);
+        return Result.send(data, status);
     }
 
     json(data: Object) {
-        this.ctx.json(data);
+        return Result.json(data);
     }
 
     jsonp(data: Object, callbackField: string = 'callback') {
-        this.ctx.jsonp(data, callbackField);
+        return Result.jsonp(data, callbackField);
     }
 
-    view(viewPath: string, locals: any = {}) {
-        return this.ctx.view(viewPath, locals);
+    async view(viewPath: string, locals: any = {}) {
+        return Result.view(viewPath, locals);
     }
 
     get userAgent() {
