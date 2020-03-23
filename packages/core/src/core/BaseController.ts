@@ -1,3 +1,6 @@
+import * as stream from 'stream';
+import * as send from 'koa-send';
+
 import Result from './Result';
 import { IContext, BaseContext } from '../types/IContext';
 import { IRequest } from '../types/IRequest';
@@ -36,6 +39,18 @@ export class BaseController implements BaseContext {
 
     async view(viewPath: string, locals: any = {}) {
         return Result.view(viewPath, locals);
+    }
+
+    stream(data: stream.Readable, fileName?: string) {
+        return Result.stream(data, fileName);
+    }
+
+    download(filePath: string, opts?: send.SendOptions) {
+        return Result.download(filePath, opts);
+    }
+
+    redirect(url: string, alt?: string) {
+        return Result.redirect(url, alt);
     }
 
     get userAgent() {
