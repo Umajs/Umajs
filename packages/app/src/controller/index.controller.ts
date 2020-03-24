@@ -67,4 +67,8 @@ export default class Index extends BaseController {
         const rs = fs.createReadStream(path.resolve(__dirname, './template.controller.ts'));
         return Result.stream(rs, 'controller.ts');
     }
+    @Path('/jsonp')
+    jsonp() {
+        return Result.jsonp({"data":1});
+    }
 }

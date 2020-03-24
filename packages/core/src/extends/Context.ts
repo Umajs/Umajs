@@ -13,10 +13,14 @@ export const Context: BaseContext = {
     },
 
     jsonp(data: Object, callbackField: string = 'callback') {
-        const field = (this.query[callbackField] || 'callback').replace(/[^\w.]/g, '');
+        const field = (this.query[callbackField] || '').replace(/[^\w.]/g, '');
 
-        this.type = 'application/javascript';
-        this.body = `${field}(${JSON.stringify(data)})`;
+        if (field) {
+            this.type = 'application/javascript';
+            this.body = `${field}(${JSON.stringify(data)})`;
+        } else {
+            this.json(data);
+        }
     },
 
     view(viewPath: string, locals: any = {}) {
