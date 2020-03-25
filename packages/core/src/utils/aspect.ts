@@ -102,7 +102,7 @@ export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator
                 // 出错调用出错
                 if (resultType === ENotice.afterThrowing) {
                     if (notices.includes(ENotice.afterThrowing) && afterThrowing) {
-                        await Promise.resolve(Reflect.apply(afterThrowing, aspectInstance, [methodResult]));
+                        return await Promise.resolve(Reflect.apply(afterThrowing, aspectInstance, [methodResult]));
                     } else if (methodResult instanceof Error) {
                         throw methodResult;
                     }
