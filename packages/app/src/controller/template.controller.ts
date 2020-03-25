@@ -20,8 +20,8 @@ export default class Template extends BaseController {
         return Result.send('this is static router in template');
     }
 
-    @Path('/ns')
-    notSend() {
-        console.log('.....This will not send any msg...');
+    @Path('/jsonp')
+    jsonpDemo() {
+        return this.jsonp({ data: 123 });
     }
 }

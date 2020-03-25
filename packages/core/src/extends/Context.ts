@@ -1,3 +1,5 @@
+import jsonp from 'jsonp-body';
+
 import typeHelper from '../utils/typeHelper';
 import { BaseContext } from '../types/IContext';
 
@@ -13,10 +15,11 @@ export const Context: BaseContext = {
     },
 
     jsonp(data: Object, callbackField: string = 'callback') {
-        const field = (this.query[callbackField] || 'callback').replace(/[^\w.]/g, '');
+        if (!jsonp) throw new Error('Before you use jsonp, please run " npm i -S jsonp-body "\n');
 
+        this.set('X-Content-Type-Options', 'nosniff');
         this.type = 'application/javascript';
-        this.body = `${field}(${JSON.stringify(data)})`;
+        this.body = jsonp(data, callbackField);
     },
 
     view(viewPath: string, locals: any = {}) {

@@ -31,6 +31,8 @@ export const Results: IResults = {
         ctx.body = streamData;
     },
     download(ctx: IContext, data: TResultDownData) {
+        if (!send) throw new Error('Before you use send, please run " npm i -S koa-send "\n');
+
         const { [DOWNLOAD_PATH]: downloadPath, ...downloadOpts } = data;
 
         if (!ctx.type && !ctx.get('Content-Disposition')) ctx.attachment(downloadPath);

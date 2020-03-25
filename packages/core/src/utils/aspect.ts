@@ -103,12 +103,12 @@ export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator
                 if (resultType === ENotice.afterThrowing) {
                     if (notices.includes(ENotice.afterThrowing) && afterThrowing) {
                         return await Promise.resolve(Reflect.apply(afterThrowing, aspectInstance, [methodResult]));
-                    } else if (methodResult instanceof Error) {
+                    }
+
+                    if (methodResult instanceof Error) {
                         throw methodResult;
                     }
-                }
-
-                if (resultType !== ENotice.afterThrowing && notices.includes(ENotice.afterReturning) && afterReturning) {
+                } else if (notices.includes(ENotice.afterReturning) && afterReturning) {
                     await Promise.resolve(Reflect.apply(afterReturning, aspectInstance, [point, methodResult]));
                 }
 
