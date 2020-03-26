@@ -4,6 +4,8 @@ import * as bodyParser from 'koa-body';
 
 import Ursa from '../core/Ursa';
 
+import { TJsonpBody } from './TJsonpBody';
+
 export type TUrsaOption = {
     Router: Function,
     ROOT: string,
