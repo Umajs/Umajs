@@ -30,6 +30,7 @@ export default class Ursa {
 
         this.options = mixin(true, {
             bodyParser: true,
+            jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
             env: process.env.NODE_ENV,
         }, options);

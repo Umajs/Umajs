@@ -1,5 +1,6 @@
 import jsonp from 'jsonp-body';
 
+import Ursa from '../core/Ursa';
 import typeHelper from '../utils/typeHelper';
 import { BaseContext } from '../types/IContext';
 
@@ -19,7 +20,7 @@ export const Context: BaseContext = {
 
         this.set('X-Content-Type-Options', 'nosniff');
         this.type = 'application/javascript';
-        this.body = jsonp(data, callbackField);
+        this.body = jsonp(data, callbackField, Ursa.options.jsonpBody);
     },
 
     view(viewPath: string, locals: any = {}) {

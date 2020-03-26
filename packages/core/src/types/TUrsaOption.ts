@@ -10,6 +10,7 @@ export type TUrsaOption = {
     configPath?: string,
     proxy?: boolean,
     subdomainOffset?: number,
+    jsonpBody?: TJsonpBody,
     bodyParser: boolean | bodyParser.IKoaBodyOptions,
     createServer?: (cb: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void) => Server,
     env?: 'development' | 'production' | string,
