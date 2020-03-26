@@ -7,13 +7,13 @@ import Ursa from '../core/Ursa';
 export type TUrsaOption = {
     Router: Function,
     ROOT: string,
+    env?: 'development' | 'production' | string,
     configPath?: string,
     proxy?: boolean,
     subdomainOffset?: number,
     jsonpBody?: TJsonpBody,
-    bodyParser: boolean | bodyParser.IKoaBodyOptions,
+    bodyParser?: bodyParser.IKoaBodyOptions,
     createServer?: (cb: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void) => Server,
-    env?: 'development' | 'production' | string,
     beforeLoad?: (ursa: Ursa) => void,
     afterLoaded?: (ursa: Ursa) => void,
 }
