@@ -4,7 +4,7 @@ export default class typeHelper {
     }
 
     static get undef(): undefined {
-        return (undef => undef)();
+        return ((undef) => undef)();
     }
 
     static isUndef(obj: any): obj is undefined {

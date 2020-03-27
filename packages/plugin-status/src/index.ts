@@ -1,7 +1,6 @@
 import * as Koa from 'koa';
-import { Ursa } from '@ursajs/core';
 
-export default (ursa: Ursa, options: any = {}): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
+export default (ursa: any, options: any = {}): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
     try {
         await next();
     } catch (err) {

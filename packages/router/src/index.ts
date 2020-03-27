@@ -18,9 +18,9 @@ export const Router = () => {
         const { name: clazzName, path: rootPath = '', clazz } = c;
         const methodMap: Map<string, TMethodInfo> = c.methodMap || new Map();
 
-        const decoratorMethodNameArr: string[] = [...methodMap.values()].map(m => m.name);
+        const decoratorMethodNameArr: string[] = [...methodMap.values()].map((m) => m.name);
         const methodNameArr: (string | number | symbol)[] = Reflect.ownKeys(clazz.prototype)
-            .filter(name => name !== 'constructor' && !decoratorMethodNameArr.includes(String(name)));
+            .filter((name) => name !== 'constructor' && !decoratorMethodNameArr.includes(String(name)));
 
         methodNameArr.forEach((methodName) => {
             ALLROUTE.push(`/${clazzName}/${String(methodName)}`);
