@@ -33,12 +33,13 @@ export default class PluginLoader {
     static async loadPLugin(pluginConfig: TPluginConfig) {
         const plugin: TPlugin | Function = Require.default(pluginConfig.path);
         const ursa = Ursa.instance();
+        const options = mixin(true, {}, pluginConfig.options || {}, Ursa.config[pluginConfig.name] || {});
 
         // plugin.options & {plugin}.config
-        pluginConfig.options = mixin(true, {}, pluginConfig.options || {}, Ursa.config[pluginConfig.name] || {});
+        pluginConfig.options = options;
 
         if (typeHelper.isFunction(plugin)) {
-            const mw = await Promise.resolve(plugin(ursa, pluginConfig.options));
+            const mw = await Promise.resolve(plugin(ursa, options));
 
             if (typeHelper.isFunction(mw)) ursa.use(mw);
         } else if (typeHelper.isObject(plugin)) {
@@ -57,19 +58,19 @@ export default class PluginLoader {
                 } else if (key === 'use') {
                     const { handler } = val;
 
-                    mws.push(handler);
+                    mws.push((ctx: IContext, next: Function) => handler(ctx, next, options));
                 } else if (key === 'filter') {
                     const { regexp = /.*/, handler } = val;
 
-                    mws.push((ctx: IContext, next: Function) => (regexp.test(ctx.url) ? handler(ctx, next) : next()));
+                    mws.push((ctx: IContext, next: Function) => (regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
                 } else if (key === 'ignore') {
                     const { regexp = /.*/, handler } = val;
 
-                    mws.push((ctx: IContext, next: Function) => (!regexp.test(ctx.url) ? handler(ctx, next) : next()));
+                    mws.push((ctx: IContext, next: Function) => (!regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
                 } else if (key === 'method') {
                     const { type, handler } = val;
 
-                    mws.push((ctx: IContext, next: Function) => (type.indexOf(ctx.method) > -1 ? handler(ctx, next) : next()));
+                    mws.push((ctx: IContext, next: Function) => (type.indexOf(ctx.method) > -1 ? handler(ctx, next, options) : next()));
                 }
             }
 
