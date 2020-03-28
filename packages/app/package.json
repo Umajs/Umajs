@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
@@ -21,8 +21,8 @@
     "app": "ts-node-dev src/app.ts"
   },
   "dependencies": {
-    "@ursajs/core": "^0.0.7",
-    "@ursajs/router": "^0.0.7",
+    "@ursajs/core": "^0.0.8",
+    "@ursajs/router": "^0.0.8",
     "koa": "^2.11.0",
     "koa-views": "^6.2.1",
     "nunjucks": "^3.2.0"
