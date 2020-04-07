@@ -26,7 +26,7 @@ let instance: Ursa = null;
 
 export default class Ursa {
     private constructor(readonly options: TUrsaOption) {
-        console.assert(options && options.ROOT, `Ursa options.assert must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
+        console.assert(options && options.ROOT, `Ursa options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
 
         this.options = mixin(true, {
             bodyParser: true,
