@@ -122,9 +122,9 @@ export default class Ursa {
 
         const { app, options: { createServer, Router, beforeLoad, afterLoaded } } = this;
 
-        mixin(true, app.request, Request);
-        mixin(true, app.response, Response);
-        mixin(true, app.context, Context);
+        mixin(false, app.request, Request);
+        mixin(false, app.response, Response);
+        mixin(false, app.context, Context);
 
         if (typeHelper.isFunction(beforeLoad)) await Promise.resolve(Reflect.apply(beforeLoad, this, [this]));
 
@@ -154,6 +154,18 @@ export default class Ursa {
 
     static use(mw: Koa.Middleware<any, IContext>) {
         Ursa.instance().use(mw);
+    }
+
+    static get env() {
+        return Ursa.instance().env;
+    }
+
+    static get app() {
+        return Ursa.instance().app;
+    }
+
+    static get server() {
+        return Ursa.instance().server;
     }
 
     static get options() {

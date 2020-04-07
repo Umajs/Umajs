@@ -48,13 +48,13 @@ export default class PluginLoader {
             // 按照配置的顺序进行加载
             for (const [key, val] of Object.entries(plugin)) {
                 if (key === 'request') {
-                    mixin(true, ursa.app.request, val);
+                    mixin(false, ursa.app.request, val);
                 } else if (key === 'response') {
-                    mixin(true, ursa.app.response, val);
+                    mixin(false, ursa.app.response, val);
                 } else if (key === 'context') {
-                    mixin(true, ursa.context, val);
+                    mixin(false, ursa.context, val);
                 } else if (key === 'results') {
-                    mixin(true, Results, val);
+                    mixin(false, Results, val);
                 } else if (key === 'use') {
                     const { handler } = val;
 
