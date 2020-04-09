@@ -6,7 +6,9 @@ import { TConfig } from '../types/TConfig';
 import loadDir from '../utils/loadDir';
 
 export default class ConfigLoader {
-    static config: TConfig = {};
+    static config: TConfig = {
+        plugin: {},
+    };
 
     static loadConfig(filePath: string) {
         const fileInfo = path.parse(filePath);

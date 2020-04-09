@@ -176,6 +176,32 @@ export default class Ursa {
         return ConfigLoader.config;
     }
 
+    static get pluginConfig() {
+        return ConfigLoader.config.plugin;
+    }
+
+    static pluginKeys() {
+        const pluginKeys = [];
+
+        for (const [name, config] of Object.entries(Ursa.config.plugin)) {
+            if (config === true) {
+                pluginKeys.push(name);
+            } else if (config === false) {
+                continue;
+            } else if (config.enable === true) {
+                pluginKeys.push(name);
+            }
+        }
+
+        return pluginKeys;
+    }
+
+    static pluginOptions(pluginName: string) {
+        const pluginCfg = Ursa.config.plugin[pluginName];
+
+        return typeHelper.isBoolean(pluginCfg) ? {} : pluginCfg.options;
+    }
+
     static get context() {
         return Ursa.instance().context;
     }
