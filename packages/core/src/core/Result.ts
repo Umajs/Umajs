@@ -95,6 +95,6 @@ export default class Result implements IResult {
 
         if (status) ctx.status = status;
 
-        return Results[type](ctx, data);
+        return Reflect.get(Results, type)(ctx, data);
     }
 }

@@ -180,7 +180,7 @@ export default class Ursa {
         return ConfigLoader.config.plugin;
     }
 
-    static pluginKeys() {
+    static get pluginKeys() {
         const pluginKeys = [];
 
         for (const [name, config] of Object.entries(Ursa.config.plugin)) {
