@@ -9,6 +9,7 @@ describe('test/loader/ConfigLoader.test.ts', () => {
             ConfigLoader.loadConfigDir(basePath);
 
             expect(JSON.stringify(ConfigLoader.config)).toBe(JSON.stringify({
+                plugin: {},
                 default: {
                     name: 'defaultConfig',
                 },
