@@ -6,7 +6,6 @@ import { Router } from '../../../src/index';
 
 const ursa = Ursa.instance({
     Router,
-    bodyParser: false,
     ROOT: path.join(__dirname, '../app'),
 });
 

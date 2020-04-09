@@ -29,7 +29,6 @@ export default class Ursa {
         console.assert(options && options.ROOT, `Ursa options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
 
         this.options = mixin(true, {
-            bodyParser: true,
             jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
             env: process.env.NODE_ENV,
