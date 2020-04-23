@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@igit.58corp.com:node/ursa.git"
+    "url": "git+https://github.com/Ursajs/Ursa.git"
   },
   "scripts": {
     "app": "ts-node-dev src/app.ts"

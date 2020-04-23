@@ -18,8 +18,9 @@ export default class Plugin {
         Plugin[type](pluginName, ...props);
     }
 
+    // 安装插件到工程
     static async install(pluginName: string) {
-        // TODO 1.install 2.pluginName.config.ts
+        // TODO 1.install 2 add plugin.config.ts 3.new pluginName.config.ts
         console.log(pluginName);
     }
 
@@ -38,6 +39,6 @@ export default class Plugin {
 
         if (!fs.existsSync(pluginDir)) fs.mkdirSync(pluginDir);
 
-        console.log(`Plugin "${pluginName}" initialization completed.\n\n    Please add "pluginName: true" in "plugin.config.ts".\n`);
+        console.log(`Plugin "${pluginName}" initialization completed.\n\n    Please add "{ pluginName: true, }" in "plugin.config.ts" to use this plugin.\n`);
     }
 }
