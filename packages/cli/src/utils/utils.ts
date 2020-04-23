@@ -1,8 +1,8 @@
-
 import * as ora from 'ora';
 import * as URL from 'url';
 import * as http from 'http';
 import * as https from 'https';
+
 // 封装loading效果
 export const waitFnloading = (fn: Function, message: string) => async (...args: any) => {
     const spinner = ora(message);

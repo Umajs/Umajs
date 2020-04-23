@@ -36,7 +36,13 @@ export default class Index extends BaseController {
     }
 
     @Path('/test', '/static/test2')
-    test() {
+    async test() {
+        console.log('>>>');
+
+        await new Promise(resolve => setTimeout(resolve, 3000));
+
+        console.log('<<<');
+
         return Result.send('this is static router');
     }
 

@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run cli",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/packages/cli/node_modules/ts-node/dist/bin.js",
+            "args": [
+                "src/index.ts",
+                "project",
+                "ursa-demo"
+            ],
+            "cwd": "${workspaceRoot}/packages/cli",
+            "protocol": "inspector"
+        },
+        {
             "name": "Run app",
             "type": "node",
             "request": "launch",

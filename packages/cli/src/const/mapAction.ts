@@ -3,15 +3,15 @@ const mapAction = {
         alias: 'p',
         description: 'create a project',
         examples: [
-            'wf-node project <project-name>',
+            'ursa project <project-name>',
         ],
     },
     config: {
         alias: 'conf',
         description: 'config project variable',
         examples: [
-            'wf-node config set <k> <v>',
-            'wf-node config get <k>',
+            'ursa config set <k> <v>',
+            'ursa config get <k>',
         ],
     },
     '*': {

@@ -1,12 +1,10 @@
 
-import * as path from 'path';
-// 解析用户的参数
 import * as program from 'commander';
 
-import mapActions from './utils/mapAction';
+import mapActions from './const/mapAction';
 import project from './command/project';
 import config from './command/config';
-import { version } from './utils/constants';
+import { packageInfo } from './const/constants';
 
 // 注册命令
 const command = {
@@ -14,18 +12,15 @@ const command = {
 };
 
 Reflect.ownKeys(mapActions).forEach((action:string) => {
-    console.log(action);
     program
         .command(action) // 配置命令的名字
         .alias(mapActions[action].alias) // 命令的别名
         .description(mapActions[action].description)// 命令对应的描述
-        .action(() => {
+        .action(async () => {
             if (action === '*') { // 访问不到对应的命令 就打印找不到命令
                 console.log(` ${process.argv[2]} ${mapActions[action].description},more command 'wf-node -h'`);
-            } else { // create config ....
-                console.log(path.resolve(__dirname, action));
-                // eslint-disable-next-line import/no-dynamic-require
-                command[action](...process.argv.slice(3));
+            } else {
+                await command[action](...process.argv.slice(3));
             }
         });
 });
@@ -41,4 +36,9 @@ program.on('--help', () => {
 });
 
 // 解析用户传递过来的参数
-program.version(version).parse(process.argv);
+program.version(packageInfo.version).parse(process.argv);
+
+process.on('unhandledRejection', async (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    process.exit();
+});

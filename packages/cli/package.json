@@ -42,7 +42,9 @@
     "typescript": "^3.5.1"
   },
   "devDependencies": {
+    "@types/consolidate": "^0.14.0",
     "@types/inquirer": "^6.5.0",
+    "@types/metalsmith": "^2.3.0",
     "@types/node": "^10.14.9",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",

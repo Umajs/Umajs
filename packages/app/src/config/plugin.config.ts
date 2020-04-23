@@ -9,5 +9,5 @@ export default {
             },
         },
     },
-    'test': true,
+    'test': false,
 };
