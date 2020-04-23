@@ -2,7 +2,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as inquirer from 'inquirer';
 
-import { actionHelp } from '../../utils/utils';
+import { actionHelp, waitFnloading } from '../../utils/utils';
+import { download } from '../../api';
+import { cp, reRender } from '../../utils/file';
+import pluginConfig from '../../const/pluginConfig';
+import { PLUGIN_PATH, PLUGIN_PROJECT_PATH } from '../../const/constants';
+import packageConfig from '../../const/packageConfig';
 
 export default class Plugin {
     static async init(pluginName: string, ...props: string[]) {
@@ -25,19 +30,58 @@ export default class Plugin {
     }
 
     // 初始化插件工程
-    static project(pluginName: string) {
-        console.log(pluginName);
+    static async project(pluginName: string) {
+        // 下载模板
+        await waitFnloading(download, 'loading template')();
+
+        const projectPath = path.resolve(process.cwd(), pluginName);
+        const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig);
+
+        // cp project
+        cp(PLUGIN_PROJECT_PATH, projectPath, {
+            callback: (dest) => reRender(dest, { pluginName, ...projectConfig }),
+        });
+
+        const { pluginType } = await inquirer.prompt({
+            name: 'pluginType',
+            type: 'list',
+            message: 'please choise a plugin type',
+            choices: pluginConfig,
+        });
+
+        fs.mkdirSync(path.resolve(projectPath, 'src'));
+        cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(projectPath, 'src/index.ts'), {
+            callback: (dest) => reRender(dest, { pluginName }),
+        });
+
+        console.log(`Project ["${pluginName}"] initialization completed.`);
     }
 
     // 初始化本地插件
-    static local(pluginName: string) {
+    static async local(pluginName: string) {
         const rootDir = path.resolve(process.cwd(), 'src');
 
         if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
 
-        const pluginDir = path.resolve(rootDir, 'plugins');
+        const pluginsDir = path.resolve(rootDir, 'plugins');
+        const pluginDir = path.resolve(pluginsDir, pluginName);
 
+        if (!fs.existsSync(pluginsDir)) fs.mkdirSync(pluginsDir);
         if (!fs.existsSync(pluginDir)) fs.mkdirSync(pluginDir);
+
+        // 下载模板
+        await waitFnloading(download, 'loading template')();
+
+        const { pluginType } = await inquirer.prompt({
+            name: 'pluginType',
+            type: 'list',
+            message: 'please choise a plugin type',
+            choices: pluginConfig,
+        });
+
+        cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(pluginDir, 'index.ts'), {
+            callback: (dest) => reRender(dest, { pluginName }),
+        });
 
         console.log(`Plugin "${pluginName}" initialization completed.\n\n    Please add "{ pluginName: true, }" in "plugin.config.ts" to use this plugin.\n`);
     }

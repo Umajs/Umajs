@@ -1,14 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as inquirer from 'inquirer';
-import * as MetalSmith from 'MetalSmith';
 
 import { download } from '../../api';
-import { render } from '../../utils/ejs';
 import { waitFnloading, actionHelp } from '../../utils/utils';
 import { readDesc } from '../../utils/writeReadFile';
 import { DOWNLOAD_DIR } from '../../const/constants';
 import packageConfig from '../../const/packageConfig';
+import { cp, reRender } from '../../utils/file';
 
 export default async (...props: string[]) => {
     const [projectName] = props;
@@ -19,6 +18,7 @@ export default async (...props: string[]) => {
 
     if (fs.existsSync(targetDir)) return console.log(`\nPROJECT ["${projectName}"] is exists, please check your project name.\n`);
 
+    // 下载模板
     await waitFnloading(download, 'loading template')();
 
     const templateDesc = readDesc();
@@ -30,48 +30,16 @@ export default async (...props: string[]) => {
         choices: Object.keys(templateDesc).map((key) => ({ name: `${key},${templateDesc[key]}`, value: key })),
     });
 
-    await new Promise((resolve, reject) => {
-        MetalSmith(process.cwd())
-            .source(path.resolve(DOWNLOAD_DIR, templaeName))
-            .destination(path.resolve(projectName))
-            .use(async (files: MetalSmith.Files, metal: MetalSmith, callback: MetalSmith.Callback) => {
-                const obj = await inquirer.prompt(packageConfig); // 弹出消息
-                const meta = metal.metadata();
+    const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig); // 弹出消息
 
-                Object.assign(meta, obj);
-                callback(null, files, metal);
-            })
-            .use((files: object, metal: MetalSmith, callback: MetalSmith.Callback) => {
-                const obj: any = metal.metadata();
-
-                Reflect.ownKeys(files).forEach(async (file: string) => {
-                    // 这个是要处理的  <%
-                    if (file.includes('js') || file.includes('json')) {
-                        let content = files[file].contents.toString(); // 文件的内容
-
-                        if (content.includes('<%')) {
-                            content = await render(content, obj);
-                            files[file].contents = Buffer.from(content); // 渲染
-                        }
-                    }
-                });
-
-                // 根据用户的输入 下载模板
-                callback(null, files, null);
-            })
-            .build((err: Error) => {
-                if (err) return reject(err);
-
-                resolve();
-            });
+    cp(path.resolve(DOWNLOAD_DIR, templaeName), path.resolve(projectName), {
+        callback: (dest) => reRender(dest, projectConfig),
     });
 
     console.log(`Project ["${projectName}"] initialization completed, please run
 
         cd ${projectName}
-
         npm install
-
         npm start
 
     `);

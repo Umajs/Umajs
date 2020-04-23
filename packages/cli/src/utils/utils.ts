@@ -19,7 +19,7 @@ export const waitFnloading = (fn: Function, message: string) => async (...args: 
 export const actionHelp = (actionName: string) => {
     const { description, examples } = mapAction[actionName];
 
-    return console.log(`${description} usage:\n\n   ${examples.join('\n')}\n`);
+    return console.log(`${description} usage:\n\n    ${examples.join('\n    ')}\n`);
 };
 
 const getHeaders = () => {
