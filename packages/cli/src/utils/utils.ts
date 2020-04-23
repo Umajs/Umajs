@@ -2,6 +2,7 @@ import * as ora from 'ora';
 import * as URL from 'url';
 import * as http from 'http';
 import * as https from 'https';
+import mapAction from '../const/mapAction';
 
 // 封装loading效果
 export const waitFnloading = (fn: Function, message: string) => async (...args: any) => {
@@ -15,6 +16,11 @@ export const waitFnloading = (fn: Function, message: string) => async (...args: 
     return result;
 };
 
+export const actionHelp = (actionName: string) => {
+    const { description, examples } = mapAction[actionName];
+
+    return console.log(`${description} usage:\n\n   ${examples.join('\n')}\n`);
+};
 
 const getHeaders = () => {
     const headers = {

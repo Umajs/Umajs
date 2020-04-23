@@ -1,7 +1,7 @@
-import Config from './config';
+import Plugin from './plugin';
 
 export default async (...props: string[]) => {
     const [action, ...actionProps] = props;
 
-    Config[action](...actionProps);
+    await Promise.resolve(Plugin[action](...actionProps));
 };

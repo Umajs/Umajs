@@ -5,13 +5,15 @@ import * as MetalSmith from 'MetalSmith';
 
 import { download } from '../../api';
 import { render } from '../../utils/ejs';
-import { waitFnloading } from '../../utils/utils';
+import { waitFnloading, actionHelp } from '../../utils/utils';
 import { readDesc } from '../../utils/writeReadFile';
 import { DOWNLOAD_DIR } from '../../const/constants';
 import packageConfig from '../../const/packageConfig';
 
 export default async (...props: string[]) => {
     const [projectName] = props;
+
+    if (!projectName) return actionHelp(projectName);
 
     const targetDir = path.resolve(process.cwd(), projectName);
 
@@ -29,7 +31,7 @@ export default async (...props: string[]) => {
     });
 
     await new Promise((resolve, reject) => {
-        MetalSmith(__dirname) // 传入路径 他默认会遍历当前路径下的src文件夹
+        MetalSmith(process.cwd())
             .source(path.resolve(DOWNLOAD_DIR, templaeName))
             .destination(path.resolve(projectName))
             .use(async (files: MetalSmith.Files, metal: MetalSmith, callback: MetalSmith.Callback) => {

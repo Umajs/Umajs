@@ -1,17 +1,24 @@
-const mapAction = {
+export default {
     project: {
         alias: 'p',
-        description: 'create a project',
+        description: 'ursa project',
         examples: [
             'ursa project <project-name>',
         ],
     },
     config: {
-        alias: 'conf',
-        description: 'config project variable',
+        alias: 'c',
+        description: 'ursa config',
         examples: [
-            'ursa config set <k> <v>',
-            'ursa config get <k>',
+            'ursa config init <config-name>',
+        ],
+    },
+    plugin: {
+        alias: 'pg',
+        description: 'ursa plugin',
+        examples: [
+            'ursa plugin init <plugin-name>',
+            'ursa plugin install <plugin-name>',
         ],
     },
     '*': {
@@ -20,5 +27,3 @@ const mapAction = {
         examples: [],
     },
 };
-
-export default mapAction;

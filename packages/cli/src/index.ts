@@ -4,11 +4,12 @@ import * as program from 'commander';
 import mapActions from './const/mapAction';
 import project from './command/project';
 import config from './command/config';
+import plugin from './command/plugin';
 import { packageInfo } from './const/constants';
 
 // 注册命令
 const command = {
-    project, config,
+    project, config, plugin,
 };
 
 Reflect.ownKeys(mapActions).forEach((action:string) => {
@@ -17,8 +18,8 @@ Reflect.ownKeys(mapActions).forEach((action:string) => {
         .alias(mapActions[action].alias) // 命令的别名
         .description(mapActions[action].description)// 命令对应的描述
         .action(async () => {
-            if (action === '*') { // 访问不到对应的命令 就打印找不到命令
-                console.log(` ${process.argv[2]} ${mapActions[action].description},more command 'wf-node -h'`);
+            if (action === '*' || !command[action]) { // 访问不到对应的命令 就打印找不到命令
+                console.log(` ${process.argv[2]} ${mapActions[action].description}, more command 'ursa -h'`);
             } else {
                 await command[action](...process.argv.slice(3));
             }
