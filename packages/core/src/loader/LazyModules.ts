@@ -5,7 +5,7 @@ export default class LazyModules {
         try {
             return Require.default(pName);
         } catch (err) {
-            throw new Error(`Before you use jsonp, please run "npm i -S ${pName}"\n`);
+            throw new Error(`Before you use ${pName}, please run "npm i -S ${pName}"\n`);
         }
     }
 
