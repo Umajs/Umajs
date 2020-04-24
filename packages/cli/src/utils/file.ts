@@ -51,7 +51,7 @@ export function rm(dir: string) {
  * @param src — A path to the source file.
  * @param dest — A path to the destination file.
  */
-export function cp(src: string, dest: string, options: {
+export async function cp(src: string, dest: string, options: {
     callback?: (dest: string) => void,
     flags?: number,
 } = {}) {
@@ -61,9 +61,10 @@ export function cp(src: string, dest: string, options: {
 
     if (fs.statSync(src).isFile()) {
         fs.copyFileSync(src, dest);
-        options.callback && options.callback(dest);
 
-        return;
+        if (options.callback) {
+            return await Promise.resolve(options.callback(dest));
+        }
     }
 
     fs.mkdirSync(dest);
@@ -71,12 +72,9 @@ export function cp(src: string, dest: string, options: {
     const files: string[] = fs.readdirSync(src);
 
     if (files && files.length > 0) {
-        files.forEach((file) => {
-            const srcFilePath = path.resolve(src, file);
-            const destFilePath = path.resolve(dest, file);
-
-            cp(srcFilePath, destFilePath, options);
-        });
+        for (const file of files) {
+            await cp(path.resolve(src, file), path.resolve(dest, file), options);
+        }
     }
 }
 

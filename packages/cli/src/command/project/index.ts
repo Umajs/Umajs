@@ -32,7 +32,7 @@ export default async (...props: string[]) => {
 
     const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig); // 弹出消息
 
-    cp(path.resolve(DOWNLOAD_DIR, templaeName), path.resolve(projectName), {
+    await cp(path.resolve(DOWNLOAD_DIR, templaeName), path.resolve(projectName), {
         callback: (dest) => reRender(dest, projectConfig),
     });
 

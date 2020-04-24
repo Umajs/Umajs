@@ -17,7 +17,10 @@ export default class Plugin {
             name: 'type',
             type: 'list',
             message: 'Please choise a type to create plugin',
-            choices: ['local', 'project'],
+            choices: [
+                { name: '给当前 Ursa 工程添加插件', value: 'local' },
+                { name: '新建插件工程，一般用于发包至仓库', value: 'project' },
+            ],
         });
 
         Plugin[type](pluginName, ...props);
@@ -38,7 +41,7 @@ export default class Plugin {
         const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig);
 
         // cp project
-        cp(PLUGIN_PROJECT_PATH, projectPath, {
+        await cp(PLUGIN_PROJECT_PATH, projectPath, {
             callback: (dest) => reRender(dest, { pluginName, ...projectConfig }),
         });
 
@@ -50,7 +53,7 @@ export default class Plugin {
         });
 
         fs.mkdirSync(path.resolve(projectPath, 'src'));
-        cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(projectPath, 'src/index.ts'), {
+        await cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(projectPath, 'src/index.ts'), {
             callback: (dest) => reRender(dest, { pluginName }),
         });
 
@@ -79,7 +82,7 @@ export default class Plugin {
             choices: pluginConfig,
         });
 
-        cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(pluginDir, 'index.ts'), {
+        await cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(pluginDir, 'index.ts'), {
             callback: (dest) => reRender(dest, { pluginName }),
         });
 
