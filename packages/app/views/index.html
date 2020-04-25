@@ -4,37 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Ursajs 首页</title>
 </head>
 <body>
 
-
-    <button id="send-btn"> 发送 </button>
-    <button id="send-btn1"> 发送 </button>
-    resouce {{ test }}
-
-    <script type="text/javascript">
-        async function send(n) {
-            const data = await fetch('/test?n=' + n);
-
-            const result = await data.text();
-
-            console.log(result);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('#send-btn').addEventListener('click', () => {
-                [...Array(12)].forEach(() => {
-                    send(1);
-                })
-            })
-
-            document.querySelector('#send-btn1').addEventListener('click', () => {
-                [...Array(12)].forEach(() => {
-                    send(2);
-                })
-            })
-        });
-    </script>
+<div style="text-align: center;">
+    <img width="300" height="300" src="https://ursajs.gitee.io/assets/img/ursajs.b4f2d50a.png" />
+    <br/>
+    <br/>
+    <p1 style="font-size: 36px; font-weight: bolder;">{{ frameName }}</p1>
+    <br/>
+    <br/>
+    <a href="https://ursajs.gitee.io">USAGE(使用文件点击查看)</a>
+</div>
 </body>
 </html>

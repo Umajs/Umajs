@@ -16,7 +16,9 @@ export default class Index extends BaseController {
 
     index() {
         console.log(this.userService.getDefaultUserAge());
-        return Result.view('index.html', { test: this.testService.return1() })
+        return Result.view('index.html', {
+            frameName: this.testService.returnFrameName(),
+        });
     }
 
     @Path('/reg/:name*')

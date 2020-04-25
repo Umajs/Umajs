@@ -6,7 +6,7 @@ import { TMethodDecorator } from '../types/TDecorator';
  * @Aspect('aspectName')
  * @param aspectName 指定的切面名称
  */
-export default function Aspect(aspectName: string): TMethodDecorator {
+function Aspect(aspectName: string): TMethodDecorator {
     return aspect(aspectName, Object.values(ENotice));
 }
 
@@ -49,3 +49,5 @@ Aspect.afterReturning = function afterReturning(aspectName: string): TMethodDeco
 Aspect.afterThrowing = function afterThrowing(aspectName: string): TMethodDecorator {
     return aspect(aspectName, [ENotice.afterThrowing]);
 };
+
+export default Aspect;

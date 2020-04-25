@@ -30,6 +30,42 @@ export default class PluginLoader {
         return pluginConfig;
     }
 
+    static complexPlugin(plugin: TPlugin, options: any) {
+        const ursa = Ursa.instance();
+        const mws = [];
+
+        // 按照配置的顺序进行加载
+        for (const [key, val] of Object.entries(plugin)) {
+            if (key === 'request') {
+                mixin(false, ursa.app.request, val);
+            } else if (key === 'response') {
+                mixin(false, ursa.app.response, val);
+            } else if (key === 'context') {
+                mixin(false, ursa.context, val);
+            } else if (key === 'results') {
+                mixin(false, Results, val);
+            } else if (key === 'use') {
+                const { handler } = val;
+
+                mws.push((ctx: IContext, next: Function) => handler(ctx, next, options));
+            } else if (key === 'filter') {
+                const { regexp = /.*/, handler } = val;
+
+                mws.push((ctx: IContext, next: Function) => (regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
+            } else if (key === 'ignore') {
+                const { regexp = /.*/, handler } = val;
+
+                mws.push((ctx: IContext, next: Function) => (!regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
+            } else if (key === 'method') {
+                const { type, handler } = val;
+
+                mws.push((ctx: IContext, next: Function) => (type.indexOf(ctx.method) > -1 ? handler(ctx, next, options) : next()));
+            }
+        }
+
+        if (mws.length > 0) ursa.use(compose(mws));
+    }
+
     static async loadPLugin(pluginConfig: TPluginConfig) {
         const plugin: TPlugin | Function = Require.default(pluginConfig.path);
         const ursa = Ursa.instance();
@@ -39,42 +75,12 @@ export default class PluginLoader {
         pluginConfig.options = options;
 
         if (typeHelper.isFunction(plugin)) {
-            const mw = await Promise.resolve(plugin(ursa, options));
+            const pluginResult = await Promise.resolve(plugin(ursa, options));
 
-            if (typeHelper.isFunction(mw)) ursa.use(mw);
+            if (typeHelper.isFunction(pluginResult)) ursa.use(pluginResult);
+            else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
         } else if (typeHelper.isObject(plugin)) {
-            const mws = [];
-
-            // 按照配置的顺序进行加载
-            for (const [key, val] of Object.entries(plugin)) {
-                if (key === 'request') {
-                    mixin(false, ursa.app.request, val);
-                } else if (key === 'response') {
-                    mixin(false, ursa.app.response, val);
-                } else if (key === 'context') {
-                    mixin(false, ursa.context, val);
-                } else if (key === 'results') {
-                    mixin(false, Results, val);
-                } else if (key === 'use') {
-                    const { handler } = val;
-
-                    mws.push((ctx: IContext, next: Function) => handler(ctx, next, options));
-                } else if (key === 'filter') {
-                    const { regexp = /.*/, handler } = val;
-
-                    mws.push((ctx: IContext, next: Function) => (regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
-                } else if (key === 'ignore') {
-                    const { regexp = /.*/, handler } = val;
-
-                    mws.push((ctx: IContext, next: Function) => (!regexp.test(ctx.url) ? handler(ctx, next, options) : next()));
-                } else if (key === 'method') {
-                    const { type, handler } = val;
-
-                    mws.push((ctx: IContext, next: Function) => (type.indexOf(ctx.method) > -1 ? handler(ctx, next, options) : next()));
-                }
-            }
-
-            if (mws.length > 0) ursa.use(compose(mws));
+            PluginLoader.complexPlugin(plugin, options);
         }
     }
 
