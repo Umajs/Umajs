@@ -32,7 +32,7 @@ export default {
         alias: 's',
         description: 'ursa service',
         examples: [
-            'ursa [service | s] init <config-name>',
+            'ursa [service | s] init <service-name>',
         ],
     },
     '*': {
