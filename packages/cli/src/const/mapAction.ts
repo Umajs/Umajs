@@ -3,22 +3,36 @@ export default {
         alias: 'p',
         description: 'ursa project',
         examples: [
-            'ursa project <project-name>',
-        ],
-    },
-    config: {
-        alias: 'c',
-        description: 'ursa config',
-        examples: [
-            'ursa config init <config-name>',
+            'ursa [project | p] <project-name>',
         ],
     },
     plugin: {
         alias: 'pg',
         description: 'ursa plugin',
         examples: [
-            'ursa plugin init <plugin-name>',
-            'ursa plugin install <plugin-name>',
+            'ursa [plugin | pg] init <plugin-name>',
+            'ursa [plugin | pg] install <plugin-name>',
+        ],
+    },
+    config: {
+        alias: 'c',
+        description: 'ursa config',
+        examples: [
+            'ursa [config | c] init <config-name>',
+        ],
+    },
+    controller: {
+        alias: 'ctrl',
+        description: 'ursa controller',
+        examples: [
+            'ursa [controller | ctrl] init <controller-name>',
+        ],
+    },
+    service: {
+        alias: 's',
+        description: 'ursa service',
+        examples: [
+            'ursa [service | s] init <config-name>',
         ],
     },
     '*': {

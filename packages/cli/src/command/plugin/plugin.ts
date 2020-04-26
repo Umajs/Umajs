@@ -11,7 +11,7 @@ import pluginConfig from '../../const/pluginConfig';
 
 export default class Plugin {
     static async init(pluginName: string, ...props: string[]) {
-        if (!pluginName) return actionHelp(pluginName);
+        if (!pluginName) return actionHelp('plugin');
 
         const { type } = await inquirer.prompt({
             name: 'type',

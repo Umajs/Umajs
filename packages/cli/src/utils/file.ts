@@ -12,7 +12,7 @@ export function mkdir(...pathSegments: string[]) {
         return fullPath;
     }
 
-    fs.mkdirSync(fullPath)
+    fs.mkdirSync(fullPath);
 
     return fullPath;
 }

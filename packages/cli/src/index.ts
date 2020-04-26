@@ -5,11 +5,13 @@ import mapActions from './const/mapAction';
 import project from './command/project';
 import config from './command/config';
 import plugin from './command/plugin';
+import controller from './command/controller';
+import service from './command/service';
 import { packageInfo } from './const/constants';
 
 // 注册命令
 const command = {
-    project, config, plugin,
+    project, config, plugin, controller, service,
 };
 
 Reflect.ownKeys(mapActions).forEach((action:string) => {

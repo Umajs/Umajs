@@ -12,7 +12,7 @@ import { cp, reRender } from '../../utils/file';
 export default async (...props: string[]) => {
     const [projectName] = props;
 
-    if (!projectName) return actionHelp(projectName);
+    if (!projectName) return actionHelp('project');
 
     const targetDir = path.resolve(process.cwd(), projectName);
 

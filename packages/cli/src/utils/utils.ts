@@ -16,7 +16,7 @@ export const waitFnloading = (fn: Function, message: string) => async (...args: 
     return result;
 };
 
-export const actionHelp = (actionName: string) => {
+export const actionHelp = (actionName: keyof (typeof mapAction)) => {
     const { description, examples } = mapAction[actionName];
 
     return console.log(`${description} usage:\n\n    ${examples.join('\n    ')}\n`);

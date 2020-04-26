@@ -6,19 +6,20 @@ import { mkdir } from '../../utils/file';
 
 export default class Config {
     static init(configName: string) {
-        if (!configName) return actionHelp(configName);
+        if (!configName) return actionHelp('config');
 
         const rootDir = path.resolve(process.cwd(), 'src');
 
         if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
 
         const configDir = mkdir(rootDir, 'config');
-        const configPath = path.resolve(configDir, `${configName}.config.ts`);
+        const configFileName = `${configName}.config.ts`;
+        const configPath = path.resolve(configDir, configFileName);
 
         if (fs.existsSync(configPath)) return console.log(`${configPath} is exists.`);
 
         fs.writeFileSync(configPath, 'export default {\n};\n');
 
-        console.log(`${configName}.config.ts init in "src/config"`);
+        console.log(`${configFileName} init in "src/config"`);
     }
 }
