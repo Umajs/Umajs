@@ -4,7 +4,7 @@ import * as inquirer from 'inquirer';
 
 import { actionHelp, waitFnloading } from '../../utils/utils';
 import { download } from '../../api';
-import { cp, reRender } from '../../utils/file';
+import { cp, reRender, mkdir } from '../../utils/file';
 import pluginConfig from '../../const/pluginConfig';
 import { PLUGIN_PATH, PLUGIN_PROJECT_PATH } from '../../const/constants';
 import packageConfig from '../../const/packageConfig';
@@ -66,11 +66,8 @@ export default class Plugin {
 
         if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
 
-        const pluginsDir = path.resolve(rootDir, 'plugins');
-        const pluginDir = path.resolve(pluginsDir, pluginName);
-
-        if (!fs.existsSync(pluginsDir)) fs.mkdirSync(pluginsDir);
-        if (!fs.existsSync(pluginDir)) fs.mkdirSync(pluginDir);
+        const pluginsDir = mkdir(rootDir, 'plugins');
+        const pluginDir = mkdir(pluginsDir, pluginName);
 
         // 下载模板
         await waitFnloading(download, 'loading template')();

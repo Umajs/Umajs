@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { actionHelp } from '../../utils/utils';
+import { mkdir } from '../../utils/file';
 
 export default class Config {
     static init(configName: string) {
@@ -11,9 +12,7 @@ export default class Config {
 
         if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
 
-        const configDir = path.resolve(rootDir, 'config');
-
-        if (!fs.existsSync(configDir)) fs.mkdirSync(configDir);
+        const configDir = mkdir(rootDir, 'config');
 
         const configPath = path.resolve(configDir, `${configName}.config.ts`);
 

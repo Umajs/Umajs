@@ -1,19 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as process from 'process';
 
 /**
  * 新建目录
  * @param dir 目录绝对地址
  */
-export function mkdir(dir: string) {
-    const fullPath: string = path.resolve(process.cwd(), dir);
+export function mkdir(...pathSegments: string[]) {
+    const fullPath: string = path.resolve(...pathSegments);
 
     if (fs.existsSync(fullPath)) {
-        return true;
+        return fullPath;
     }
 
-    return fs.mkdirSync(fullPath);
+    fs.mkdirSync(fullPath)
+
+    return fullPath;
 }
 
 /**
@@ -63,8 +64,10 @@ export async function cp(src: string, dest: string, options: {
         fs.copyFileSync(src, dest);
 
         if (options.callback) {
-            return await Promise.resolve(options.callback(dest));
+            await Promise.resolve(options.callback(dest));
         }
+
+        return;
     }
 
     fs.mkdirSync(dest);
