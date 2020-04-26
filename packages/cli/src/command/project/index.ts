@@ -22,7 +22,6 @@ export default async (...props: string[]) => {
     await waitFnloading(download, 'loading template')();
 
     const templateDesc = readDesc();
-
     const { templaeName } = await inquirer.prompt({
         name: 'templaeName',
         type: 'list',

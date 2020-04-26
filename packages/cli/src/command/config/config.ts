@@ -13,7 +13,6 @@ export default class Config {
         if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
 
         const configDir = mkdir(rootDir, 'config');
-
         const configPath = path.resolve(configDir, `${configName}.config.ts`);
 
         if (fs.existsSync(configPath)) return console.log(`${configPath} is exists.`);

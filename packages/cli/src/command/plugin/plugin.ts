@@ -2,12 +2,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as inquirer from 'inquirer';
 
-import { actionHelp, waitFnloading } from '../../utils/utils';
 import { download } from '../../api';
+import { actionHelp, waitFnloading } from '../../utils/utils';
 import { cp, reRender, mkdir } from '../../utils/file';
-import pluginConfig from '../../const/pluginConfig';
 import { PLUGIN_PATH, PLUGIN_PROJECT_PATH } from '../../const/constants';
 import packageConfig from '../../const/packageConfig';
+import pluginConfig from '../../const/pluginConfig';
 
 export default class Plugin {
     static async init(pluginName: string, ...props: string[]) {
@@ -52,7 +52,7 @@ export default class Plugin {
             choices: pluginConfig,
         });
 
-        fs.mkdirSync(path.resolve(projectPath, 'src'));
+        mkdir(projectPath, 'src');
         await cp(path.resolve(PLUGIN_PATH, `${pluginType}/index.ts`), path.resolve(projectPath, 'src/index.ts'), {
             callback: (dest) => reRender(dest, { pluginName }),
         });
