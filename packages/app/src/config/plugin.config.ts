@@ -1,4 +1,5 @@
 export default {
+    'test': true,
     'views': {
         enable: true,
         name: 'views',
@@ -9,5 +10,4 @@ export default {
             },
         },
     },
-    'test': true,
 };

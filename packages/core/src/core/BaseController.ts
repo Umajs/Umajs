@@ -1,6 +1,3 @@
-import * as stream from 'stream';
-import * as send from 'koa-send';
-
 import Result from './Result';
 import { IContext, BaseContext } from '../types/IContext';
 import { IRequest } from '../types/IRequest';
@@ -25,33 +22,19 @@ export class BaseController implements BaseContext {
         this.ctx.status = status;
     }
 
-    send(data: string, status?: number) {
-        return Result.send(data, status);
-    }
+    send = Result.send;
 
-    json(data: Object) {
-        return Result.json(data);
-    }
+    json = Result.json;
 
-    jsonp(data: Object, callbackField: string = 'callback') {
-        return Result.jsonp(data, callbackField);
-    }
+    jsonp = Result.jsonp;
 
-    async view(viewPath: string, locals: any = {}) {
-        return Result.view(viewPath, locals);
-    }
+    view = async (viewPath: string, locals: { [key: string]: any } = {}) => Result.view(viewPath, locals);
 
-    stream(data: stream.Readable, fileName?: string) {
-        return Result.stream(data, fileName);
-    }
+    stream = Result.stream
 
-    download(filePath: string, opts?: send.SendOptions) {
-        return Result.download(filePath, opts);
-    }
+    download = Result.download
 
-    redirect(url: string, alt?: string) {
-        return Result.redirect(url, alt);
-    }
+    redirect = Result.redirect
 
     get userAgent() {
         return this.ctx.header['user-agent'];
