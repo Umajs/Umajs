@@ -1,4 +1,11 @@
 export default {
+    'static': {
+        options: {
+            root: './static',
+            opts: {
+            },
+        },
+    },
     'test': true,
     'views': {
         enable: true,
