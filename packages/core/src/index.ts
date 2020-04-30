@@ -19,6 +19,7 @@ export { TArg } from './types/TArg';
 export { TControllerInfo } from './types/TControllerInfo';
 export { TMethodInfo } from './types/TMethodInfo';
 export { TPlugin } from './types/TPlugin';
+export { TPluginConfig } from './types/TPluginConfig';
 export { IContext } from './types/IContext';
 export { IRequest } from './types/IRequest';
 export { IResponse } from './types/IResponse';

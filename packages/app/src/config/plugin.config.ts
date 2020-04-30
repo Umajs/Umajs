@@ -1,4 +1,6 @@
-export default {
+import { TPluginConfig } from '@ursajs/core';
+
+export default <{[key: string]: TPluginConfig}>{
     'static': {
         options: {
             root: './static',

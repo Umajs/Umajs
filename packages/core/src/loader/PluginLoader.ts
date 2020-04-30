@@ -67,8 +67,8 @@ export default class PluginLoader {
     }
 
     static async loadPLugin(pluginConfig: TPluginConfig) {
-        const plugin: TPlugin | Function = Require.default(pluginConfig.path);
         const ursa = Ursa.instance();
+        const plugin: TPlugin | Function = Require.default(pluginConfig.path);
         const options = mixin(true, {}, pluginConfig.options || {}, Ursa.config[pluginConfig.name] || {});
 
         // plugin.options & {plugin}.config
@@ -100,16 +100,34 @@ export default class PluginLoader {
         for (const [name, config] of Object.entries(pluginConfig)) {
             if (typeHelper.isBoolean(config)) continue;
 
+            // 纯中间件支持
+            const ursa = Ursa.instance();
+            const { type, handler } = config;
+
+            if (type && handler && type === 'middleware' && typeof handler === 'function') {
+                ursa.use(handler);
+                continue;
+            }
+
             const packageName = config.packageName || `@ursajs/plugin-${name}`;
             let isDirExist = false;
 
             for (const dir of dirs) {
-                const target = path.join(dir, dir.indexOf('node_modules') > -1 ? packageName : name);
+                // 已经配置 path，读取文件是否存在，不存在则移除
+                if (config.path) {
+                    if (!fs.existsSync(config.path)) config.path = null;
+                }
 
-                if (fs.existsSync(target)) {
-                    config.path = target;
+                // path 不存在，则从 name 和 packageName 规则上生成 path，读取文件是否存在，存在则赋值
+                if (!config.path) {
+                    const target = path.join(dir, dir.indexOf('node_modules') > -1 ? packageName : name);
+
+                    config.path = fs.existsSync(target) ? target : null;
+                }
+
+                // path 存在则加载插件
+                if (config.path) {
                     await PluginLoader.loadPLugin(config);
-
                     isDirExist = true;
                 }
             }
