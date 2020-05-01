@@ -129,6 +129,7 @@ export default class PluginLoader {
                 if (config.path) {
                     await PluginLoader.loadPLugin(config);
                     isDirExist = true;
+                    break;
                 }
             }
 
