@@ -14,16 +14,18 @@ import { Results } from '../extends/Results';
 
 export default class PluginLoader {
     static loadPluginConfig() {
-        const pluginConfig = Ursa.config.plugin;
+        if (!Ursa.config.plugin) return;
 
-        if (!pluginConfig) return;
+        const pluginConfig: { [pluginName: string]: false | TPluginConfig } = {};
 
-        for (const [name, config] of Object.entries(pluginConfig)) {
-            if (config === true) {
-                pluginConfig[name] = {
+        for (const [name, config] of Object.entries(Ursa.config.plugin)) {
+            if (typeHelper.isBoolean(config)) {
+                pluginConfig[name] = config ? {
                     name,
                     enable: true,
-                };
+                } : false;
+            } else {
+                pluginConfig[name] = config;
             }
         }
 
@@ -85,6 +87,7 @@ export default class PluginLoader {
     }
 
     static async loadDir(rootPath: string) {
+        const ursa = Ursa.instance();
         const pluginConfig = PluginLoader.loadPluginConfig();
 
         if (!pluginConfig) return;
@@ -98,14 +101,16 @@ export default class PluginLoader {
         ];
 
         for (const [name, config] of Object.entries(pluginConfig)) {
-            if (typeHelper.isBoolean(config)) continue;
+            if (config === false) continue;
 
-            // 纯中间件支持
-            const ursa = Ursa.instance();
+            // 插件类型支持
             const { type, handler } = config;
 
-            if (type && handler && type === 'middleware' && typeof handler === 'function') {
-                ursa.use(handler);
+            if (type) {
+                if (type === 'middleware' && handler && typeof handler === 'function') {
+                    ursa.use(handler);
+                }
+
                 continue;
             }
 
