@@ -18,15 +18,15 @@ import { Request } from '../extends/Request';
 import { Response } from '../extends/Response';
 import typeHelper from '../utils/typeHelper';
 import mixin from '../utils/mixin';
-import { TUrsaOption } from '../types/TUrsaOption';
+import { TUmaOption } from '../types/TUmaOption';
 import { IContext } from '../types/IContext';
 import { TConfig } from '../types/TConfig';
 
-let instance: Ursa = null;
+let instance: Uma = null;
 
-export default class Ursa {
-    private constructor(readonly options: TUrsaOption) {
-        console.assert(options && options.ROOT, `Ursa options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
+export default class Uma {
+    private constructor(readonly options: TUmaOption) {
+        console.assert(options && options.ROOT, `Uma options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
 
         this.options = mixin(true, {
             jsonpBody: {},
@@ -142,8 +142,8 @@ export default class Ursa {
         this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
 
         this.server.listen(this.port, async () => {
-            console.log(`Ursa server running at port: ${this.port} `);
-            console.log(`Ursa version: ${packageInfo.version}`);
+            console.log(`Uma server running at port: ${this.port} `);
+            console.log(`Uma version: ${packageInfo.version}`);
 
             if (typeof this.callback === 'function') {
                 await Promise.resolve(Reflect.apply(this.callback, this, []));
@@ -152,23 +152,23 @@ export default class Ursa {
     }
 
     static use(mw: Koa.Middleware<any, IContext>) {
-        Ursa.instance().use(mw);
+        Uma.instance().use(mw);
     }
 
     static get env() {
-        return Ursa.instance().env;
+        return Uma.instance().env;
     }
 
     static get app() {
-        return Ursa.instance().app;
+        return Uma.instance().app;
     }
 
     static get server() {
-        return Ursa.instance().server;
+        return Uma.instance().server;
     }
 
     static get options() {
-        return Ursa.instance().options;
+        return Uma.instance().options;
     }
 
     static get config() {
@@ -182,7 +182,7 @@ export default class Ursa {
     static get pluginKeys() {
         const pluginKeys = [];
 
-        for (const [name, config] of Object.entries(Ursa.config.plugin)) {
+        for (const [name, config] of Object.entries(Uma.config.plugin)) {
             if (config === true) {
                 pluginKeys.push(name);
             } else if (config === false) {
@@ -196,19 +196,19 @@ export default class Ursa {
     }
 
     static pluginOptions(pluginName: string) {
-        const pluginCfg = Ursa.config.plugin[pluginName];
+        const pluginCfg = Uma.config.plugin[pluginName];
 
         return typeHelper.isBoolean(pluginCfg) ? {} : pluginCfg.options;
     }
 
     static get context() {
-        return Ursa.instance().context;
+        return Uma.instance().context;
     }
 
-    static instance(options?: TUrsaOption): Ursa {
+    static instance(options?: TUmaOption): Uma {
         if (instance) return instance;
 
-        instance = new Ursa(options);
+        instance = new Uma(options);
 
         return instance;
     }

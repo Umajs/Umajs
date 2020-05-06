@@ -21,7 +21,7 @@ Reflect.ownKeys(mapActions).forEach((action:string) => {
         .description(mapActions[action].description)// 命令对应的描述
         .action(async () => {
             if (action === '*' || !command[action]) { // 访问不到对应的命令 就打印找不到命令
-                console.log(` ${process.argv[2]} ${mapActions[action].description}, more command "ursa -h"`);
+                console.log(` ${process.argv[2]} ${mapActions[action].description}, more command "uma -h"`);
             } else {
                 await command[action](...process.argv.slice(3));
             }
@@ -39,7 +39,7 @@ program.on('--help', () => {
 });
 
 if (process.argv.length === 2) {
-    console.log('ursa command "ursa -h"');
+    console.log('uma command "uma -h"');
 }
 
 // 解析用户传递过来的参数

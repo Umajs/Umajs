@@ -1,4 +1,4 @@
-import Ursa from '../core/Ursa';
+import Uma from '../core/Uma';
 import typeHelper from '../utils/typeHelper';
 import { BaseContext } from '../types/IContext';
 import LazyModules from '../loader/LazyModules';
@@ -17,7 +17,7 @@ export const Context: BaseContext = {
     jsonp(data: Object, callbackField: string = 'callback') {
         this.set('X-Content-Type-Options', 'nosniff');
         this.type = 'application/javascript';
-        this.body = LazyModules.jsonpBody(data, callbackField, Ursa.options.jsonpBody);
+        this.body = LazyModules.jsonpBody(data, callbackField, Uma.options.jsonpBody);
     },
 
     view(viewPath: string, locals: any = {}) {

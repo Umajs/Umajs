@@ -1,38 +1,38 @@
 export default {
     project: {
         alias: 'p',
-        description: 'ursa project',
+        description: 'uma project',
         examples: [
-            'ursa [project | p] <project-name>',
+            'uma [project | p] <project-name>',
         ],
     },
     plugin: {
         alias: 'pg',
-        description: 'ursa plugin',
+        description: 'uma plugin',
         examples: [
-            'ursa [plugin | pg] init <plugin-name>',
-            'ursa [plugin | pg] install <plugin-name>',
+            'uma [plugin | pg] init <plugin-name>',
+            'uma [plugin | pg] install <plugin-name>',
         ],
     },
     config: {
         alias: 'c',
-        description: 'ursa config',
+        description: 'uma config',
         examples: [
-            'ursa [config | c] init <config-name>',
+            'uma [config | c] init <config-name>',
         ],
     },
     controller: {
         alias: 'ctrl',
-        description: 'ursa controller',
+        description: 'uma controller',
         examples: [
-            'ursa [controller | ctrl] init <controller-name>',
+            'uma [controller | ctrl] init <controller-name>',
         ],
     },
     service: {
         alias: 's',
-        description: 'ursa service',
+        description: 'uma service',
         examples: [
-            'ursa [service | s] init <service-name>',
+            'uma [service | s] init <service-name>',
         ],
     },
     '*': {

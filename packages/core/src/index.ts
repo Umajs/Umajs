@@ -1,7 +1,7 @@
-import Ursa from './core/Ursa';
+import Uma from './core/Uma';
 
-export default Ursa;
-export { Ursa };
+export default Uma;
+export { Uma };
 export { middlewareToAround } from './utils/aspect';
 export { BaseController } from './core/BaseController';
 export { BaseService } from './core/BaseService';

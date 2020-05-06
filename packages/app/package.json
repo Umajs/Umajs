@@ -15,15 +15,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ursajs/Ursa.git"
+    "url": "git+https://github.com/Umajs/Uma.git"
   },
   "scripts": {
     "app": "ts-node-dev src/app.ts"
   },
   "dependencies": {
-    "@ursajs/core": "^0.1.4",
-    "@ursajs/plugin-static": "^0.1.4",
-    "@ursajs/router": "^0.1.4",
+    "@umajs/core": "^0.1.4",
+    "@umajs/plugin-static": "^0.1.4",
+    "@umajs/router": "^0.1.4",
     "koa": "^2.11.0",
     "koa-views": "^6.2.1",
     "nunjucks": "^3.2.0"

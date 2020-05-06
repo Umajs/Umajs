@@ -1,4 +1,4 @@
-import { BaseService } from '@ursajs/core';
+import { BaseService } from '@umajs/core';
 
 export default class Template extends BaseService {
     insert() {

@@ -1,6 +1,6 @@
-import { Ursa, IContext, TPlugin, RequestMethod } from "@ursajs/core";
+import { Uma, IContext, TPlugin, RequestMethod } from "@umajs/core";
 
-export default (ursa: Ursa, options: any = {}): TPlugin => {
+export default (uma: Uma, options: any = {}): TPlugin => {
     console.log(options);
 
     return {

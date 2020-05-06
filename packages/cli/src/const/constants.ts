@@ -6,7 +6,7 @@ import { TPackageInfo } from '../types/TPackageInfo';
 export const packageInfo: TPackageInfo = require('../../package.json');
 
 // 存储模板的位置
-export const DOWNLOAD_DIR = path.resolve(`${process.env[process.platform === 'darwin' ? 'HOME' : 'USERPROFILE']}`, '.ursa-templates');
+export const DOWNLOAD_DIR = path.resolve(`${process.env[process.platform === 'darwin' ? 'HOME' : 'USERPROFILE']}`, '.uma-templates');
 
 export const PLUGIN_PATH = path.resolve(DOWNLOAD_DIR, 'plugin');
 

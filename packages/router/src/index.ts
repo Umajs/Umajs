@@ -1,5 +1,5 @@
 import * as pathToRegexp from 'path-to-regexp';
-import Ursa, { TMethodInfo } from '@ursajs/core';
+import Uma, { TMethodInfo } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import router, { StaticRouterMap, RegexpRouterMap, ClazzMap } from './router';
@@ -14,7 +14,7 @@ export const Router = () => {
     StaticRouterMap.clear();
 
     // go through contollerInfo，and init each router map
-    for (const c of Ursa.controllersInfo) {
+    for (const c of Uma.controllersInfo) {
         const { name: clazzName, path: rootPath = '', clazz } = c;
         const methodMap: Map<string, TMethodInfo> = c.methodMap || new Map();
 
@@ -56,10 +56,10 @@ export const Router = () => {
 
     console.log('======Init router E======');
 
-    const ursa = Ursa.instance();
+    const uma = Uma.instance();
 
-    if (ursa && ursa instanceof Ursa) {
-        ursa.routers = ALLROUTE;
+    if (uma && uma instanceof Uma) {
+        uma.routers = ALLROUTE;
     }
 
     return router;

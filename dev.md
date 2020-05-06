@@ -1,4 +1,4 @@
-# `Ursa`
+# `Uma`
 
 
 ## Usage

@@ -9,7 +9,7 @@ import { DOWNLOAD_DIR } from '../const/constants';
 // https://api.github.com/users/woshi555bin/repos
 // 获取项目列表
 export const fetchRepoList = async () => {
-    const data = await xhr('GET', 'https://api.github.com/repos/Ursajs/ursa-templates/contents');
+    const data = await xhr('GET', 'https://api.github.com/repos/Umajs/uma-templates/contents');
 
     return data;
 };
@@ -24,16 +24,16 @@ export const fechTagList = async (repo:string) => {
 // 获取git HEAD
 export const fechRepoCommits = async () => {
     try {
-        return await xhr('GET', 'https://api.github.com/repos/Ursajs/ursa-templates/commits?sha=master');
+        return await xhr('GET', 'https://api.github.com/repos/Umajs/uma-templates/commits?sha=master');
     } catch (err) {
         return null;
     }
 };
 
 export const download = async (tag?: string) => {
-    const api = `https://github.com/Ursajs/ursa-templates${tag ? `#${tag}` : ''}`;
+    const api = `https://github.com/Umajs/uma-templates${tag ? `#${tag}` : ''}`;
 
-    // /Users/xxx/.ursa-templates/ursa
+    // /Users/xxx/.uma-templates/uma
     const { commitSha: localSha } = readInfo();
 
     // 获取版本信息 若为最新版本则重新下载，若不是则直接拉取本地

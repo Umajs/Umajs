@@ -1,6 +1,6 @@
-import { Resource } from '@ursajs/core';
+import { Resource } from '@umajs/core';
 
-@Resource('Ursa', 18)
+@Resource('Uma', 18)
 export default class User {
     constructor(
         readonly name: string,

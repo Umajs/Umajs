@@ -18,7 +18,7 @@ export default class Plugin {
             type: 'list',
             message: 'Please choise a type to create plugin',
             choices: [
-                { name: '给当前 Ursa 工程添加插件', value: 'local' },
+                { name: '给当前 Uma 工程添加插件', value: 'local' },
                 { name: '新建插件工程，一般用于发包至仓库', value: 'project' },
             ],
         });

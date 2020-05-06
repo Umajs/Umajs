@@ -4,16 +4,16 @@ import * as chokidar from 'chokidar';
 import Log from '../utils/log';
 import Require from '../utils/Require';
 
-import { Ursa } from '../index';
+import { Uma } from '../index';
 import ControllerLoader from './ControllerLoader';
 import AspectLoader from './AspectLoader';
 import ServiceLoader from './ServiceLoader';
 
 const log = new Log();
 const loadMethods = {
-    controller: (p: string, ursa: Ursa) => {
+    controller: (p: string, uma: Uma) => {
         ControllerLoader.loadController(p);
-        ursa.options.Router();
+        uma.options.Router();
     },
     aspect: (p: string) => {
         AspectLoader.loadAspect(p);
@@ -23,11 +23,11 @@ const loadMethods = {
 
 /**
  * HMR or reload in development
- * @param {Ursa} ursa
+ * @param {Uma} uma
  */
 export default function reload() {
-    const ursa: Ursa = Ursa.instance();
-    const { ROOT } = ursa.options;
+    const uma: Uma = Uma.instance();
+    const { ROOT } = uma.options;
     const watcher: chokidar.FSWatcher = chokidar.watch(ROOT, { ignoreInitial: true });
 
     watcher.on('change', (p: string) => {
@@ -39,14 +39,14 @@ export default function reload() {
 
         if (fileType) {
             Require.deleteCache(p);
-            loadMethods[fileType](p, ursa);
+            loadMethods[fileType](p, uma);
             log.info('Hot Update: %s has been modified', p);
         } else if (path.basename(p).match(/^app\./)) {
             log.warn('Manual Restart To Update: %s has been modified', p);
         } else {
-            ursa.server.close();
-            ursa.app = new Koa();
-            ursa.start();
+            uma.server.close();
+            uma.app = new Koa();
+            uma.start();
             log.info('Restart: %s has been modified', p);
         }
     });

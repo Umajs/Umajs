@@ -1,4 +1,4 @@
-import { Inject } from '@ursajs/core';
+import { Inject } from '@umajs/core';
 import User from '../model/User';
 
 export default class {

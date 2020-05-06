@@ -2,11 +2,11 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import * as bodyParser from 'koa-body';
 
-import Ursa from '../core/Ursa';
+import Uma from '../core/Uma';
 
 import { TJsonpBody } from './TJsonpBody';
 
-export type TUrsaOption = {
+export type TUmaOption = {
     Router: Function,
     ROOT: string,
     env?: 'development' | 'production' | string,
@@ -16,6 +16,6 @@ export type TUrsaOption = {
     jsonpBody?: TJsonpBody,
     bodyParser?: bodyParser.IKoaBodyOptions,
     createServer?: (cb: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void) => Server,
-    beforeLoad?: (ursa: Ursa) => void,
-    afterLoaded?: (ursa: Ursa) => void,
+    beforeLoad?: (uma: Uma) => void,
+    afterLoaded?: (uma: Uma) => void,
 }

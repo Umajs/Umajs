@@ -1,30 +1,30 @@
 import * as path from 'path';
 import * as request from 'supertest';
-import { Ursa, IResponse } from '@ursajs/core';
+import { Uma, IResponse } from '@umajs/core';
 
 import { Router } from '../../../src/index';
 
-const ursa = Ursa.instance({
+const uma = Uma.instance({
     Router,
     ROOT: path.join(__dirname, '../app'),
 });
 
 export const start = () => new Promise((resolve, reject) => {
-    ursa.start(8053, (e) => {
+    uma.start(8053, (e) => {
         if (e) return reject();
         resolve();
     });
 });
 
 export const stop = () => new Promise((resolve, reject) => {
-    ursa.server.close((e) => {
+    uma.server.close((e) => {
         if (e) return reject();
         resolve();
     });
 });
 
 export const send = (path: string): any => new Promise((resolve, reject) => {
-    request(ursa.app.callback())
+    request(uma.app.callback())
         .get(path)
         .end((err: Error, res: IResponse) => {
             if (err) reject(err);
@@ -33,7 +33,7 @@ export const send = (path: string): any => new Promise((resolve, reject) => {
 });
 
 export const post = (path: string, data?: Object): any => new Promise((resolve, reject) => {
-    request(ursa.app.callback())
+    request(uma.app.callback())
         .post(path)
         .send(data)
         .end((err: Error, res: Response) => {

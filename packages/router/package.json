@@ -1,5 +1,5 @@
 {
-  "name": "@ursajs/router",
+  "name": "@umajs/router",
   "version": "0.1.4",
   "description": "router",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
@@ -35,7 +35,7 @@
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
-    "@ursajs/core": "^0.1.4",
+    "@umajs/core": "^0.1.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
@@ -49,10 +49,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ursajs/Ursa.git"
+    "url": "git+https://github.com/Umajs/Uma.git"
   },
   "bugs": {
-    "url": "https://github.com/Ursajs/Ursa/issues"
+    "url": "https://github.com/Umajs/Uma/issues"
   },
-  "homepage": "https://github.com/Ursajs/Ursa#readme"
+  "homepage": "https://github.com/Umajs/Uma#readme"
 }

@@ -12,7 +12,7 @@
             "args": [
                 "src/index.ts",
                 "project",
-                "ursa-demo"
+                "uma-demo"
             ],
             "cwd": "${workspaceRoot}/packages/cli",
             "protocol": "inspector"

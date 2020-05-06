@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as compose from 'koa-compose';
 
-import Ursa from '../core/Ursa';
+import Uma from '../core/Uma';
 import mixin from '../utils/mixin';
 import typeHelper from '../utils/typeHelper';
 import Require from '../utils/Require';
@@ -14,11 +14,11 @@ import { Results } from '../extends/Results';
 
 export default class PluginLoader {
     static loadPluginConfig() {
-        if (!Ursa.config.plugin) return;
+        if (!Uma.config.plugin) return;
 
         const pluginConfig: { [pluginName: string]: false | TPluginConfig } = {};
 
-        for (const [name, config] of Object.entries(Ursa.config.plugin)) {
+        for (const [name, config] of Object.entries(Uma.config.plugin)) {
             if (typeHelper.isBoolean(config)) {
                 pluginConfig[name] = config ? {
                     name,
@@ -33,17 +33,17 @@ export default class PluginLoader {
     }
 
     static complexPlugin(plugin: TPlugin, options: any) {
-        const ursa = Ursa.instance();
+        const uma = Uma.instance();
         const mws = [];
 
         // 按照配置的顺序进行加载
         for (const [key, val] of Object.entries(plugin)) {
             if (key === 'request') {
-                mixin(false, ursa.app.request, val);
+                mixin(false, uma.app.request, val);
             } else if (key === 'response') {
-                mixin(false, ursa.app.response, val);
+                mixin(false, uma.app.response, val);
             } else if (key === 'context') {
-                mixin(false, ursa.context, val);
+                mixin(false, uma.context, val);
             } else if (key === 'results') {
                 mixin(false, Results, val);
             } else if (key === 'use') {
@@ -65,21 +65,21 @@ export default class PluginLoader {
             }
         }
 
-        if (mws.length > 0) ursa.use(compose(mws));
+        if (mws.length > 0) uma.use(compose(mws));
     }
 
     static async loadPLugin(pluginConfig: TPluginConfig) {
-        const ursa = Ursa.instance();
+        const uma = Uma.instance();
         const plugin: TPlugin | Function = Require.default(pluginConfig.path);
-        const options = mixin(true, {}, pluginConfig.options || {}, Ursa.config[pluginConfig.name] || {});
+        const options = mixin(true, {}, pluginConfig.options || {}, Uma.config[pluginConfig.name] || {});
 
         // plugin.options & {plugin}.config
         pluginConfig.options = options;
 
         if (typeHelper.isFunction(plugin)) {
-            const pluginResult = await Promise.resolve(plugin(ursa, options));
+            const pluginResult = await Promise.resolve(plugin(uma, options));
 
-            if (typeHelper.isFunction(pluginResult)) ursa.use(pluginResult);
+            if (typeHelper.isFunction(pluginResult)) uma.use(pluginResult);
             else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
         } else if (typeHelper.isObject(plugin)) {
             PluginLoader.complexPlugin(plugin, options);
@@ -87,7 +87,7 @@ export default class PluginLoader {
     }
 
     static async loadDir(rootPath: string) {
-        const ursa = Ursa.instance();
+        const uma = Uma.instance();
         const pluginConfig = PluginLoader.loadPluginConfig();
 
         if (!pluginConfig) return;
@@ -108,7 +108,7 @@ export default class PluginLoader {
 
             if (type === 'middleware') {
                 if (typeHelper.isFunction(handler)) {
-                    ursa.use(handler);
+                    uma.use(handler);
                 } else {
                     console.log(new Error(`Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`));
                 }
@@ -117,7 +117,7 @@ export default class PluginLoader {
             }
 
 
-            const packageName = config.packageName || `@ursajs/plugin-${name}`;
+            const packageName = config.packageName || `@umajs/plugin-${name}`;
             let isDirExist = false;
 
             for (const dir of dirs) {

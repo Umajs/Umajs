@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@ursajs/core';
+import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@umajs/core';
 
 export default class Index extends BaseController {
     index() {

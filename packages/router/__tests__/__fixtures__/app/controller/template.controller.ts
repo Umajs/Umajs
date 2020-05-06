@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Result } from '@ursajs/core';
+import { BaseController, Path, Private, Result } from '@umajs/core';
 
 @Path('/tpl')
 export default class Template extends BaseController {

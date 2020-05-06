@@ -1,6 +1,6 @@
 import * as Koa from 'koa';
 
-export default (ursa: any, options: any = {}): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
+export default (uma: any, options: any = {}): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
     try {
         await next();
     } catch (err) {

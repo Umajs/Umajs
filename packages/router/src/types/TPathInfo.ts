@@ -1,5 +1,5 @@
 import * as pathToRegexp from 'path-to-regexp';
-import { TMethodInfo } from '@ursajs/core';
+import { TMethodInfo } from '@umajs/core';
 
 export type TPathInfo = {
     // 文件名

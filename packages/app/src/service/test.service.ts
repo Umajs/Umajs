@@ -1,8 +1,8 @@
-import { BaseService } from '@ursajs/core';
+import { BaseService } from '@umajs/core';
 
 
 export default class test extends BaseService {
     returnFrameName() {
-        return 'Ursajs';
+        return 'Umajs';
     }
 }

@@ -1,4 +1,4 @@
-import { TPluginConfig } from '@ursajs/core';
+import { TPluginConfig } from '@umajs/core';
 
 export default <{[key: string]: TPluginConfig}>{
     'static': {

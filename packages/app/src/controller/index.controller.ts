@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { BaseController, Path, Private, Param, Query, RequestMethod, Aspect, Service, Result } from '@ursajs/core';
+import { BaseController, Path, Private, Param, Query, RequestMethod, Aspect, Service, Result } from '@umajs/core';
 
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';

@@ -4,7 +4,7 @@ import * as path from 'path';
 import { actionHelp } from '../../utils/utils';
 import { mkdir } from '../../utils/file';
 
-const getControllerContext = (controllerName: string) => `import { BaseController, Result } from '@ursajs/core';
+const getControllerContext = (controllerName: string) => `import { BaseController, Result } from '@umajs/core';
 
 export default class ${controllerName} extends BaseController {
     index() {

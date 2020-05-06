@@ -1,4 +1,4 @@
-import { Result, TControllerInfo, IContext } from '@ursajs/core';
+import { Result, TControllerInfo, IContext } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import { MatchRegexp, getClazzInfo } from './helper';

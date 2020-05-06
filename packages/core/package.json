@@ -1,5 +1,5 @@
 {
-  "name": "@ursajs/core",
+  "name": "@umajs/core",
   "version": "0.1.4",
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
@@ -54,10 +54,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ursajs/Ursa.git"
+    "url": "git+https://github.com/Umajs/Uma.git"
   },
   "bugs": {
-    "url": "https://github.com/Ursajs/Ursa/issues"
+    "url": "https://github.com/Umajs/Uma/issues"
   },
-  "homepage": "https://github.com/Ursajs/Ursa#readme"
+  "homepage": "https://github.com/Umajs/Uma#readme"
 }

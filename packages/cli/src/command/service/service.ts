@@ -4,7 +4,7 @@ import * as path from 'path';
 import { actionHelp } from '../../utils/utils';
 import { mkdir } from '../../utils/file';
 
-const getServiceContext = (serviceName: string) => `import { BaseService } from '@ursajs/core';
+const getServiceContext = (serviceName: string) => `import { BaseService } from '@umajs/core';
 
 export default class ${serviceName} extends BaseService {
     // TODO

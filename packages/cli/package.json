@@ -1,7 +1,7 @@
 {
-  "name": "@ursajs/cli",
+  "name": "@umajs/cli",
   "version": "0.1.3",
-  "description": "ursa cli",
+  "description": "uma cli",
   "author": "",
   "license": "ISC",
   "directories": {
@@ -9,8 +9,8 @@
     "test": "__tests__"
   },
   "bin": {
-    "ursa": "./bin/index.js",
-    "ursajs": "./bin/index.js"
+    "uma": "./bin/index.js",
+    "umajs": "./bin/index.js"
   },
   "files": [
     "lib",
@@ -54,10 +54,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ursajs/Ursa.git"
+    "url": "git+https://github.com/Umajs/Uma.git"
   },
   "bugs": {
-    "url": "https://github.com/Ursajs/Ursa/issues"
+    "url": "https://github.com/Umajs/Uma/issues"
   },
-  "homepage": "https://github.com/Ursajs/Ursa#readme"
+  "homepage": "https://github.com/Umajs/Uma#readme"
 }
