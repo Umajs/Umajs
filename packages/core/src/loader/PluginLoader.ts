@@ -106,13 +106,16 @@ export default class PluginLoader {
             // 插件类型支持
             const { type, handler } = config;
 
-            if (type) {
-                if (type === 'middleware' && handler && typeof handler === 'function') {
+            if (type === 'middleware') {
+                if (typeHelper.isFunction(handler)) {
                     ursa.use(handler);
+                } else {
+                    console.log(new Error(`Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`));
                 }
 
                 continue;
             }
+
 
             const packageName = config.packageName || `@ursajs/plugin-${name}`;
             let isDirExist = false;
