@@ -2,15 +2,15 @@ import { BaseController, Result, Path } from '@umajs/core';
 
 export default class Index extends BaseController {
     index() {
-        this.ctx.cookies.set('haha', 'set cookie done');
+        this.ctx.cookies.set('c', 'cc');
 
-        return Result.send(this.ctx.cookies.get('haha'));
+        return Result.send('check cookie');
     }
 
     @Path('/ss')
     setsess() {
-        this.ctx.session.set('test', 'set session done');
+        this.ctx.session.set('s', 'ss');
 
-        return Result.send(this.ctx.session.get('test'));
+        return Result.send('check-session');
     }
 }

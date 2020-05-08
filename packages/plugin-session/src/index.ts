@@ -1,7 +1,7 @@
-import * as CryptoJS from 'crypto-js';
 import Uma, { IContext, TPlugin } from '@umajs/core';
 
 import { FormatOpts } from './model';
+import { cryptoJS } from './crypto';
 
 /**
  *  session参数options配置：
@@ -14,16 +14,7 @@ import { FormatOpts } from './model';
 export default (uma: Uma, options: any): TPlugin => {
     const opts = new FormatOpts(options);
     const { key: sessionKey, secret, maxAge, overWrite: overwrite } = opts;
-    const crypto = {
-        encrypt(obj: any) {
-            return CryptoJS.AES.encrypt(JSON.stringify(obj), secret).toString();
-        },
-        decrypt(str: string) {
-            const bytes = CryptoJS.AES.decrypt(str, secret);
-
-            return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        },
-    };
+    const crypto = cryptoJS('uma:sess');
     const setCookie = (ctx: IContext, content: any) => {
         ctx.cookies.set(sessionKey, crypto.encrypt(content), {
             maxAge,

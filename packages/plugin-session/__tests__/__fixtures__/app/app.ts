@@ -36,16 +36,22 @@ export const stop = () => new Promise((resolve, reject) => {
 });
 
 export const send = (path: string): any => new Promise((resolve, reject) => {
-    request(uma.app.callback())
-        .get(path)
+    const req = request(uma.app.listen())
+
+    req.get(path)
         .end((err: Error, res: IResponse) => {
             if (err) reject(err);
-            resolve(res);
+
+            req.get(path)
+                .end((err: Error, res: IResponse) => {
+                    if (err) reject(err);
+                    resolve(res);
+                });
         });
 });
 
 export const post = (path: string, data?: Object): any => new Promise((resolve, reject) => {
-    request(uma.app.callback())
+    request(uma.app.listen())
         .post(path)
         .send(data)
         .end((err: Error, res: Response) => {
@@ -53,3 +59,11 @@ export const post = (path: string, data?: Object): any => new Promise((resolve, 
             resolve(res);
         });
 });
+
+
+// start().then(async () => {
+//     const result = await send('/');
+
+//     console.log(Object.keys(result), );
+//     console.log(result.text);
+// });

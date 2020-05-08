@@ -1,5 +1,7 @@
 import { start, stop, send } from './__fixtures__/app/app';
 
+import { cryptoJS } from '../src/crypto';
+
 describe('session test', () => {
     beforeAll(async () => {
         await start();
@@ -11,11 +13,19 @@ describe('session test', () => {
 
     it('should set cookie', async () => {
         const result = await send('/');
-        expect(result.text).toEqual('set cookie done');
+
+        console.log(result.header['set-cookie']);
+
+        expect(result.header['set-cookie'][0].split(';')[0]).toEqual('c=cc');
     });
 
     it('should set session', async () => {
         const result = await send('/ss');
-        expect(result.text).toEqual('set session done');
+
+        const rt = result.header['set-cookie'][0].split(';')[0];
+
+        const crypto = cryptoJS('uma:sess');
+
+        expect(crypto.decrypt(rt.split('=')[1])).toEqual({ s: 'ss' });
     });
 })
