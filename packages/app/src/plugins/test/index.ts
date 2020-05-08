@@ -12,10 +12,6 @@ export default (uma: Uma, options: any = {}): TPlugin => {
                 console.log('use before');
                 await next();
                 console.log('use after');
-
-                if (ctx.status === 404) {
-                    await ctx.view('404.html');
-                }
             }
         },
         method: {
