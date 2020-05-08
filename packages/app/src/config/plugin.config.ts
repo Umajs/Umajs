@@ -1,6 +1,7 @@
 import { TPluginConfig } from '@umajs/core';
 
 export default <{[key: string]: TPluginConfig}>{
+    'session': true,
     'i18n': {
         enable: true,
         name: 'i18n',

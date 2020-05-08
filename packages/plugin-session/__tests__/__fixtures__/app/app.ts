@@ -11,14 +11,13 @@ const uma = Uma.instance({
 });
 
 export const start = () => new Promise((resolve, reject) => {
-    const { context, use: { handler } } = session(uma, {
-        key: 'uma-sess',
+    const { context } = session(uma, {
+        key: 'uma:sess',
         maxAge: 1000000,
-        secret: 'uma-sess',
+        secret: 'uma:sess',
         overWrite: true
     });
 
-    uma.use(handler);
     Object.defineProperty(uma.context, 'session', {
         get: Object.getOwnPropertyDescriptor(context, 'session').get,
     });
@@ -28,8 +27,6 @@ export const start = () => new Promise((resolve, reject) => {
         resolve();
     });
 });
-
-start();
 
 export const stop = () => new Promise((resolve, reject) => {
     uma.server.close((e) => {

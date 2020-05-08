@@ -1,4 +1,4 @@
-import { BaseController, Result } from '@umajs/core';
+import { BaseController, Result, Path } from '@umajs/core';
 
 export default class Index extends BaseController {
     index() {
@@ -7,6 +7,7 @@ export default class Index extends BaseController {
         return Result.send(this.ctx.cookies.get('haha'));
     }
 
+    @Path('/ss')
     setsess() {
         this.ctx.session.set('test', 'set session done');
 

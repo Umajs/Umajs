@@ -19,7 +19,9 @@ export default (uma: Uma, options: any): TPlugin => {
             return CryptoJS.AES.encrypt(JSON.stringify(obj), secret).toString();
         },
         decrypt(str: string) {
-            return CryptoJS.AES.decrypt(str, secret);
+            const bytes = CryptoJS.AES.decrypt(str, secret);
+
+            return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         },
     };
     const setCookie = (ctx: IContext, content: any) => {
@@ -70,13 +72,6 @@ export default (uma: Uma, options: any): TPlugin => {
                         }
                     },
                 };
-            },
-        },
-        use: {
-            handler(ctx: IContext, next: Function) {
-                setCookie(ctx, {});
-
-                return next();
             },
         },
     };

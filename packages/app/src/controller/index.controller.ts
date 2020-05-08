@@ -61,6 +61,12 @@ export default class Index extends BaseController {
         return Result.send('this is private router');
     }
 
+    @Path('/ss')
+    ss() {
+        this.ctx.session.set('haha', 'Hello World');
+        return Result.send(this.ctx.session.get('haha'));
+    }
+
     @Path({
         method: RequestMethod.POST
     })

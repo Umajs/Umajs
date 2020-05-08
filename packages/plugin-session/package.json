@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-session",
-  "version": "0.2.0",
+  "version": "0.1.4",
   "description": "router",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
   "license": "ISC",
