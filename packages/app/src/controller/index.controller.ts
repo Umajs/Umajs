@@ -16,6 +16,7 @@ export default class Index extends BaseController {
 
     index() {
         console.log(this.userService.getDefaultUserAge());
+
         return this.view('index.html', {
             frameName: this.testService.returnFrameName(),
         });

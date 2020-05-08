@@ -1,6 +1,13 @@
 import { TPluginConfig } from '@umajs/core';
 
 export default <{[key: string]: TPluginConfig}>{
+    'i18n': {
+        enable: true,
+        name: 'i18n',
+        options: {
+            defaultLocale: 'zh-cn',
+        },
+    },
     'static': {
         options: {
             root: './static',
