@@ -1,5 +1,5 @@
 
-import Uma, { IContext } from '@umajs/core';
+import Uma, { IContext, TPlugin } from '@umajs/core';
 
 import { aseEncode, aseDecode } from './utils';
 import { FormatOpts } from './model';
@@ -12,52 +12,10 @@ import { FormatOpts } from './model';
  *      overWrite: 是否覆盖
  */
 
-export default (uma: Uma, opts: any): void => {
+export default (uma: Uma, opts: any): TPlugin => {
     opts = new FormatOpts(opts);
     let appCtx;
     let sessionBody = { };
-
-    uma.app.use((ctx: IContext, next: Function) => {
-        appCtx = ctx;
-
-        const cookieSession = aseEncode(sessionBody, opts.secret);
-
-        ctx.cookies.set(opts.key, cookieSession, { maxAge: opts.maxAge });
-
-        return next();
-    });
-
-    uma.app.context.session = {
-        set(key: string, value: any) {
-            sessionBody[key] = value;
-
-            const sessionBodyAse = aseEncode(sessionBody, opts.secret);
-
-            appCtx.cookies.set(opts.key, sessionBodyAse, { maxAge: opts.maxAge });
-        },
-        get(key: string) {
-            const sessionCookies = appCtx.cookies.get(opts.key);
-
-            // 如果有值：解密，返回正常数据
-            if (sessionCookies) return aseDecode(sessionCookies, opts.secret)[key];
-
-            return `${opts.key} expired`; // 过期
-        },
-
-        remove(key: string) {
-            const sessionCookies = appCtx.cookies.get(opts.key);
-
-            // 如果有值：解密，返回正常数据
-            if (sessionCookies) {
-                sessionBody = aseDecode(sessionCookies, opts.secret);
-                delete sessionBody[key];
-                // 再次保存
-                saveBody(sessionBody);
-            } else { // 过期
-                return `${opts.key} expired`;
-            }
-        },
-    };
 
     function saveBody(body: any) {
         const bodyAse = aseEncode(body, opts.secret);
@@ -66,5 +24,52 @@ export default (uma: Uma, opts: any): void => {
             maxAge: opts.maxAge,
             overwrite: opts.overwrite,
         });
+    }
+
+    return {
+        context: {
+            session: {
+                set(key: string, value: any) {
+                    sessionBody[key] = value;
+        
+                    const sessionBodyAse = aseEncode(sessionBody, opts.secret);
+        
+                    appCtx.cookies.set(opts.key, sessionBodyAse, { maxAge: opts.maxAge });
+                },
+                get(key: string) {
+                    const sessionCookies = appCtx.cookies.get(opts.key);
+        
+                    // 如果有值：解密，返回正常数据
+                    if (sessionCookies) return aseDecode(sessionCookies, opts.secret)[key];
+        
+                    return `${opts.key} expired`; // 过期
+                },
+        
+                remove(key: string) {
+                    const sessionCookies = appCtx.cookies.get(opts.key);
+        
+                    // 如果有值：解密，返回正常数据
+                    if (sessionCookies) {
+                        sessionBody = aseDecode(sessionCookies, opts.secret);
+                        delete sessionBody[key];
+                        // 再次保存
+                        saveBody(sessionBody);
+                    } else { // 过期
+                        return `${opts.key} expired`;
+                    }
+                }
+            }
+        },
+        use: {
+            handler(ctx: IContext, next: Function) {
+                appCtx = ctx;
+
+                const cookieSession = aseEncode(sessionBody, opts.secret);
+        
+                ctx.cookies.set(opts.key, cookieSession, { maxAge: opts.maxAge });
+        
+                return next();
+            }
+        }
     }
 };
