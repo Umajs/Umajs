@@ -15,7 +15,7 @@ export const start = () => new Promise((resolve, reject) => {
         key: 'uma:sess',
         maxAge: 1000000,
         secret: 'uma:sess',
-        overWrite: true
+        overwrite: true
     });
 
     Object.defineProperty(uma.context, 'session', {

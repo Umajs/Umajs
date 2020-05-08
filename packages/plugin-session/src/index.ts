@@ -1,6 +1,5 @@
 import Uma, { IContext, TPlugin } from '@umajs/core';
 
-import { FormatOpts } from './model';
 import { cryptoJS } from './crypto';
 
 /**
@@ -10,10 +9,30 @@ import { cryptoJS } from './crypto';
  *      secret: 加密签名
  *      overWrite: 是否覆盖
  */
+type TSessionOption = {
+    key: string;
+    maxAge: number;
+    secret: string;
+    overwrite: boolean;
+}
 
-export default (uma: Uma, options: any): TPlugin => {
-    const opts = new FormatOpts(options);
-    const { key: sessionKey, secret, maxAge, overWrite: overwrite } = opts;
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const DEFAULT_OPTION = <TSessionOption>{
+    key: 'uma:sess',
+    maxAge: ONE_DAY,
+    secret: null,
+    overwrite: true,
+};
+
+export default (uma: Uma, options: TSessionOption): TPlugin => {
+    if (!options.secret) {
+        console.log(new Error('Optios.secret must be assigned, default value "umasss" is very dangerous!'));
+
+        options.secret = 'umasss';
+    }
+
+    const opts = Object.assign({}, DEFAULT_OPTION, options);
+    const { key: sessionKey, secret, maxAge, overwrite } = opts;
     const crypto = cryptoJS(secret);
     const setCookie = (ctx: IContext, content: any) => {
         ctx.cookies.set(sessionKey, crypto.encrypt(content), {

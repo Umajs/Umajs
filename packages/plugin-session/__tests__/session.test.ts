@@ -14,8 +14,6 @@ describe('session test', () => {
     it('should set cookie', async () => {
         const result = await send('/');
 
-        console.log(result.header['set-cookie']);
-
         expect(result.header['set-cookie'][0].split(';')[0]).toEqual('c=cc');
     });
 
