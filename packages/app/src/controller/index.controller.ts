@@ -49,6 +49,13 @@ export default class Index extends BaseController {
         return Result.send('this is static router');
     }
 
+    @Path('/cookie')
+    cookie() {
+        this.ctx.cookies.set('hehe', 'cookie set done');
+
+        return Result.send(this.ctx.cookies.get('hehe'));
+    }
+
     @Private
     inline() {
         return Result.send('this is private router');

@@ -1,7 +1,6 @@
-
+import * as CryptoJS from 'crypto-js';
 import Uma, { IContext, TPlugin } from '@umajs/core';
 
-import { aseEncode, aseDecode } from './utils';
 import { FormatOpts } from './model';
 
 /**
@@ -12,64 +11,73 @@ import { FormatOpts } from './model';
  *      overWrite: 是否覆盖
  */
 
-export default (uma: Uma, opts: any): TPlugin => {
-    opts = new FormatOpts(opts);
-    let appCtx;
-    let sessionBody = { };
-
-    function saveBody(body: any) {
-        const bodyAse = aseEncode(body, opts.secret);
-
-        appCtx.cookies.set(opts.key, bodyAse, {
-            maxAge: opts.maxAge,
-            overwrite: opts.overwrite,
+export default (uma: Uma, options: any): TPlugin => {
+    const opts = new FormatOpts(options);
+    const { key: sessionKey, secret, maxAge, overWrite: overwrite } = opts;
+    const crypto = {
+        encrypt(obj: any) {
+            return CryptoJS.AES.encrypt(JSON.stringify(obj), secret).toString();
+        },
+        decrypt(str: string) {
+            return CryptoJS.AES.decrypt(str, secret);
+        },
+    };
+    const setCookie = (ctx: IContext, content: any) => {
+        ctx.cookies.set(sessionKey, crypto.encrypt(content), {
+            maxAge,
+            overwrite,
         });
-    }
+    };
 
     return {
         context: {
-            session: {
-                set(key: string, value: any) {
-                    sessionBody[key] = value;
-        
-                    const sessionBodyAse = aseEncode(sessionBody, opts.secret);
-        
-                    appCtx.cookies.set(opts.key, sessionBodyAse, { maxAge: opts.maxAge });
-                },
-                get(key: string) {
-                    const sessionCookies = appCtx.cookies.get(opts.key);
-        
-                    // 如果有值：解密，返回正常数据
-                    if (sessionCookies) return aseDecode(sessionCookies, opts.secret)[key];
-        
-                    return `${opts.key} expired`; // 过期
-                },
-        
-                remove(key: string) {
-                    const sessionCookies = appCtx.cookies.get(opts.key);
-        
-                    // 如果有值：解密，返回正常数据
-                    if (sessionCookies) {
-                        sessionBody = aseDecode(sessionCookies, opts.secret);
-                        delete sessionBody[key];
-                        // 再次保存
-                        saveBody(sessionBody);
-                    } else { // 过期
-                        return `${opts.key} expired`;
-                    }
-                }
-            }
+            get session() {
+                const that: IContext = this;
+
+                return {
+                    set(key: string, value: any) {
+                        const sessionCookies = that.cookies.get(sessionKey);
+                        let sessionBody = {};
+
+                        if (sessionCookies) {
+                            sessionBody = crypto.decrypt(sessionCookies);
+                        }
+
+                        sessionBody[key] = value;
+
+                        setCookie(that, sessionBody);
+                    },
+                    get(key: string) {
+                        const sessionCookies = that.cookies.get(sessionKey);
+
+                        if (sessionCookies) {
+                            const sessionBody = crypto.decrypt(sessionCookies);
+
+                            return sessionBody[key];
+                        }
+
+                        return null;
+                    },
+                    remove(key: string) {
+                        const sessionCookies = that.cookies.get(sessionKey);
+
+                        if (sessionCookies) {
+                            const sessionBody = crypto.decrypt(sessionCookies);
+
+                            delete sessionBody[key];
+
+                            setCookie(that, sessionBody);
+                        }
+                    },
+                };
+            },
         },
         use: {
             handler(ctx: IContext, next: Function) {
-                appCtx = ctx;
+                setCookie(ctx, {});
 
-                const cookieSession = aseEncode(sessionBody, opts.secret);
-        
-                ctx.cookies.set(opts.key, cookieSession, { maxAge: opts.maxAge });
-        
                 return next();
-            }
-        }
-    }
+            },
+        },
+    };
 };

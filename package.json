@@ -7,6 +7,8 @@
     "test:cli": "jest ./packages/cli/__tests__ --runInBand --forceExit",
     "test:core": "jest ./packages/core/__tests__ --runInBand",
     "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
+    "test:i18n": "jest ./packages/plugin-i18n/__tests__ --runInBand --forceExit",
+    "test:session": "jest ./packages/plugin-session/__tests__ --runInBand --forceExit",
     "test": "npm run test:core && npm run test:router",
     "prepublish": "npm test && lerna run lint && lerna run build",
     "publish": "lerna publish",
