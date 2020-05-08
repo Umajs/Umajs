@@ -28,7 +28,7 @@ const DEFAULT_OPTIONS: TI18nOptions = {
 };
 
 export default (uma: Uma, options?: TI18nOptions): TPlugin => {
-    const opts = Object.assign({}, DEFAULT_OPTIONS, options);
+    const opts = { ...DEFAULT_OPTIONS, ...options };
     const { defaultLocale: dl, functionName, defaultDirName } = opts;
     const defaultLocale = formatLocale(dl);
 

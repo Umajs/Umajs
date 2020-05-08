@@ -8,9 +8,7 @@ import { TTemplateInfo } from '../types/TTempleInfo';
  * @param params 参数键值对
  */
 export const writeInfo = async (params: TTemplateInfo) => {
-    const info = readInfo();
-
-    Object.assign(info, params);
+    const info = { ...readInfo(), ...params };
 
     fs.writeFileSync(INFO_PATH, JSON.stringify(info, null, 4));
 };

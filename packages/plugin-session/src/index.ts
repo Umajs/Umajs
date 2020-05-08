@@ -31,7 +31,7 @@ export default (uma: Uma, options: TSessionOption): TPlugin => {
         options.secret = 'umasss';
     }
 
-    const opts = Object.assign({}, DEFAULT_OPTION, options);
+    const opts = { ...DEFAULT_OPTION, ...options };
     const { key: sessionKey, secret, maxAge, overwrite } = opts;
     const crypto = cryptoJS(secret);
     const setCookie = (ctx: IContext, content: any) => {
