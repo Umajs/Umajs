@@ -14,7 +14,7 @@ import { cryptoJS } from './crypto';
 export default (uma: Uma, options: any): TPlugin => {
     const opts = new FormatOpts(options);
     const { key: sessionKey, secret, maxAge, overWrite: overwrite } = opts;
-    const crypto = cryptoJS('uma:sess');
+    const crypto = cryptoJS(secret);
     const setCookie = (ctx: IContext, content: any) => {
         ctx.cookies.set(sessionKey, crypto.encrypt(content), {
             maxAge,
