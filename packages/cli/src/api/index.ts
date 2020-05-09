@@ -16,7 +16,7 @@ export const fetchRepoList = async () => {
 
 // 抓取tag列表
 export const fechTagList = async (repo:string) => {
-    const data = await xhr('GET', `https://api.github.com/repos/woshi555bin/${repo}/tags`);
+    const data = await xhr('GET', `https://api.github.com/repos/Umajs/${repo}/tags`);
 
     return data;
 };

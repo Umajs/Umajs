@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.1.4",
+  "version": "0.0.9",
   "private": true,
   "description": "> TODO: description",
   "author": "zhangzhihua <zhangzhihua01@58ganji.com>",
@@ -21,11 +21,11 @@
     "app": "ts-node-dev src/app.ts"
   },
   "dependencies": {
-    "@umajs/core": "^0.1.4",
-    "@umajs/plugin-i18n": "^0.1.4",
-    "@umajs/plugin-static": "^0.1.4",
-    "@umajs/plugin-session": "^0.1.4",
-    "@umajs/router": "^0.1.4",
+    "@umajs/core": "^0.0.9",
+    "@umajs/plugin-i18n": "^0.0.9",
+    "@umajs/plugin-static": "^0.0.9",
+    "@umajs/plugin-session": "^0.0.9",
+    "@umajs/router": "^0.0.9",
     "koa": "^2.11.0",
     "koa-views": "^6.2.1",
     "nunjucks": "^3.2.0"
