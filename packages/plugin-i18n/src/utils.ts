@@ -22,7 +22,7 @@ export function requireDefault(p: string) {
  * eg: template`HAHA, ${0} ${'name'}!`('Welcome', { name: 'xiaoming' })
  * ===> HAHA, Welcome xiaoming!
  */
-export function template(strings: ReadonlyArray<string>, ...keys: ReadonlyArray<string | number>): Function {
+export function template(strings: ReadonlyArray<string>, ...keys: (string | number)[]): Function {
     return (...values: Array<string | object>): string => {
         const dict = values[values.length - 1] || {};
         const result: Array<string | number> = [strings[0]];
