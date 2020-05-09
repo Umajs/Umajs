@@ -1,7 +1,7 @@
 import * as path from 'path';
 import Uma, { IContext, TPlugin } from '@umajs/core';
 
-import { I18nOptions } from './type';
+import { TI18nOptions } from './type';
 import { formatLocale, i18nMap, getLocale, loadI18nDir } from './utils';
 
 /**
@@ -16,7 +16,7 @@ import { formatLocale, i18nMap, getLocale, loadI18nDir } from './utils';
  * @property {String} functionName 自定义函数名 i18n
  *
  */
-const DEFAULT_OPTIONS: I18nOptions = {
+const DEFAULT_OPTIONS: TI18nOptions = {
     defaultLocale: 'en-US',
     queryField: 'i18n',
     cookieField: 'i18n',
@@ -27,7 +27,7 @@ const DEFAULT_OPTIONS: I18nOptions = {
     functionName: 'i18n',
 };
 
-export default (uma: Uma, options?: I18nOptions): TPlugin => {
+export default (uma: Uma, options?: TI18nOptions): TPlugin => {
     const opts = Object.assign({}, DEFAULT_OPTIONS, options);
     const { defaultLocale: dl, functionName, defaultDirName } = opts;
     const defaultLocale = formatLocale(dl);

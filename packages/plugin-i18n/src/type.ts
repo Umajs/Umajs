@@ -1,5 +1,5 @@
 
-export interface I18nOptions {
+export type TI18nOptions = {
     defaultLocale?: string,
     queryField?: string,
     cookieField?: string,
@@ -9,16 +9,4 @@ export interface I18nOptions {
     dirs?: Array<string>,
     defaultDirName?: string,
     functionName?: string,
-}
-
-export interface I18nModule {
-    [propName: string]: any
-}
-
-export interface CookieOptions {
-    httpOnly: boolean,
-    maxAge: number,
-    signed: boolean,
-    domain: string,
-    overwrite: boolean,
 }

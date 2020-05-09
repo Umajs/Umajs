@@ -3,9 +3,9 @@ import * as path from 'path';
 import * as ms from 'humanize-ms';
 import { IContext } from '@umajs/core';
 
-import { I18nModule, I18nOptions, CookieOptions } from './type';
+import { TI18nOptions } from './type';
 
-export const i18nMap: Map<string, I18nModule> = new Map();
+export const i18nMap: Map<string, { [key: string]: any }> = new Map();
 
 export function requireDefault(p: string) {
     /* eslint-disable global-require */
@@ -84,7 +84,7 @@ export function loadI18nDir(i18nDir: string) {
  * 4. defaultLocale: 'en-us'
  * ===> zh-cn
  */
-export function getLocale(ctx: IContext, opts: I18nOptions): string {
+export function getLocale(ctx: IContext, opts: TI18nOptions): string {
     const {
         queryField, cookieField, cookieDomain, writeCookie, defaultLocale, cookieMaxAge,
     } = opts;
@@ -119,7 +119,7 @@ export function getLocale(ctx: IContext, opts: I18nOptions): string {
 
     // write cookie
     if (writeCookie && cookieLocale !== locale && !ctx.headerSent) {
-        const COOKIE_OPTIONS: CookieOptions = {
+        const COOKIE_OPTIONS = {
             httpOnly: false,
             maxAge: ms(cookieMaxAge),
             signed: false,
