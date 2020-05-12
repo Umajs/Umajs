@@ -1,5 +1,5 @@
 import * as path from 'path';
-import Uma, { IContext, TPlugin } from '@umajs/core';
+import Uma, { TPlugin } from '@umajs/core';
 
 import { TI18nOptions } from './type';
 import { formatLocale, i18nMap, getLocale, loadI18nDir } from './utils';
@@ -50,15 +50,11 @@ export default (uma: Uma, options?: TI18nOptions): TPlugin => {
                 }
                 this[functionName] = i18nMap.get(newlocale);
             },
-        },
-        use: {
-            handler(ctx: IContext, next: Function) {
-                const locale = getLocale(ctx, opts);
+            get [functionName]() {
+                const locale = getLocale(this, opts);
 
-                ctx[functionName] = i18nMap.get(locale);
-
-                return next();
+                return i18nMap.get(locale);
             }
-        },
+        }
     };
 };
