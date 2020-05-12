@@ -3,6 +3,7 @@ import { AgeCheck } from '../decorator/AgeCheck';
 
 @Path('/tpl')
 export default class Template extends BaseController {
+    @Path('/index')
     index() {
         return Result.send('this is index router in template');
     }

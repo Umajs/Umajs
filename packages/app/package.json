@@ -18,7 +18,7 @@
     "url": "git+https://github.com/Umajs/Uma.git"
   },
   "scripts": {
-    "app": "ts-node-dev src/app.ts"
+    "app": "ts-node-dev --respawn src/app.ts"
   },
   "dependencies": {
     "@umajs/core": "^0.1.0",
