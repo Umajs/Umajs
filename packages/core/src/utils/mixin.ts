@@ -25,7 +25,7 @@ export default function mixin(deep: boolean = false, target: any, ...sources: an
 
                 Reflect.defineProperty(target, key, desc);
             } else if (Reflect.has(descriptor, 'value')) {
-                Reflect.set(target, key, deep && typeHelper.isObject(value) ? mixin(true, {}, value) : value);
+                Reflect.set(target, key, deep && typeHelper.isObject(value) ? mixin(true, Reflect.get(target, key) || {}, value) : value);
             }
         }
     }
