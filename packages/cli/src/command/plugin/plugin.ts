@@ -64,7 +64,7 @@ export default class Plugin {
     static async local(pluginName: string) {
         const rootDir = path.resolve(process.cwd(), 'src');
 
-        if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
+        if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "UMA_ROOT", now in "${rootDir}"`);
 
         const pluginsDir = mkdir(rootDir, 'plugins');
         const pluginDir = mkdir(pluginsDir, pluginName);

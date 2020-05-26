@@ -20,7 +20,7 @@ export default class Config {
 
         const rootDir = path.resolve(process.cwd(), 'src');
 
-        if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "URSA_ROOT", now in "${rootDir}"`);
+        if (!fs.existsSync(rootDir)) return console.log(`Please execute the command in the "UMA_ROOT", now in "${rootDir}"`);
 
         const controllerDir = mkdir(rootDir, 'controller');
         const controllerFileName = `${controllerName}.controller.ts`;
