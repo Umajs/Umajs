@@ -1,20 +1,22 @@
 import * as Koa from 'koa';
 
-export default (uma: any, options: any = {}): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
+export default (uma: any, options: any = { }): Koa.Middleware => async (ctx: Koa.Context, next: Function) => {
+    const { prefix = '_' } = options;
+
     try {
         await next();
     } catch (err) {
         /* eslint-disable no-underscore-dangle */
-        if (typeof options._error === 'function') {
-            return options._error(err, ctx);
+        if (typeof options[`${prefix}error`] === 'function') {
+            return options[`${prefix}error`](err, ctx, next);
         }
 
         throw err;
     }
 
-    const { status } = ctx.response;
+    const statusFunction = options[`${prefix}${ctx.response.status}`];
 
-    if (typeof options[`_${status}`] === 'function') {
-        return options[`_${status}`](ctx);
+    if (typeof statusFunction === 'function') {
+        return statusFunction(ctx, next);
     }
 };
