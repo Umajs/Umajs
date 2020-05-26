@@ -4,4 +4,4 @@
 
 ### Usage
 
-[使用文档](https://umajs.github.io/%E6%8F%92%E4%BB%B6/Status.html#%E9%85%8D%E7%BD%AE)
+[https://umajs.github.io](https://umajs.github.io/%E6%8F%92%E4%BB%B6/Status.html "uma doc")

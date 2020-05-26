@@ -4,4 +4,4 @@
 
 ### Usage
 
-[https://umajs.github.io](https://umajs.github.io/%E6%8F%92%E4%BB%B6/i18n.html "uma doc")
+[https://umajs.github.io](https://umajs.github.io/%E6%8F%92%E4%BB%B6/Static.html "uma doc")
