@@ -2,29 +2,37 @@ import Uma, { IContext, TPlugin } from '@umajs/core';
 
 import { cryptoJS } from './crypto';
 
-/**
- *  session参数options配置：
- *      key: 设置cookie中，保存session的字段名称，默认为connect.sid
- *      maxAge: 保存时长
- *      secret: 加密签名
- *      overWrite: 是否覆盖
- */
-type TSessionOption = {
+export type sessionOptions = {
+    /**
+     * 设置cookie中，保存session的字段名称
+     * 默认：uma:sess
+     */
     key: string;
-    maxAge: number;
+    /**
+     * 保存时长
+     * 默认：1d
+     */
+    maxAge?: number;
+    /**
+     * 加密签名
+     */
     secret: string;
-    overwrite: boolean;
+    /**
+     * 是否覆盖
+     * 默认：true
+     */
+    overwrite?: boolean;
 }
 
 const ONE_DAY = 24 * 60 * 60 * 1000;
-const DEFAULT_OPTION = <TSessionOption>{
+const DEFAULT_OPTION = <sessionOptions>{
     key: 'uma:sess',
     maxAge: ONE_DAY,
     secret: null,
     overwrite: true,
 };
 
-export default (uma: Uma, options: TSessionOption): TPlugin => {
+export default (uma: Uma, options: sessionOptions): TPlugin => {
     if (!options.secret) {
         console.log(new Error('Optios.secret must be assigned, default value "umasss" is very dangerous!'));
 

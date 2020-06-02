@@ -2,22 +2,53 @@ import * as path from 'path';
 import * as ms from 'humanize-ms';
 import Uma, { TPlugin, IContext } from '@umajs/core';
 
-import { TI18nOptions } from './type';
 import { formatLocale, i18nMap, loadI18nDir } from './utils';
 
-/**
- * 默认配置 DEFAULT_OPTIONS
- * @property {String} defaultLocale 默认语言 en-US
- * @property {String} queryField 接收的query字段 locale
- * @property {String} cookieField 存储的cookie字段 locale
- * @property {Boolean} writeCookie 是否写入cookie true
- * @property {String} cookieMaxAge cookie最大存储时间 1y
- * @property {String} cookieDomain cookie的域名 ''
- * @property {String} defaultDirName 多语言文件夹名(当指定dirs时，该参数无效) i18n
- * @property {String} functionName 自定义函数名 i18n
- *
- */
-const DEFAULT_OPTIONS: TI18nOptions = {
+export type i18nOptions = {
+    /**
+     * 默认语言
+     * 默认： en-US
+     */
+    defaultLocale?: string,
+    /**
+     * 接收的query字段
+     * 默认：locale
+     */
+    queryField?: string,
+    /**
+     * 存储的cookie字段
+     * 默认：locale
+     */
+    cookieField?: string,
+    /**
+     * 是否写入cookie
+     * 默认：true
+     */
+    writeCookie?: boolean,
+    /**
+     * cookie最大存储时间
+     * 默认：1y
+     */
+    cookieMaxAge?: string,
+    /**
+     * cookie的域名
+     * 默认：''
+     */
+    cookieDomain?: string,
+    /**
+     * 多语言文件夹名
+     * 默认：i18n
+     */
+    defaultDirName?: string,
+    /**
+     * 自定义函数名
+     * 默认：i18n
+     */
+    functionName?: string,
+}
+
+// 默认配置
+const DEFAULT_OPTIONS: i18nOptions = {
     defaultLocale: 'en-US',
     queryField: 'i18n',
     cookieField: 'i18n',
@@ -28,7 +59,7 @@ const DEFAULT_OPTIONS: TI18nOptions = {
     functionName: 'i18n',
 };
 
-export default (uma: Uma, options?: TI18nOptions): TPlugin => {
+export default (uma: Uma, options?: i18nOptions): TPlugin => {
     const opts = { ...DEFAULT_OPTIONS, ...options };
     const { defaultLocale: dl, functionName, defaultDirName, queryField, cookieField, cookieDomain, writeCookie, cookieMaxAge } = opts;
     const defaultLocale = formatLocale(dl);

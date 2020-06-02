@@ -24,13 +24,13 @@ type TKoaViewsOptions = {
     engineSource?: any,
 }
 
-type TViewsOptions = {
+export type viewsOptions = {
     root?: string,
     opts?: TKoaViewsOptions,
 }
 
-export default (uma: any, options: TViewsOptions = {}): Koa.Middleware => {
-    const { root = './views', opts } = options;
+export default (uma: any, options: viewsOptions = {}): Koa.Middleware => {
+    const { root = './views', opts = {} } = options;
 
     return views(root, opts);
 };
