@@ -72,7 +72,11 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
 
     return {
         context: {
-            [functionName]: i18nMap.get(defaultLocale),
+            get [functionName]() {
+                const locale = this.getLocale();
+
+                return i18nMap.get(locale);
+            },
 
             /**
              * 更改当前国际化，仅对当前访问有效
@@ -81,13 +85,16 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
             setLocale(locale: string) {
                 let newlocale = formatLocale(locale);
 
-                if (!i18nMap.get(newlocale)) {
+                if (!i18nMap.has(newlocale)) {
                     /* eslint-disable */
                     console.warn('[i18n warning]: There is no configuration file "%s" and it will be replaced with process (query | cookie | header | defaultLocale:"%s")', locale, defaultLocale);
                     newlocale = this.getLocale();
                 }
 
-                this[functionName] = i18nMap.get(newlocale);
+                Reflect.defineProperty(this, functionName, {
+                    writable: true,
+                    value: i18nMap.get(newlocale),
+                });
             },
 
             /**

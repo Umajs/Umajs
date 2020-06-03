@@ -17,6 +17,16 @@ export default class Index extends BaseController {
     index() {
         console.log(this.userService.getDefaultUserAge());
 
+        console.log('\n\n', this.ctx.i18n.hi);
+
+        this.ctx.setLocale('en-us');
+
+        console.log(this.ctx.i18n.hi);
+
+        this.ctx.setLocale('zh-cn');
+
+        console.log(this.ctx.i18n.hi);
+
         return this.view('index.html', {
             frameName: this.testService.returnFrameName(),
         });
