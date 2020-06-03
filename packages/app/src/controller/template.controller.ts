@@ -1,5 +1,6 @@
-import { BaseController, Path, Aspect, Query, Result, Param } from '@umajs/core';
+import { BaseController, Path, Aspect, Query, Param } from '@umajs/core';
 import { AgeCheck } from '../decorator/AgeCheck';
+import { Result } from '../plugins/test/index';
 
 @Path('/tpl')
 export default class Template extends BaseController {
@@ -24,5 +25,10 @@ export default class Template extends BaseController {
     @Path('/jsonp')
     jsonpDemo() {
         return this.jsonp({ data: 123 });
+    }
+
+    @Path('/r')
+    extendResult() {
+        return Result.redirect2('/', 301);
     }
 }

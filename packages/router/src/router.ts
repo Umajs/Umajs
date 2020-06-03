@@ -78,14 +78,11 @@ async function callMethod(clazzName: string, methodName: string, param: object, 
 
     const { clazz, methodMap = new Map() } = clazzInfo;
     const { args: argArr = [] } = methodMap.get(methodName) || {};
-
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
-
-    ctx.param = param;
-
     const args = [];
 
+    ctx.param = param;
     for (const { argKey, argIndex, argDecorator } of argArr) {
         const argVal = await Promise.resolve(argDecorator(argKey, ctx));
 

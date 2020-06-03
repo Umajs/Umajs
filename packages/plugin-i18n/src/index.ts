@@ -119,14 +119,14 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
                     locale = languages.find((language) => {
                         language = formatLocale(language);
 
-                        return !!i18nMap.get(language);
+                        return i18nMap.has(language);
                     }) || defaultLocale;
                 }
 
                 locale = formatLocale(locale);
 
                 // no exist
-                if (!i18nMap.get(locale)) {
+                if (!i18nMap.has(locale)) {
                     console.warn('[i18n warning]: There is no configuration file "%s"', locale);
                     // throw new Error(`[i18n warning]: There is no configuration file "${locale}"`);
                 }
