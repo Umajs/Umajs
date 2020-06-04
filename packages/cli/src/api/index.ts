@@ -30,7 +30,7 @@ export const fechRepoCommits = async () => {
     }
 };
 
-export const download = async (tag?: string) => {
+const downloadFromGithub = async (tag?: string) => {
     const api = `https://github.com/Umajs/uma-templates${tag ? `#${tag}` : ''}`;
 
     // /Users/xxx/.uma-templates/uma
@@ -53,5 +53,39 @@ export const download = async (tag?: string) => {
         rm(DOWNLOAD_DIR);
         await git().silent(true).clone(api, DOWNLOAD_DIR);
         writeInfo({ commitSha: onlineSha });
+    }
+};
+
+const downloadFromGitee = async (tag?: string) => {
+    const api = `https://github.com/Umajs/uma-templates${tag ? `#${tag}` : ''}`;
+
+    // /Users/xxx/.uma-templates/uma
+    const { commitSha: localSha } = readInfo();
+
+    // 获取版本信息 若为最新版本则重新下载，若不是则直接拉取本地
+    const gitCommits: any = await xhr('GET', 'https://gitee.com/api/v5/repos/Umajs/uma-templates/commits?sha=master&per_page=1');
+
+    if (!gitCommits) {
+        if (localSha) {
+            return console.log('load template wrong, will use local template.');
+        }
+
+        throw new Error('load template wrong, please check network.');
+    }
+
+    const { sha: onlineSha } = JSON.parse(gitCommits)[0];
+
+    if (onlineSha !== localSha) {
+        rm(DOWNLOAD_DIR);
+        await git().silent(true).clone(api, DOWNLOAD_DIR);
+        writeInfo({ commitSha: onlineSha });
+    }
+};
+
+export const download = async (tag?: string) => {
+    try {
+        await downloadFromGitee(tag);
+    } catch (err) {
+        await downloadFromGithub(tag);
     }
 };
