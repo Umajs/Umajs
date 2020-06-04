@@ -61,7 +61,7 @@ describe('test/utils/mixin.test.ts', () => {
 
             assert(target.one === 's1-1');
             assert(target.two.one.one === 's1-2-1-1');
-            assert(target.two.one.two === undefined);
+            assert(target.two.one.two === 't1-2-1-2');
 
             source.two.one.one = 'aaa';
             assert(target.two.one.one === 's1-2-1-1');
