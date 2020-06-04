@@ -17,7 +17,7 @@ const GITEE_COMMITS = 'https://gitee.com/api/v5/repos/Umajs/uma-templates/commit
 
 // GIT 地址
 const GITHUB_REPO = 'https://github.com/Umajs/uma-templates';
-const GITEE_REPO = 'https://github.com/Umajs/uma-templates';
+const GITEE_REPO = 'https://gitee.com/Umajs/uma-templates';
 
 const downloadFromGit = async (gitSource = 'github') => {
     // /Users/xxx/.uma-templates/uma
