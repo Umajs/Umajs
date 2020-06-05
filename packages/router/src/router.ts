@@ -37,7 +37,7 @@ export default async function Router(ctx: IContext, next: Function) {
     const url = reqPath.slice(1);
     const pathArr: string[] = url ? url.split('/') : [];
 
-    // 访问url必须为/xx/xx的格式，或者/，不满足返回
+    // 默认 url 必须为/xx/xx的格式，或者/，不满足返回
     if (!(pathArr.length === 2 || url === '')) return next();
 
     const [clazzName = 'index', methodName = 'index'] = pathArr;

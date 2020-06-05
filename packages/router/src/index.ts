@@ -5,7 +5,7 @@ import { TPathInfo } from './types/TPathInfo';
 import router, { StaticRouterMap, RegexpRouterMap, ClazzMap } from './router';
 
 export const Router = () => {
-    console.log('======Init router S======');
+    console.log('======Init router start======');
 
     const ALLROUTE: string[] = [];
 
@@ -54,7 +54,7 @@ export const Router = () => {
         ClazzMap.set(clazzName, c);
     }
 
-    console.log('======Init router E======');
+    console.log('======Init router end======');
 
     const uma = Uma.instance();
 

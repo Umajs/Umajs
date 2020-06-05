@@ -37,7 +37,10 @@ export default class PluginLoader {
         const mws = [];
 
         // 按照配置的顺序进行加载
-        for (const [key, val] of Object.entries(plugin)) {
+        // for (const [key, val] of Object.entries(plugin)) {
+        for (const key of Object.keys(plugin)) {
+            const val = plugin[key];
+
             if (key === 'request') {
                 mixin(false, uma.app.request, val);
             } else if (key === 'response') {

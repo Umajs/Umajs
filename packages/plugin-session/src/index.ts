@@ -52,11 +52,11 @@ export default (uma: Uma, options: sessionOptions): TPlugin => {
     return {
         context: {
             get session() {
-                const that: IContext = this;
+                const ctx: IContext = this;
 
                 return {
                     set(key: string, value: any) {
-                        const sessionCookies = that.cookies.get(sessionKey);
+                        const sessionCookies = ctx.cookies.get(sessionKey);
                         let sessionBody = {};
 
                         if (sessionCookies) {
@@ -65,10 +65,10 @@ export default (uma: Uma, options: sessionOptions): TPlugin => {
 
                         sessionBody[key] = value;
 
-                        setCookie(that, sessionBody);
+                        setCookie(ctx, sessionBody);
                     },
                     get(key: string) {
-                        const sessionCookies = that.cookies.get(sessionKey);
+                        const sessionCookies = ctx.cookies.get(sessionKey);
 
                         if (sessionCookies) {
                             const sessionBody = crypto.decrypt(sessionCookies);
@@ -79,14 +79,14 @@ export default (uma: Uma, options: sessionOptions): TPlugin => {
                         return null;
                     },
                     remove(key: string) {
-                        const sessionCookies = that.cookies.get(sessionKey);
+                        const sessionCookies = ctx.cookies.get(sessionKey);
 
                         if (sessionCookies) {
                             const sessionBody = crypto.decrypt(sessionCookies);
 
                             delete sessionBody[key];
 
-                            setCookie(that, sessionBody);
+                            setCookie(ctx, sessionBody);
                         }
                     },
                 };
