@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import { TPlugin } from '@umajs/core';
 import * as views from 'koa-views';
 
 type TKoaViewsOptions = {
@@ -29,8 +29,16 @@ export type viewsOptions = {
     opts?: TKoaViewsOptions,
 }
 
-export default (uma: any, options: viewsOptions = {}): Koa.Middleware => {
+export default (uma: any, options: viewsOptions = {}): TPlugin => {
     const { root = './views', opts = {} } = options;
+    const render = views(root, opts)(null, null);
 
-    return views(root, opts);
+    return {
+        context: {
+            render,
+        },
+        response: {
+            render,
+        },
+    };
 };
