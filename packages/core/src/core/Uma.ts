@@ -131,7 +131,7 @@ export default class Uma {
 
         this.use(Router());
 
-        if (typeHelper.isFunction(beforeLoad)) await Promise.resolve(Reflect.apply(afterLoaded, this, [this]));
+        if (typeHelper.isFunction(afterLoaded)) await Promise.resolve(Reflect.apply(afterLoaded, this, [this]));
 
         if (createServer) {
             console.assert(typeHelper.isFunction(createServer), 'config.createServer must be a function');
