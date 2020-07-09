@@ -49,6 +49,6 @@ export const Context: BaseContext = {
     },
 
     getHeader(name: string | any): any {
-        return this.ctx.header[name];
+        return this.header[name];
     },
 };
