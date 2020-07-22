@@ -38,7 +38,7 @@ export function middlewareToAround(mw: (Koa.Middleware<any, IContext>)) {
  * @param aspectName 作用的切面文件名
  * @param notices 指定通知
  */
-export function aspect(aspectName: string, notices: ENotice[]): Function {
+export function aspect(aspectName: string, notices: ENotice[]): TMethodDecorator {
     const aspectClazz = AspectLoader.getAspect(aspectName);
 
     if (!aspectClazz) {
