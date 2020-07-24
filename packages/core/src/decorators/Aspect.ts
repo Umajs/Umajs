@@ -6,7 +6,7 @@ import { TMethodDecorator } from '../types/TDecorator';
  * @Aspect('aspectName')
  * @param aspectName 指定的切面名称
  */
-function Aspect(aspectName: string): TMethodDecorator {
+function Aspect(aspectName: string): Function {
     return aspect(aspectName, Object.values(ENotice));
 }
 
