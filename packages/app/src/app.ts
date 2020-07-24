@@ -1,11 +1,27 @@
+import * as Koa from 'koa';
 import Uma from '@umajs/core';
 import { Router } from '@umajs/router';
 
-const uma = Uma.instance({
+
+const options = {
     Router,
     bodyParser: { multipart: true },
     ROOT: __dirname,
     env: process.argv.indexOf('production') > -1 ? 'production' : 'development',
-});
+};
 
-uma.start(8058);
+
+(async () => {
+    if (process.argv.indexOf('--koa') > -1) {
+        const app = new Koa();
+
+        app.use(await Uma.middleware(options, app));
+
+        app.listen(8058);
+    } else {
+
+        const uma = Uma.instance(options);
+
+        uma.start(8058);
+    }
+})();

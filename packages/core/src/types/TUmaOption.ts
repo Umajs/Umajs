@@ -1,13 +1,14 @@
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import * as bodyParser from 'koa-body';
+import * as Koa from 'koa';
 
 import Uma from '../core/Uma';
 
 import { TJsonpBody } from './TJsonpBody';
 
 export type TUmaOption = {
-    Router: Function,
+    Router: () => Koa.Middleware,
     ROOT: string,
     env?: 'development' | 'production' | string,
     configPath?: string,

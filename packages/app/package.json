@@ -18,6 +18,7 @@
     "url": "git+https://github.com/Umajs/Uma.git"
   },
   "scripts": {
+    "koa": "ts-node-dev --respawn src/app.ts --koa",
     "app": "ts-node-dev --respawn src/app.ts"
   },
   "dependencies": {

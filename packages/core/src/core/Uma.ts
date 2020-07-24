@@ -46,7 +46,7 @@ export default class Uma {
 
     env: string;
 
-    app: Koa<Koa.DefaultState, IContext> = new Koa();
+    app: Koa<Koa.DefaultState, IContext> = null;
 
     server: http.Server | https.Server;;
 
@@ -209,11 +209,25 @@ export default class Uma {
         if (instance) return instance;
 
         instance = new Uma(options);
+        instance.app = new Koa();
 
         return instance;
     }
 
     static get controllersInfo() {
         return controllerInfo.getControllersInfo();
+    }
+
+    static async middleware(options: TUmaOption, app: Koa): Promise<Koa.Middleware> {
+        instance = new Uma(options);
+        instance.app = <Koa<Koa.DefaultState, IContext>>app;
+
+        mixin(false, app.request, Request);
+        mixin(false, app.response, Response);
+        mixin(false, app.context, Context);
+
+        await instance.load();
+
+        return this.options.Router();
     }
 }

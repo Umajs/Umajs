@@ -25,12 +25,12 @@ function setControllersInfo(clazz: Function, methodName: string, info: IHelper =
 
     // De-weighting according to clazzName( for reload )
     if (clazzName) {
-        for (const [k, { name }] of ControllerMap) {
-            if (name === clazzName) {
-                ControllerMap.delete(k);
-                console.log('热更新更替旧的：', clazzName);
-            }
-        }
+        // for (const [k, { name }] of ControllerMap) {
+        //     if (name === clazzName) {
+        //         ControllerMap.delete(k);
+        //         console.log('hot reload', clazzName);
+        //     }
+        // }
 
         clazzInfo.name = clazzName;
     }
