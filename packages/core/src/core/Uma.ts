@@ -21,6 +21,8 @@ import mixin from '../utils/mixin';
 import { TUmaOption } from '../types/TUmaOption';
 import { IContext } from '../types/IContext';
 import { TConfig } from '../types/TConfig';
+import { TControllerInfo } from '../types/TControllerInfo';
+import { TPluginConfig } from '../types/TPluginConfig';
 
 let instance: Uma = null;
 
@@ -111,7 +113,7 @@ export default class Uma {
         this.app.use(mw);
     }
 
-    get context() {
+    get context(): IContext {
         return this.app.context;
     }
 
@@ -175,11 +177,11 @@ export default class Uma {
         return ConfigLoader.config;
     }
 
-    static get pluginConfig() {
+    static get pluginConfig(): boolean | TPluginConfig {
         return ConfigLoader.config.plugin;
     }
 
-    static get pluginKeys() {
+    static get pluginKeys(): string[] {
         const pluginKeys = [];
 
         for (const [name, config] of Object.entries(Uma.config.plugin)) {
@@ -201,10 +203,22 @@ export default class Uma {
         return typeHelper.isBoolean(pluginCfg) ? {} : pluginCfg.options;
     }
 
-    static get context() {
+    static get context(): IContext {
         return Uma.instance().context;
     }
 
+    /**
+     * getControllerInfo()
+     */
+    static get controllersInfo(): IterableIterator<TControllerInfo> {
+        return controllerInfo.getControllersInfo();
+    }
+
+    /**
+     * Uma instance     eg. Uma.instance({...})
+     * Uma getInstance  eg. Uma.instance()
+     * @param options Uma options
+     */
     static instance(options?: TUmaOption): Uma {
         if (instance) return instance;
 
@@ -214,14 +228,10 @@ export default class Uma {
         return instance;
     }
 
-    static get controllersInfo() {
-        return controllerInfo.getControllersInfo();
-    }
-
     /**
      * (async () => {
      *     const app = new Koa();
-     *     app.use(await Uma.middleware({...}));
+     *     app.use(await Uma.middleware({...}, app));
      * })();
      * @param options Uma options
      * @param app Koa instance
