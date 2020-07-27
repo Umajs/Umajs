@@ -218,7 +218,17 @@ export default class Uma {
         return controllerInfo.getControllersInfo();
     }
 
+    /**
+     * (async () => {
+     *     const app = new Koa();
+     *     app.use(await Uma.middleware({...}));
+     * })();
+     * @param options Uma options
+     * @param app Koa instance
+     */
     static async middleware(options: TUmaOption, app: Koa): Promise<Koa.Middleware> {
+        if (instance) throw new Error('Uma can only be instantiated once, app.use(Uma.middleware({...}))');
+
         instance = new Uma(options);
         instance.app = <Koa<Koa.DefaultState, IContext>>app;
 
