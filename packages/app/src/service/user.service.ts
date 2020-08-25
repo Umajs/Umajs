@@ -1,7 +1,7 @@
-import { Inject } from '@umajs/core';
+import { Inject, BaseService } from '@umajs/core';
 import User from '../model/User';
 
-export default class {
+export default class extends BaseService {
 
     @Inject(User) // or @Inject('User')
     user: User;

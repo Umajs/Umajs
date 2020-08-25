@@ -5,6 +5,10 @@ import Require from '../utils/Require';
 import loadDir from '../utils/loadDir';
 import typeHelper from '../utils/typeHelper';
 import { ResourceClazzMap } from '../decorators/Resource';
+import controllerInfo from '../info/controllerInfo';
+import { BaseController } from '../core/BaseController';
+import { BaseService } from '../core/BaseService';
+import { ServiceMap } from './ServiceLoader';
 
 export const ResourceMap: Map<string, Function> = new Map();
 export const ResourceClassMap: Map<Function, Function> = new Map();
@@ -17,16 +21,24 @@ export default class ResourceLoader {
     static loadResource(filePath: string) {
         try {
             const clazz = Require.default(filePath);
+            const clazzName = path.basename(filePath).split('.')[0];
 
             if (ResourceClazzMap.has(clazz)) {
-                const name = path.basename(filePath).split('.')[0];
                 const clazzInstance = Reflect.construct(clazz, ResourceClazzMap.get(clazz));
 
-                ResourceMap.set(name, clazzInstance);
+                ResourceMap.set(clazzName, clazzInstance);
                 ResourceClassMap.set(clazz, clazzInstance);
             }
+
+            if (clazz && clazz.prototype && clazz.prototype instanceof BaseController) {
+                controllerInfo.setControllersInfo(clazz, null, { clazzName });
+            }
+
+            if (clazz && clazz.prototype && clazz.prototype instanceof BaseService) {
+                ServiceMap.set(clazzName, clazz);
+            }
         } catch (err) {
-            /* eslint-disable no-empty */
+            console.log(err);
         }
     }
 

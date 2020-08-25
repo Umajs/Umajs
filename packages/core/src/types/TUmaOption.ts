@@ -11,6 +11,7 @@ export type TUmaOption = {
     Router: () => Koa.Middleware,
     ROOT: string,
     env?: 'development' | 'production' | string,
+    strictDir?: boolean,
     configPath?: string,
     proxy?: boolean,
     subdomainOffset?: number,

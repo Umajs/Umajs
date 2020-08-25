@@ -12,6 +12,8 @@ export function Service(service: string | Function): Function {
             get() {
                 const serviceClass = typeHelper.isString(service) ? ServiceLoader.getService(service) : service;
 
+                if (!serviceClass) throw new Error(`Please check ${service}.service.ts is exists and extends BaseService.`);
+
                 return Reflect.construct(serviceClass, [this.ctx]);
             },
         };

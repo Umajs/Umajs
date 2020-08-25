@@ -80,7 +80,7 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
 
             /**
              * 更改当前国际化，仅对当前访问有效
-             * @param newlocale 新国际化
+             * @param locale 新国际化
              */
             setLocale(locale: string) {
                 let newlocale = formatLocale(locale);

@@ -1,15 +1,14 @@
 import * as Koa from 'koa';
 import Uma from '@umajs/core';
 import { Router } from '@umajs/router';
+import { TUmaOption } from '@umajs/core';
 
-
-const options = {
+const options: TUmaOption = {
     Router,
     bodyParser: { multipart: true },
     ROOT: __dirname,
     env: process.argv.indexOf('production') > -1 ? 'production' : 'development',
 };
-
 
 (async () => {
     if (process.argv.indexOf('--koa') > -1) {

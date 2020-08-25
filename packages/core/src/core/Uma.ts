@@ -34,6 +34,7 @@ export default class Uma {
             jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
             env: process.env.NODE_ENV,
+            strictDir: false,
         }, options);
 
         const { env, proxy, subdomainOffset } = this.options;
@@ -61,13 +62,15 @@ export default class Uma {
     private async load() {
         this.loadConfig();
 
-        this.loadResource();
-
         this.loadAspect();
 
-        this.loadService();
+        this.loadResource();
 
-        this.loadController();
+        if (!this.options.strictDir) {
+            this.loadService();
+
+            this.loadController();
+        }
 
         await this.loadPlugin();
     }
@@ -77,16 +80,22 @@ export default class Uma {
         this.config = ConfigLoader.config;
     }
 
-    loadService() {
-        ServiceLoader.loadServiceDir(path.resolve(this.options.ROOT, 'service'));
-    }
-
     loadAspect() {
         AspectLoader.loadAspectDir(path.resolve(this.options.ROOT, 'aspect'));
     }
 
     loadResource() {
-        ResourceLoader.loadResourceDir(this.options.ROOT, ['aspect', 'config', 'controller', 'i18n', 'plugins', 'service']);
+        const reservedDir = ['config', 'aspect', 'i18n', 'plugins'];
+
+        if (!this.options.strictDir) {
+            reservedDir.push('controller', 'service');
+        }
+
+        ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
+    }
+
+    loadService() {
+        ServiceLoader.loadServiceDir(path.resolve(this.options.ROOT, 'service'));
     }
 
     loadController() {

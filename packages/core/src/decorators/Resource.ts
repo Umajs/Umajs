@@ -20,7 +20,11 @@ export function Inject(resource: string | Function): Function {
     return function inject(): any {
         return {
             get() {
-                return ResourceLoader.getResource(resource);
+                const resourceClass = ResourceLoader.getResource(resource);
+
+                if (!resourceClass) throw new Error(`Please check ${resource}.*.ts is exists.`);
+
+                return resourceClass;
             },
         };
     };

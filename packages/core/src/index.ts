@@ -14,6 +14,7 @@ export { Private } from './decorators/Private';
 export { Resource, Inject } from './decorators/Resource';
 export { createArgDecorator, Context, Param, Query } from './decorators/ArgDecorator';
 
+export { TUmaOption } from './types/TUmaOption';
 export { RequestMethod } from './types/RequestMethod';
 export { TArg } from './types/TArg';
 export { TControllerInfo } from './types/TControllerInfo';

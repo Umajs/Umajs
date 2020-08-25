@@ -3,6 +3,7 @@ import * as path from 'path';
 
 import Require from '../utils/Require';
 import loadDir from '../utils/loadDir';
+import { BaseService } from '../core/BaseService';
 
 export const ServiceMap: Map<string, Function> = new Map();
 
@@ -18,7 +19,9 @@ export default class ServiceLoader {
         if (suffix.length === 0 && type === 'service') {
             const clazz: Function = Require.default(filePath);
 
-            ServiceMap.set(clazzName, clazz);
+            if (clazz && clazz.prototype && clazz.prototype instanceof BaseService) {
+                ServiceMap.set(clazzName, clazz);
+            }
         }
     }
 
