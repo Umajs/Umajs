@@ -38,7 +38,7 @@ export default class ResourceLoader {
                 ServiceMap.set(clazzName, clazz);
             }
         } catch (err) {
-            console.log(err);
+            if (process.env.NODE_ENV === 'debugger') console.log(err);
         }
     }
 
