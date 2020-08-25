@@ -1,0 +1,1 @@
+module.exports = 'It\'s commonJS module';

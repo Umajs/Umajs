@@ -1,0 +1,1 @@
+export default 'It\'s es6 module';
