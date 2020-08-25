@@ -1,0 +1,63 @@
+{
+  "name": "@umajs/cli",
+  "version": "0.1.8",
+  "description": "uma cli",
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "bin": {
+    "uma": "./bin/index.js",
+    "umajs": "./bin/index.js"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "index.d.ts"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org",
+    "access": "public"
+  },
+  "scripts": {
+    "fix": "esw src --fix --ext .ts",
+    "lint": "eslint src --ext .ts",
+    "lint-w": "esw src --clear --color -w --ext .ts",
+    "build-w": "tsc -w --inlineSourceMap",
+    "start": "run-p lint-w build-w",
+    "prebuild": "npm run lint",
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^3.0.2",
+    "inquirer": "^7.0.0",
+    "ora": "^4.0.2",
+    "simple-git": "^1.129.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^6.5.0",
+    "@types/node": "^10.14.9",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-typescript": "^0.14.0",
+    "eslint-watch": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Umajs/Uma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Umajs/Uma/issues"
+  },
+  "homepage": "https://github.com/Umajs/Uma#readme"
+}
