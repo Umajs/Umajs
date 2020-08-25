@@ -85,7 +85,8 @@ export default class Uma {
     }
 
     loadResource() {
-        const reservedDir = ['config', 'aspect', 'i18n', 'plugins'];
+        // ['config', 'aspect', 'plugins'] reserved dir
+        const reservedDir = ['config', 'aspect', 'plugins'];
 
         if (!this.options.strictDir) {
             reservedDir.push('controller', 'service');
