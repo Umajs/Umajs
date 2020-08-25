@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-session",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "umajs session",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
@@ -36,8 +36,8 @@
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
-    "@umajs/core": "^0.1.8",
-    "@umajs/router": "^0.1.8",
+    "@umajs/core": "^0.1.9",
+    "@umajs/router": "^0.1.9",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
