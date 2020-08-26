@@ -1,6 +1,6 @@
 import Uma from '../core/Uma';
 import typeHelper from '../utils/typeHelper';
-import { BaseContext } from '../types/IContext';
+import { BaseContext, IContext } from '../types/IContext';
 import LazyModules from '../loader/LazyModules';
 
 export const Context: BaseContext = {
@@ -32,19 +32,21 @@ export const Context: BaseContext = {
 
     param: {},
 
-    setHeader(name: string | any, value: string | string[]): void {
-        if (this.ctx.res.headersSent) {
-            console.error(new Error(`Cannot set headers after they are sent to the client, url: ${this.ctx.url}`));
+    setHeader(name: string | { [key: string]: string }, value?: string | string[]): void {
+        const ctx: IContext = this;
+
+        if (ctx.res.headersSent) {
+            console.error(new Error(`Cannot set headers after they are sent to the client, url: ${ctx.url}`));
 
             return;
         }
 
-        if (value !== undefined) {
-            this.ctx.set(name, value);
+        if (typeHelper.isString(name) && value !== undefined) {
+            ctx.set(name, value);
         }
 
         if (typeHelper.isObject(name)) {
-            this.ctx.set(name);
+            ctx.set(name);
         }
     },
 
