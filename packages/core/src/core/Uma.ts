@@ -77,6 +77,7 @@ export default class Uma {
 
     loadConfig() {
         ConfigLoader.loadConfigDir(this.options.configPath);
+        Object.freeze(ConfigLoader.config);
         this.config = ConfigLoader.config;
     }
 
