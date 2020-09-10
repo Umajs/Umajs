@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-static",
-  "version": "0.1.9",
+  "version": "1.0.0",
   "description": "umajs static",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
