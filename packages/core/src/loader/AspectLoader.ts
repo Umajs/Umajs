@@ -4,12 +4,13 @@ import * as path from 'path';
 import Require from '../utils/Require';
 import loadDir from '../utils/loadDir';
 import typeHelper from '../utils/typeHelper';
+import { IAspect } from '../types/IAspect';
 
-export const AspectMap: Map<string, Function> = new Map();
-export const AspectClassMap: Map<Function, Function> = new Map();
+export const AspectMap: Map<string, IAspect> = new Map();
+export const AspectClassMap: Map<IAspect, IAspect> = new Map();
 
 export default class AspectLoader {
-    static getAspect(aspect: string | Function) {
+    static getAspect(aspect: string | IAspect) {
         return typeHelper.isString(aspect) ? AspectMap.get(aspect) : AspectClassMap.get(aspect);
     }
 
@@ -18,7 +19,7 @@ export default class AspectLoader {
         const [clazzName, type, ...suffix] = fileInfo.name.split('.');
 
         if (suffix.length === 0 && type === 'aspect') {
-            const clazz: Function = Require.default(filePath);
+            const clazz: IAspect = Require.default(filePath);
 
             AspectMap.set(clazzName, clazz);
             AspectClassMap.set(clazz, clazz);

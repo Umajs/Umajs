@@ -8,6 +8,7 @@ import { IJoinPoint } from '../types/IJoinPoint';
 import { IProceedJoinPoint } from '../types/IProceedJoinPoint';
 import Result from '../core/Result';
 import { IContext } from '../types/IContext';
+import { IAspect } from '../types/IAspect';
 
 /**
  * 将中间件转成切面 around 方法
@@ -38,7 +39,7 @@ export function middlewareToAround(mw: (Koa.Middleware<any, IContext>)) {
  * @param aspect 作用的切面文件名
  * @param notices 指定通知
  */
-export function aspectHelper(aspect: string | Function, notices: ENotice[]): TMethodDecorator {
+export function aspectHelper(aspect: string | IAspect, notices: ENotice[]): TMethodDecorator {
     const aspectClazz = AspectLoader.getAspect(aspect);
 
     if (!aspectClazz) {
@@ -65,7 +66,7 @@ export function aspectHelper(aspect: string | Function, notices: ENotice[]): TMe
             enumerable,
             writable: true,
             value: async function aop(...args: any[]) {
-                const aspectInstance = Reflect.construct(aspectClazz, [this]);
+                const aspectInstance = Reflect.construct(aspectClazz as Function, [this]);
                 const { before, after, afterReturning, afterThrowing, around } = aspectInstance;
                 const point: IJoinPoint = { args, target: this };
 
