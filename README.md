@@ -1,5 +1,5 @@
 # `Umajs`
-> A lightweight typescript webframework
+> A easy-to-use framework base on Typescript
 
 ## 简介
 
