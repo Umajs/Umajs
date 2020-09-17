@@ -1,4 +1,5 @@
 import ResourceLoader from '../loader/ResourceLoader';
+import typeHelper from '../utils/typeHelper';
 
 export const ResourceClazzMap: Map<Function, any[]> = new Map();
 
@@ -17,7 +18,13 @@ export function Resource(...props: any[]): Function {
  * @param resourceName 资源文件名
  */
 export function Inject(resource: string | Function): Function {
-    return function inject(): any {
+    return function inject(target: Function, property: string, desc: PropertyDescriptor): any {
+        const resourceName = typeHelper.isString(resource) ? resource : resource.name;
+
+        if (!typeHelper.isUndef(desc)) {
+            throw new Error(`Please check @Inject(${resourceName})/${property} used on Class's property.`);
+        }
+
         return {
             get() {
                 const resourceClass = ResourceLoader.getResource(resource);

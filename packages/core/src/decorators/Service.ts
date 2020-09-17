@@ -1,3 +1,4 @@
+import { BaseController } from '../core/BaseController';
 import ServiceLoader from '../loader/ServiceLoader';
 import typeHelper from '../utils/typeHelper';
 
@@ -7,7 +8,13 @@ import typeHelper from '../utils/typeHelper';
  * @param serviceName 文件名
  */
 export function Service(service: string | Function): Function {
-    return function svc(): any {
+    return function s(target: Function, property: string, desc: PropertyDescriptor): any {
+        const serviceName = typeHelper.isString(service) ? service : service.name;
+
+        if (!(target instanceof BaseController) || !typeHelper.isUndef(desc)) {
+            throw new Error(`Please check @Service(${serviceName})/${property} used on Controller's property, and Controller extends BaseController.`);
+        }
+
         return {
             get() {
                 const serviceClass = typeHelper.isString(service) ? ServiceLoader.getService(service) : service;

@@ -12,7 +12,7 @@ describe('test/loader/AspectLoader.test.ts', () => {
             AspectLoader.loadAspectDir(aspectPath);
 
             const testAspect = AspectMap.get('test');
-            const result = Reflect.construct(testAspect, []);
+            const result = Reflect.construct(<Function>testAspect, []);
 
             assert(result.before() === 1);
         });
@@ -25,7 +25,7 @@ describe('test/loader/AspectLoader.test.ts', () => {
             AspectLoader.loadAspectDir(aspectPath);
 
             const testAspect = AspectLoader.getAspect('test');
-            const result = Reflect.construct(testAspect, []);
+            const result = Reflect.construct(<Function>testAspect, []);
 
             assert(result.before() === 1);
         });
