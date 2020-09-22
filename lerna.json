@@ -2,5 +2,10 @@
   "packages": [
     "packages/*"
   ],
+  "comand":{
+    "bootstrap": {
+      "ignore": "arg-decorator"
+    }
+  },
   "version": "1.0.0"
 }

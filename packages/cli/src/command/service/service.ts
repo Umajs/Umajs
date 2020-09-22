@@ -11,7 +11,6 @@ export default class ${serviceName} extends BaseService {
 }
 `;
 
-
 export default class Service {
     static init(serviceName: string) {
         if (!serviceName) return actionHelp('service');

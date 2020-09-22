@@ -24,7 +24,6 @@ export const readInfo = (): TTemplateInfo => {
     return JSON.parse(resData);
 };
 
-
 /**
  * 读取模板信息
  */

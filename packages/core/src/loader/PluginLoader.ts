@@ -119,7 +119,6 @@ export default class PluginLoader {
                 continue;
             }
 
-
             const packageName = config.packageName || `@umajs/plugin-${name}`;
             let isDirExist = false;
 

@@ -48,7 +48,6 @@ export function formatLocale(locale: string): string {
     return locale.replace('_', '-').toLowerCase();
 }
 
-
 /**
  * 加载 i18n 配置
  * @param i18nDir 文件夹

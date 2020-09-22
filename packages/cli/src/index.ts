@@ -1,4 +1,3 @@
-
 import * as program from 'commander';
 
 import mapActions from './const/mapAction';

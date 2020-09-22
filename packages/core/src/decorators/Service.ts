@@ -2,7 +2,6 @@ import { BaseController } from '../core/BaseController';
 import ServiceLoader from '../loader/ServiceLoader';
 import typeHelper from '../utils/typeHelper';
 
-
 /**
  * 注入 service
  * @param serviceName 文件名

@@ -5,7 +5,6 @@ import { rm } from '../utils/file';
 import { readInfo, writeInfo } from '../utils/writeReadFile';
 import { DOWNLOAD_DIR } from '../const/constants';
 
-
 // 项目列表
 // const GITHUB_CONTENTS = 'https://api.github.com/repos/Umajs/uma-templates/contents';
 // 抓取列表

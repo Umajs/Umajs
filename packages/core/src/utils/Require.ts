@@ -1,4 +1,3 @@
-
 export default class Require {
     /**
      * clear module cache

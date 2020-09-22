@@ -1,4 +1,3 @@
-
 export type TClassDecorator = <T extends Function>(target: T) => T | void;
 
 export type TClassDecoratorParams = Parameters<TClassDecorator>;
