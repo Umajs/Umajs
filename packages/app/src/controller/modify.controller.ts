@@ -1,10 +1,10 @@
-import { BaseController, Result , Require , Path ,Private} from '@umajs/core';
+import { BaseController, Result, Path } from '@umajs/core';
 
 export default class Modify extends BaseController {
     @Path('/test')
-    index(@Require('query') query:string) {
+    index() {
         // 测试路由@Path修饰冲突覆盖case
-        return Result.send('This router is "/test/index"'+query);
+        return Result.send('This router is "/test/index"');
     }
     @Path('/test2')
     test2(){
