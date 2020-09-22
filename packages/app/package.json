@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Umajs/Uma.git"
+    "url": "git+https://github.com/wuba/Umajs.git"
   },
   "scripts": {
     "koa": "ts-node-dev --respawn src/app.ts --koa",

@@ -2,6 +2,7 @@ import Uma from './core/Uma';
 
 export default Uma;
 export { Uma };
+export { default as mixin } from './utils/mixin';
 export { middlewareToAround } from './utils/aspectHelper';
 export { BaseController } from './core/BaseController';
 export { BaseService } from './core/BaseService';

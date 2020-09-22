@@ -49,10 +49,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Umajs/Uma.git"
+    "url": "git+https://github.com/wuba/Umajs.git"
   },
   "bugs": {
-    "url": "https://github.com/Umajs/Uma/issues"
+    "url": "https://github.com/wuba/Umajs/issues"
   },
-  "homepage": "https://github.com/Umajs/Uma#readme"
+  "homepage": "https://github.com/wuba/Umajs#readme"
 }

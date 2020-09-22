@@ -1,7 +1,7 @@
 {
-  "name": "@umajs/core",
+  "name": "@umajs/arg-decorator",
   "version": "1.0.0",
-  "description": "uma core",
+  "description": "uma arg-decorator",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
   "main": "lib/index.js",
@@ -27,19 +27,13 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@types/koa-send": "^4.1.2",
-    "array.prototype.flat": "^1.2.2",
-    "koa-body": "^4.1.1"
   },
   "devDependencies": {
-    "@types/array.prototype.flat": "^1.2.0",
-    "@types/jest": "^24.0.24",
-    "@types/koa": "^2.0.51",
+    "@types/koa": "^2.0.48",
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
-    "chokidar": "^3.3.0",
-    "dateformat": "^3.0.3",
+    "@umajs/core": "^1.0.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
@@ -47,10 +41,9 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-typescript": "^0.14.0",
     "eslint-watch": "^6.0.1",
-    "jsonp-body": "1.0.0",
     "koa": "^2.11.0",
-    "koa-send": "^5.0.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "supertest": "^4.0.2"
   },
   "repository": {
     "type": "git",
