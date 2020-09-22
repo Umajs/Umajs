@@ -1,11 +1,16 @@
 {
-  "packages": [
-    "packages/*"
-  ],
   "comand":{
+    "publish": {
+      "ignoreChanges": [
+        "packages/arg-decorator"
+      ]
+    },
     "bootstrap": {
       "ignore": "arg-decorator"
     }
   },
+  "packages": [
+    "packages/*"
+  ],
   "version": "1.0.0"
 }
