@@ -80,6 +80,9 @@ async function callMethod(clazzName: string, methodName: string, param: object, 
     const { args: argArr = [] } = methodMap.get(methodName) || {};
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
+
+    if(typeof method !=='function') return next(); // When Controller has been decorator by Service, Default route will be throw Error
+
     const args = [];
 
     ctx.param = param;
