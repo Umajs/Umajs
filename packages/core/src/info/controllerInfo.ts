@@ -1,6 +1,6 @@
 import { TControllerInfo } from '../types/TControllerInfo';
 import { TMethodInfo } from '../types/TMethodInfo';
-import { IHelper } from '../types/IHelper';
+import { THelper } from '../types/THelper';
 
 const ControllerMap: Map<Function, TControllerInfo> = new Map();
 
@@ -10,7 +10,7 @@ const ControllerMap: Map<Function, TControllerInfo> = new Map();
  * @param methodName controller method name
  * @param info controller info
  */
-function setControllersInfo(clazz: Function, methodName: string, info: IHelper = {}) {
+function setControllersInfo(clazz: Function, methodName: string, info: THelper = {}) {
     const clazzInfo: TControllerInfo = ControllerMap.get(clazz) || {};
 
     /**

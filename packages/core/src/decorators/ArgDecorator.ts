@@ -4,10 +4,10 @@ import { IContext } from '../types/IContext';
 
 /**
  * 自定义参数装饰器
- * @param fn (ctx: IContext, ...argProps: any[]) => any
+ * @param fn (ctx: IContext, ...argProps: any[]) => (...argProps: any[]) => TParameterDecorator
  */
-export function createArgDecorator(fn: (ctx: IContext, ...argProps: any[]) => any): ((...argProps: any[]) => TParameterDecorator) {
-    return (...argProps: any[]) => (target: any, propertyKey: string, argIndex: number) => {
+export function createArgDecorator(fn: (ctx: IContext, ...argProps: any[]) => any) {
+    return (...argProps: any[]): TParameterDecorator => (target: any, propertyKey: string, argIndex: number) => {
         controllerInfo.setControllersInfo(target.constructor, propertyKey, {
             argDecorator: fn,
             argProps,
