@@ -28,7 +28,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "koa-views": "^6.2.2"
+    "koa-views": "^6.3.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.24",

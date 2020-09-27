@@ -1,4 +1,4 @@
-import Uma, { createArgDecorator, IContext, mixin, Result } from '@umajs/core';
+import Uma, { createArgDecorator, IContext, mixin } from '@umajs/core';
 
 import Tips from './Tips';
 
@@ -44,7 +44,7 @@ mixin(true, Tips, Uma.config.argDecorator || {});
 /**
  * 参数必传
  */
-export const Require: (key: string, tip?: string) => Result | any = createArgDecorator((ctx: IContext, key: string, tip: string) => {
+export const Require: (key: string, tip: string) => ParameterDecorator = createArgDecorator((ctx: IContext, key: string, tip: string) => {
     const val = ctx.query[key];
 
     if (!val) {
@@ -56,8 +56,9 @@ export const Require: (key: string, tip?: string) => Result | any = createArgDec
 
 /**
  * 数字
+ * toNumber? ParseInt?
  */
-export const ToNumber: (key: string, tip?: string) => Result | any = createArgDecorator((ctx: IContext, key: string, tip: string) => {
+export const ToNumber: (key: string, tip: string) => ParameterDecorator = createArgDecorator((ctx: IContext, key: string, tip: string) => {
     const val = ctx.query[key];
     const intVal = parseInt(val);
 
