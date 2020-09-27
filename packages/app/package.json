@@ -27,6 +27,7 @@
     "@umajs/plugin-session": "^1.0.1",
     "@umajs/plugin-static": "^1.0.1",
     "@umajs/plugin-status": "^1.0.1",
+    "@umajs/arg-decorator": "^1.0.1",
     "@umajs/router": "^1.0.1",
     "koa": "^2.11.0",
     "koa-views": "^6.2.1",
