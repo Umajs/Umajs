@@ -6,7 +6,7 @@ export type IHelper = {
     rootPath?: string
     mpath?: string
     inside?: boolean,
-    argKey?: string,
+    argProps?: any[],
     argIndex?: number,
-    argDecorator?: (data: string, ctx: IContext) => any,
+    argDecorator?: (ctx: IContext, ...props: any[]) => any,
 }

@@ -21,7 +21,7 @@ function setControllersInfo(clazz: Function, methodName: string, info: IHelper =
      * methodType: controller method visit method type get|post...
      * inside: controller method is private
      */
-    const { clazzName, rootPath, mpath, methodType, inside, argKey, argIndex, argDecorator } = info;
+    const { clazzName, rootPath, mpath, methodType, inside, argProps, argIndex, argDecorator } = info;
 
     // De-weighting according to clazzName( for reload )
     if (clazzName) {
@@ -64,9 +64,9 @@ function setControllersInfo(clazz: Function, methodName: string, info: IHelper =
 
         if (argDecorator) {
             args.push({
-                argKey,
-                argIndex,
                 argDecorator,
+                argProps,
+                argIndex,
             });
             methodInfo.args = args;
         }

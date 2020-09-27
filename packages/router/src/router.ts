@@ -1,4 +1,4 @@
-import { Result, TControllerInfo, IContext } from '@umajs/core';
+import { Result, TControllerInfo, IContext, TMethodInfo } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import { MatchRegexp, getClazzInfo } from './helper';
@@ -77,7 +77,7 @@ async function callMethod(clazzName: string, methodName: string, param: object, 
     if (!clazzInfo) return next();
 
     const { clazz, methodMap = new Map() } = clazzInfo;
-    const { args: argArr = [] } = methodMap.get(methodName) || {};
+    const { args: argArr = [] } = <TMethodInfo>methodMap.get(methodName) || {};
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
 
@@ -86,8 +86,8 @@ async function callMethod(clazzName: string, methodName: string, param: object, 
     const args = [];
 
     ctx.param = param;
-    for (const { argKey, argIndex, argDecorator } of argArr) {
-        const argVal = await Promise.resolve(argDecorator(argKey, ctx));
+    for (const { argDecorator, argProps, argIndex } of argArr) {
+        const argVal = await Promise.resolve(argDecorator(ctx, ...argProps));
 
         if (argVal instanceof Result) return Result.finish(ctx, argVal);
 
