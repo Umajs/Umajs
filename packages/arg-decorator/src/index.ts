@@ -19,7 +19,7 @@ export const Require: (key: string, tip: string) => Result | any = createArgDeco
 /**
  * 数字
  */
-export const Number: (key: string) => Result | any = createArgDecorator((ctx: IContext, key: string, tip: string) => {
+export const Number: (key: string, tip: string) => Result | any = createArgDecorator((ctx: IContext, key: string, tip: string) => {
     const val = ctx.query[key] || ctx.body[key];
     const intVal = parseInt(val);
 

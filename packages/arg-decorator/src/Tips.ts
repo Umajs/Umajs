@@ -17,5 +17,5 @@ export default {
                 msg: tip || `${key} 参数必须为数据。`,
             });
         },
-    }
+    },
 };
