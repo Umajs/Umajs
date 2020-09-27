@@ -87,6 +87,7 @@ async function callMethod(clazzName: string, methodName: string, param: object, 
 
     ctx.param = param;
     for (const { argDecorator, argProps, argIndex } of argArr) {
+        // v1.0.* TArg = { argDecorator, argKey, argIndex }
         const argVal = await Promise.resolve(argDecorator(ctx, ...argProps));
 
         if (argVal instanceof Result) return Result.finish(ctx, argVal);
