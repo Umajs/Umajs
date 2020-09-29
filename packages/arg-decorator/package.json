@@ -1,7 +1,6 @@
 {
   "name": "@umajs/arg-decorator",
   "version": "1.0.1",
-  "private": true,
   "description": "uma arg-decorator",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
@@ -26,6 +25,10 @@
     "prebuild": "npm run lint",
     "build": "tsc",
     "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "validate": "^5.1.0",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",

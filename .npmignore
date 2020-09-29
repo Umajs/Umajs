@@ -1,7 +1,6 @@
 src
 test
 app
-packages/arg-decorator
 .vscode
 .eslintrc.js
 tsconfig.json
