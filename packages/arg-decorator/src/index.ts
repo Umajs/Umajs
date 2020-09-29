@@ -17,8 +17,9 @@ export const Query = createArgDecorator((ctx: IContext, argKey: string) => ctx.q
  * @body()  修饰完全body
  * @body('key') 修饰特定单个属性值
  * @body(['key1','key2']) 修饰多个属性，返回一个包含key1,key2属性的对象属性
+ * @body(Model) 修饰多个属性，返回一个Model对象
  */
-export const Body = createArgDecorator((ctx: IContext, argKey: string | Array<string>) => {
+export const Body = createArgDecorator((ctx: IContext, argKey: string | string[] | Function) => {
     console.assert(typeof ctx.request.body !== 'undefined',
         '@Body decorator only can be used by POST RequestMethod , Please make sure you use it correctly.');
     const body = ctx.request.body || {};
@@ -33,6 +34,16 @@ export const Body = createArgDecorator((ctx: IContext, argKey: string | Array<st
         });
 
         return bodyParms;
+    }
+
+    if (typeof argKey === 'function') {
+        const model = Reflect.construct(argKey, []);
+
+        Reflect.ownKeys(model).forEach((key) => {
+            if (body[key] !== undefined) model[key] = body[key];
+        });
+
+        return model;
     }
 
     return body;
