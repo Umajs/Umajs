@@ -5,12 +5,12 @@ import Tips from './Tips';
 /**
  * param 装饰器
  */
-export const Param = createArgDecorator((ctx: IContext, argKey: string) => ctx.param[argKey]);
+export const Param: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => ctx.param[argKey]);
 
 /**
  * query 装饰器
  */
-export const Query = createArgDecorator((ctx: IContext, argKey: string) => ctx.query[argKey]);
+export const Query: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => ctx.query[argKey]);
 
 /**
  * body 装饰器
@@ -19,7 +19,7 @@ export const Query = createArgDecorator((ctx: IContext, argKey: string) => ctx.q
  * @body(['key1','key2']) 修饰多个属性，返回一个包含key1,key2属性的对象属性
  * @body(Model) 修饰多个属性，返回一个Model对象
  */
-export const Body = createArgDecorator((ctx: IContext, argKey: string | string[] | Function) => {
+export const Body: (argKey: string | string[] | Function) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string | string[] | Function) => {
     console.assert(typeof ctx.request.body !== 'undefined',
         '@Body decorator only can be used by POST RequestMethod , Please make sure you use it correctly.');
     const body = ctx.request.body || {};

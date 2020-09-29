@@ -1,5 +1,4 @@
 import controllerInfo from '../info/controllerInfo';
-import { TParameterDecorator } from '../types/TDecorator';
 import { IContext } from '../types/IContext';
 
 /**
@@ -7,7 +6,7 @@ import { IContext } from '../types/IContext';
  * @param fn (ctx: IContext, ...argProps: any[]) => (...argProps: any[]) => TParameterDecorator
  */
 export function createArgDecorator(fn: (ctx: IContext, ...argProps: any[]) => any) {
-    return (...argProps: any[]): TParameterDecorator => (target: any, propertyKey: string, argIndex: number) => {
+    return (...argProps: any[]): ParameterDecorator => (target: any, propertyKey: string, argIndex: number) => {
         controllerInfo.setControllersInfo(target.constructor, propertyKey, {
             argDecorator: fn,
             argProps,
