@@ -12,6 +12,8 @@ export { default as Aspect } from './decorators/Aspect';
 export { Path } from './decorators/Path';
 export { Service } from './decorators/Service';
 export { Private } from './decorators/Private';
+export { UmaController } from './decorators/UmaController';
+export { UmaService } from './decorators/UmaService';
 export { Resource, Inject } from './decorators/Resource';
 export { createArgDecorator, Context, Param, Query } from './decorators/ArgDecorator';
 
