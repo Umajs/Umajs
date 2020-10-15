@@ -1,4 +1,4 @@
-import { BaseController, Inject, Result, Path, RequestMethod } from '@umajs/core';
+import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
 import { Require, ToNumber, Body ,Equals} from "@umajs/arg-decorator";
 let { isRequire } = Body;
 type user = {
@@ -9,9 +9,6 @@ type user = {
 
 @Path('/argDecorator')
 export default class Modify extends BaseController {
-    @Inject('user')
-    user: user;
-
     @Path('/query')
     index(@Require('userid') userId :string, @ToNumber('age') age:number) {
         // 测试路由@Path修饰冲突覆盖case
@@ -40,7 +37,7 @@ export default class Modify extends BaseController {
         return Result.send(`This Post body parms userid is ${userId}`);
     }
     @Path({value:'/post_argArr',method:RequestMethod.POST})
-    test5(@Body(['userid','age']) userInfo: user){
+    test5(@Body(['userid','age']) userInfo: user,@Body.Size('name',1,20) name:string){
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
 }
