@@ -79,6 +79,14 @@ const equals : (key: string|Array<string>|Function, comparison:string, tip?:stri
         return ck.equals({ tip, comparison });
     });
 
+const toArray : (key: string|Array<string>|Function, split?:string, tip?:string) =>
+ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:string, tip?:string) => {
+    const val = fn(ctx, argKey);
+    const ck = new Check(ctx, argKey, val);
+
+    return ck.toArray(tip, split);
+});
+
 const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
@@ -167,12 +175,12 @@ const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?:string
         return ck.pattern({ tip, pattern });
     });
 
-const Size : (key: string|Array<string>|Function, max:number, min:number, tip?:string) =>
-    ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, max:number, min:number, tip?:string) => {
+const Size : (key: string|Array<string>|Function, min:number, max:number, tip?:string) =>
+    ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, min:number, max:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
 
-        return ck.size(tip, max, min);
+        return ck.size(tip, min, max);
     });
 
 const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
@@ -207,6 +215,7 @@ Body.NotEmpty = notEmpty;
 Body.Equals = equals;
 Body.isBoolean = isBoolean;
 Body.ToBoolean = isBoolean;
+Body.ToArray = toArray;
 Body.ToDate = toDate;
 // @AssertFalse(id,message)
 Body.AssertFalse = AssertFalse; //  限制必须为false

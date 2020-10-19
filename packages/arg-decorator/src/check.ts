@@ -20,38 +20,43 @@ export default class Check {
      * @param tip
      */
     isRequire(tip?: string) {
+        const { val, key, ctx } = this;
+
         if (!this.val) {
-            return Tips.Require.err({ key: this.key, val: this.val, tip }); // As Require
+            return Tips.Require.err({ key, val, tip, ctx }); // As Require
         }
 
         return this.val;
     }
 
     notEmpty(tip) {
-        const valid = validator.isEmpty(this.val, { ignore_whitespace: false });
+        const { val, key, ctx } = this;
+        const valid = this.val ? validator.isEmpty(this.val, { ignore_whitespace: false }) : true;
 
         if (valid) {
-            return Tips.NotEmpty.err({ key: this.key, val: this.val, tip });
+            return Tips.NotEmpty.err({ key, val, tip, ctx });
         }
 
         return this.val;
     }
 
     notBlank(tip: string): any {
-        const valid = validator.isEmpty(this.val, { ignore_whitespace: true });
+        const { val, key, ctx } = this;
+        const valid = this.val ? validator.isEmpty(this.val, { ignore_whitespace: true }) : true;
 
         if (valid) {
-            return Tips.NotEmpty.err({ key: this.key, val: this.val, tip });
+            return Tips.NotEmpty.err({ key, val, tip, ctx });
         }
 
-        return this.val;
+        return this.val.trim();
     }
 
     equals({ comparison, tip }) {
+        const { val, key, ctx } = this;
         const valid = validator.equals(this.val, comparison);
 
         if (!valid) {
-            return Tips.Equals.err({ key: this.key, val: this.val, tip, comparison });
+            return Tips.Equals.err({ key, val, tip, ctx, comparison });
         }
 
         return this.val;
@@ -61,15 +66,40 @@ export default class Check {
         return this.toNumber(tip);
     }
 
+    toArray(tip: string, splitStr: string): any {
+        const { val, key, ctx } = this;
+
+        if (val instanceof Array) {
+            return val;
+        }
+
+        if (splitStr) {
+            return val.split(splitStr);
+        }
+
+        try {
+            const newVal = JSON.parse(val);
+
+            if (newVal instanceof Array) {
+                return newVal;
+            }
+        } catch (e) {
+            return Tips.ToArray.err({ key, val, tip, ctx, splitStr });
+        }
+
+        return Tips.ToArray.err({ key, val, tip, ctx, splitStr });
+    }
+
     /**
      * 必须为数字
      * @param tip
      */
     toNumber(tip?: string) {
+        const { val, key, ctx } = this;
         const intVal = parseInt(this.val);
 
         if (Number.isNaN(intVal)) {
-            return Tips.ToNumber.err({ key: this.key, val: this.val, tip });
+            return Tips.ToNumber.err({ key, val, tip, ctx });
         }
 
         return intVal;
@@ -94,10 +124,11 @@ export default class Check {
     }
 
     toDate(tip?: string) {
+        const { val, key, ctx } = this;
         const valid = validator.toDate(this.val);
 
         if (!valid) {
-            return Tips.toDate.err({ key: this.key, val: this.val, tip });
+            return Tips.toDate.err({ key, val, tip, ctx });
         }
 
         return this.val;
@@ -120,7 +151,7 @@ export default class Check {
     assertTrue(tip: string): any {
         const { val, key, ctx } = this;
 
-        if (['false'].indexOf(String(val)) !== -1) {
+        if (['true'].indexOf(String(val)) !== -1) {
             return (JSON.parse(val));
         }
 
@@ -172,20 +203,22 @@ export default class Check {
     }
 
     future(tip: string): any {
+        const { val, key, ctx } = this;
         const valid = validator.isAfter(this.val);
 
         if (!valid) {
-            return Tips.Future.err({ key: this.key, val: this.val, tip });
+            return Tips.Future.err({ key, val, tip, ctx });
         }
 
         return this.val;
     }
 
     past(tip: string): any {
+        const { val, key, ctx } = this;
         const valid = validator.isBefore(this.val);
 
         if (!valid) {
-            return Tips.Past.err({ key: this.key, val: this.val, tip });
+            return Tips.Past.err({ key, val, tip, ctx });
         }
 
         return this.val;
@@ -202,7 +235,7 @@ export default class Check {
         return Tips.Pattern.err({ key, val, pattern, ctx, tip });
     }
 
-    size(tip: string, max: number, min: number): any {
+    size(tip: string, min: number, max: number): any {
         const { val, key, ctx } = this;
 
         if (min < val && val < max) {
@@ -213,20 +246,22 @@ export default class Check {
     }
 
     isEmail(tip: string): any {
+        const { val, key, ctx } = this;
         const valid = validator.isEmail(this.val);
 
         if (!valid) {
-            return Tips.isEmail.err({ key: this.key, val: this.val, tip });
+            return Tips.isEmail.err({ key, val, tip, ctx });
         }
 
         return this.val;
     }
 
     isPhone(tip: string): any {
+        const { val, key, ctx } = this;
         const valid = validator.isMobilePhone(this.val);
 
         if (!valid) {
-            return Tips.isPhone.err({ key: this.key, val: this.val, tip });
+            return Tips.isPhone.err({ key, val, tip, ctx });
         }
 
         return this.val;

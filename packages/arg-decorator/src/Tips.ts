@@ -48,6 +48,11 @@ const Tips = {
             return DefualtReturn(tip || `${key} 参数必须为true或者false。入参值${val}`);
         },
     },
+    ToArray: {
+        err({ key, val, tip }:IArgErrorTip) {
+            return DefualtReturn(tip || `${key} 参数必须为数组或者字符串类型数组。入参值${val}`);
+        },
+    },
     AssertFalse: {
         err({ key, val, tip }:IArgErrorTip) {
             return DefualtReturn(tip || `${key} 参数必须为false。入参值${val}`);

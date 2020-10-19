@@ -71,6 +71,14 @@ export const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toBoolean(tip);
     });
 
+export const ToArray : (key: string|Array<string>|Function, split?:string, tip?:string) =>
+ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:string, tip?:string) => {
+    const val = fn(ctx, argKey);
+    const ck = new Check(ctx, argKey, val);
+
+    return ck.toArray(tip, split);
+});
+
 export const ToDate : (key: string|Array<string>|Function, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
@@ -151,12 +159,12 @@ export const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?
         return ck.pattern({ tip, pattern });
     });
 
-export const Size : (key: string|Array<string>|Function, max:number, min:number, tip?:string) =>
-    ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, max:number, min:number, tip?:string) => {
+export const Size : (key: string|Array<string>|Function, min:number, max:number, tip?:string) =>
+    ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, min:number, max:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
 
-        return ck.size(tip, max, min);
+        return ck.size(tip, min, max);
     });
 
 export const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
