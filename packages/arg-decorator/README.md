@@ -29,8 +29,8 @@ saveUser(@Body.Require('age') age: number){
 |修饰器| 使用说明 | 
 ---|---
 @Query(id:string) | url参数修饰器
-@Body(id:string | Function | string[]) | POST请求参数修饰器
-@Require(id: string,message?:string) | 参数修饰并做必填校验
+@Body(id?:string or Function or string[]) | POST请求参数修饰器 `@Body() body:object `  or `@Body('id') id:any` or  `@Body(['name','age']) user: {name:any,age:any}` 
+@Require(id: string,message?:string) | url参数修饰并做必填校验
 @ToNumber(id: string,message?: string) | 参数修饰并类型转换为number类型  类型转换失败则会终止函数执行并返回提示内容
 @ToBoolean(id: string,message?: string) |参数修饰并类型转换布尔类型 类型转换失败则会终止函数执行并返回提示内容
 @ToArray(id: string, split?:string ,message?: string) |参数修饰并类型转换数组 类型转换失败则会终止函数执行并返回提示内容
