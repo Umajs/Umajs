@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-views",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "umajs views, template",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
@@ -37,7 +37,7 @@
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
-    "@umajs/core": "^1.1.0",
+    "@umajs/core": "^1.1.1",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
