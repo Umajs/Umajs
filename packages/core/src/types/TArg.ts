@@ -1,7 +1,7 @@
 import { IContext } from './IContext';
 
 export type TArg = {
-    argKey: string,
-    argIndex: number,
-    argDecorator?: (data: string, ctx: IContext) => any,
+    argDecorator?: (ctx: IContext, ...props: any[]) => any,
+    argProps?: any[],
+    argIndex?: number,
 }

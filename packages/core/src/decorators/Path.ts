@@ -58,6 +58,8 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
         const [target, methodName] = props;
 
+        if (!typeHelper.isString(methodName)) return;
+
         values.forEach((p) => {
             if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
 

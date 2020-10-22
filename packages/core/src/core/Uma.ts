@@ -45,19 +45,19 @@ export default class Uma {
         process.env.NODE_ENV = this.env;
     }
 
-    config: TConfig;
-
     env: string;
 
     app: Koa<Koa.DefaultState, IContext> = null;
 
-    server: http.Server | https.Server;;
+    server: http.Server | https.Server;
 
-    routers: string[] = [];
+    callback: Function;
 
     port: number;
 
-    callback: Function;
+    routers: string[] = [];
+
+    config: TConfig;
 
     private async load() {
         this.loadConfig();
@@ -163,6 +163,9 @@ export default class Uma {
             }
         });
     }
+
+    // static property start
+    static version:string = packageInfo.version;
 
     static use(mw: Koa.Middleware<any, IContext>) {
         Uma.instance().use(mw);

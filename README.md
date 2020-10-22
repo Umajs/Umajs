@@ -12,8 +12,8 @@ Umajs 是58同城推出的一款轻量级 node web 框架。它的中文含义�
 ## 初始化项目
 
 ```
-npm install
-npm run init
+yarn install
+yarn run init
 ```
 
 ## 运行Sample

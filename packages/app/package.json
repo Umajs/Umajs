@@ -22,7 +22,9 @@
     "app": "ts-node-dev --respawn src/app.ts"
   },
   "dependencies": {
+    "@umajs/arg-decorator": "^1.0.1",
     "@umajs/core": "^1.0.1",
+    "@umajs/path": "^1.0.1",
     "@umajs/plugin-i18n": "^1.0.1",
     "@umajs/plugin-session": "^1.0.1",
     "@umajs/plugin-static": "^1.0.1",

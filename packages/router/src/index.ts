@@ -43,7 +43,7 @@ export const Router = () => {
                     ALLROUTE.push(routePath);
                 } else {
                     // 注册路由重复
-                    console.error(`${routePath} ==> ${clazzName}.${methodName} has been registered. 
+                    console.error(`${routePath} ==> ${clazzName}.${methodName} has been registered.
                     Recommended use the Path decorator to annotate the ${clazzName}.controller.ts`);
 
                     return;

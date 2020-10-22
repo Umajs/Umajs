@@ -1,16 +1,7 @@
 {
-  "comand": {
-    "publish": {
-      "ignoreChanges": [
-        "packages/arg-decorator"
-      ]
-    },
-    "bootstrap": {
-      "ignore": "arg-decorator"
-    }
-  },
   "packages": [
     "packages/*"
   ],
+  "npmClient": "yarn",
   "version": "1.0.1"
 }

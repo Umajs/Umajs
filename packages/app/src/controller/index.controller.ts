@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { BaseController, Path, Private, Param, Query, RequestMethod, Aspect, Service, Result } from '@umajs/core';
+import { Get, Post } from '@umajs/path';
 
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
@@ -32,16 +33,13 @@ export default class Index extends BaseController {
         });
     }
 
-    @Path('/reg/:name*')
+    @Get('/reg/:name*')
     @Aspect.around('test')
     reg(@AgeCheck('age') age: number, @Param('name') name: string) {
         return Result.send(`this is reg router. ${name} ${age}`);
     }
 
-    @Path({
-        value: ['/submit', '/yu/:id'],
-        method: RequestMethod.POST
-    })
+    @Post('/submit', '/yu/:id')
     submit() {
         // this.ctx.request.body
         // this.ctx.request.files

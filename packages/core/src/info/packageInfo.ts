@@ -1,2 +1,6 @@
 /* eslint-disable global-require */
-export const packageInfo: any = require('../../package.json');
+type TPackageInfo = {
+    version: string
+}
+
+export const packageInfo: TPackageInfo = require('../../package.json');
