@@ -1,26 +1,33 @@
-# @umajs/arg-decorator
-```Umajs``` 提供了 ```createArgDecorator``` 可以很方便的创建参数装饰器，并且框架还提供了如下装饰器直接使用。
+# 内置参数装饰器（ArgDecorator）
 
+`Umajs` 提供了 `createArgDecorator` 可以很方便的创建参数装饰器，并且框架还提供了如下装饰器直接使用。
 
 ## 使用
+
+> 安装 `npm install -S @umajs/arg-decorator`
+
+## 示例
+
 ```ts
+import { ToNumber, Body } from '@umajs/arg-decorator';
+
 // url参数类型修饰校验
 @Path('/saveUser')
-saveUser(@Require('age') age :number) {
+saveUser(@ToNumber('age') age :number) {
     return Result.send(`This router queryParms is ${userId} ${age}`);
 }
 
 // POST参数类型修饰校验
 @Path({value:'/post',method:RequestMethod.POST})
-saveUser(@Body.Require('age') age: number){
+saveUser(@Body.ToNumber('age') age: number){
     return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
 }
 ```
-当接口访问`localhost:port//saveUser`时，controller方法将终止执行，并默认返回客户端提示信息
+当接口访问`localhost:port//saveUser?age=str`时，controller方法将终止执行，并默认返回客户端提示信息
 ```js
 {
     "code": 0,
-    "msg": "age 参数必须为数据类型。入参值undefined"
+    "msg": "age 参数必须为数据类型。入参值str"
 }
 ```
 
@@ -72,6 +79,5 @@ export default {
         },
     },
 };
-
 
 ```
