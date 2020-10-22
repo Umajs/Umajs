@@ -104,7 +104,7 @@ export default class PluginLoader {
         ];
 
         for (const [name, config] of Object.entries(pluginConfig)) {
-            if (config === false) continue;
+            if (config === false || config.enable === false) continue;
 
             // 插件类型支持
             const { type, handler } = config;
