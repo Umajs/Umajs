@@ -16,14 +16,14 @@ export default class PluginLoader {
     static loadPluginConfig() {
         if (!Uma.config.plugin) return;
 
-        const pluginConfig: { [pluginName: string]: false | TPluginConfig } = {};
+        const pluginConfig: { [pluginName: string]: TPluginConfig } = {};
 
         for (const [name, config] of Object.entries(Uma.config.plugin)) {
             if (typeHelper.isBoolean(config)) {
-                pluginConfig[name] = config ? {
+                pluginConfig[name] = {
                     name,
-                    enable: true,
-                } : false;
+                    enable: config,
+                };
             } else {
                 pluginConfig[name] = config;
             }
@@ -104,7 +104,7 @@ export default class PluginLoader {
         ];
 
         for (const [name, config] of Object.entries(pluginConfig)) {
-            if (config === false || config.enable === false) continue;
+            if (config.enable === false) continue;
 
             // 插件类型支持
             const { type, handler } = config;
