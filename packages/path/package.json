@@ -1,6 +1,6 @@
 {
   "name": "@umajs/path",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "umajs status",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "ISC",
@@ -33,7 +33,7 @@
     "@types/node": "^10.12.15",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
-    "@umajs/core": "^1.1.1",
+    "@umajs/core": "^1.1.2",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
