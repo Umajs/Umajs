@@ -31,7 +31,7 @@ export type viewsOptions = {
 
 export default (uma: Uma, options: viewsOptions = {}): TPlugin => {
     const { root = './views', opts = {} } = options;
-    const render = views(root, opts);
+    const render = views(root, opts)(null, null);
 
     return {
         context: {

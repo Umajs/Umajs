@@ -1,8 +1,44 @@
-import * as Koa from 'koa';
+import Uma, { TPlugin } from '@umajs/core';
 import * as views from 'koa-views';
 
-import { Uma } from '@umajs/core';
+type TKoaViewsOptions = {
+    /*
+    * autoRender the result into ctx.body, defaults to true
+    */
+    autoRender?: boolean,
+    /*
+    * default extension for your views
+    */
+    extension?: string,
+    /*
+    * these options will get passed to the view engine
+    */
+    options?: any,
+    /*
+    * map a file extension to an engine
+    */
+    map?: any,
+    /*
+    * replace consolidate as default engine source
+    */
+    engineSource?: any,
+}
 
-export default (uma: Uma, options: any = {}): Koa.Middleware => {
-    return views(options.root, options.opts);
+export type viewsOptions = {
+    root?: string,
+    opts?: TKoaViewsOptions,
+}
+
+export default (uma: Uma, options: viewsOptions = {}): TPlugin => {
+    const { root = './views', opts = {} } = options;
+    const render = views(root, opts)(null, null);
+
+    return {
+        context: {
+            render,
+        },
+        response: {
+            render,
+        },
+    };
 };
