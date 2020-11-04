@@ -53,7 +53,7 @@ export default class Check {
 
     equals({ comparison, tip }) {
         const { val, key, ctx } = this;
-        const valid = validator.equals(this.val, comparison);
+        const valid = validator.equals(this.val.toString(), comparison);
 
         if (!valid) {
             return Tips.Equals.err({ key, val, tip, ctx, comparison });
@@ -116,8 +116,8 @@ export default class Check {
             return val;
         }
 
-        if (['true', 'false'].indexOf(String(val)) !== -1) {
-            return (JSON.parse(val));
+        if (['true', 'false', '0', '1'].indexOf(String(val)) !== -1) {
+            return !!(JSON.parse(val));
         }
 
         return Tips.ToBoolean.err({ key, val, ctx, tip });
@@ -125,9 +125,14 @@ export default class Check {
 
     toDate(tip?: string) {
         const { val, key, ctx } = this;
-        const valid = validator.toDate(this.val);
 
-        if (!valid) {
+        try {
+            const valid = validator.toDate(this.val);
+
+            if (!valid) {
+                return Tips.toDate.err({ key, val, tip, ctx });
+            }
+        } catch (error) {
             return Tips.toDate.err({ key, val, tip, ctx });
         }
 
@@ -204,10 +209,17 @@ export default class Check {
 
     future(tip: string): any {
         const { val, key, ctx } = this;
-        const valid = validator.isAfter(this.val);
 
-        if (!valid) {
-            return Tips.Future.err({ key, val, tip, ctx });
+        try {
+            const valid = validator.isAfter(this.val);
+
+            if (!valid) {
+                return Tips.Future.err({ key, val, tip, ctx });
+            }
+        } catch (error) {
+            console.log(error);
+
+            return Tips.Future.err({ key, val, error, ctx });
         }
 
         return this.val;

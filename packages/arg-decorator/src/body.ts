@@ -47,7 +47,7 @@ export const Body: TbodyDecorator = createArgDecorator(fn);
  * @Body.isRequire([key1,key2],tip)
  * @Body.isRequire(Model,tip)
  */
-const isRequire : (key: string|Array<string>|Function, tip?:string) =>
+const isRequire : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -55,7 +55,7 @@ const isRequire : (key: string|Array<string>|Function, tip?:string) =>
         return ck.isRequire(tip);
     });
 
-const toNumber : (key: string|Array<string>|Function, tip?:string) =>
+const toNumber : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -63,7 +63,7 @@ const toNumber : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toNumber(tip);
     });
 
-const notEmpty : (key: string|Array<string>|Function, tip?:string) =>
+const notEmpty : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -71,7 +71,7 @@ const notEmpty : (key: string|Array<string>|Function, tip?:string) =>
         return ck.notEmpty(tip);
     });
 
-const equals : (key: string|Array<string>|Function, comparison:string, tip?:string) =>
+const equals : (key: string, comparison:string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, comparison:string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -79,7 +79,7 @@ const equals : (key: string|Array<string>|Function, comparison:string, tip?:stri
         return ck.equals({ tip, comparison });
     });
 
-const toArray : (key: string|Array<string>|Function, split?:string, tip?:string) =>
+const toArray : (key: string, split?:string, tip?:string) =>
 ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:string, tip?:string) => {
     const val = fn(ctx, argKey);
     const ck = new Check(ctx, argKey, val);
@@ -87,7 +87,7 @@ ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:s
     return ck.toArray(tip, split);
 });
 
-const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
+const isBoolean : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -95,7 +95,7 @@ const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toBoolean(tip);
     });
 
-const toDate : (key: string|Array<string>|Function, tip?:string) =>
+const toDate : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -103,7 +103,7 @@ const toDate : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toDate(tip);
     });
 
-const AssertFalse : (key: string|Array<string>|Function, tip?:string) =>
+const AssertFalse : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -111,7 +111,7 @@ const AssertFalse : (key: string|Array<string>|Function, tip?:string) =>
         return ck.assertFalse(tip);
     });
 
-const AssertTrue : (key: string|Array<string>|Function, tip?:string) =>
+const AssertTrue : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -119,7 +119,7 @@ const AssertTrue : (key: string|Array<string>|Function, tip?:string) =>
         return ck.assertTrue(tip);
     });
 
-const DecimalMax : (key: string|Array<string>|Function, value:number, tip?:string) =>
+const DecimalMax : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value: number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -127,7 +127,7 @@ const DecimalMax : (key: string|Array<string>|Function, value:number, tip?:strin
         return ck.decimalMax({ tip, value });
     });
 
-const DecimalMin : (key: string|Array<string>|Function, value:number, tip?:string) =>
+const DecimalMin : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -135,7 +135,7 @@ const DecimalMin : (key: string|Array<string>|Function, value:number, tip?:strin
         return ck.decimalMin({ tip, value });
     });
 
-const Max : (key: string|Array<string>|Function, value:number, tip?:string) =>
+const Max : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -143,7 +143,7 @@ const Max : (key: string|Array<string>|Function, value:number, tip?:string) =>
         return ck.max({ tip, value });
     });
 
-const Min : (key: string|Array<string>|Function, value:number, tip?:string) =>
+const Min : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -151,7 +151,7 @@ const Min : (key: string|Array<string>|Function, value:number, tip?:string) =>
         return ck.min({ tip, value });
     });
 
-const Future : (key: string|Array<string>|Function, tip?:string) =>
+const Future : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -159,7 +159,7 @@ const Future : (key: string|Array<string>|Function, tip?:string) =>
         return ck.future(tip);
     });
 
-const Past : (key: string|Array<string>|Function, tip?:string) =>
+const Past : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -167,7 +167,7 @@ const Past : (key: string|Array<string>|Function, tip?:string) =>
         return ck.past(tip);
     });
 
-const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?:string) =>
+const Pattern : (key: string, pattern:RegExp, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, pattern:RegExp, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -175,7 +175,7 @@ const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?:string
         return ck.pattern({ tip, pattern });
     });
 
-const Size : (key: string|Array<string>|Function, min:number, max:number, tip?:string) =>
+const Size : (key: string, min:number, max:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, min:number, max:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -183,7 +183,7 @@ const Size : (key: string|Array<string>|Function, min:number, max:number, tip?:s
         return ck.size(tip, min, max);
     });
 
-const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
+const NotBlank : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -191,7 +191,7 @@ const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
         return ck.notBlank(tip);
     });
 
-const Email : (key: string|Array<string>|Function, tip?:string) =>
+const Email : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -199,7 +199,7 @@ const Email : (key: string|Array<string>|Function, tip?:string) =>
         return ck.isEmail(tip);
     });
 
-const Phone : (key: string|Array<string>|Function, tip?:string) =>
+const Phone : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
