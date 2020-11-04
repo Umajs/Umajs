@@ -31,7 +31,7 @@ export const Router = () => {
 
         // 主要是对被@Path修饰过的路由进行处理
         for (const m of methodMap.values()) {
-            const { name: methodName = '', path: methodPath = [] } = m;
+            const { name: methodName = '', path: methodPath = [], methodTypes = [] } = m;
             const pathInfo: TPathInfo = { methodName, ...c };
 
             methodPath.forEach((p) => {
@@ -39,7 +39,7 @@ export const Router = () => {
                 const routePath = rootPath + p;
 
                 if (!ALLROUTE.includes(String(routePath))) {
-                    console.log(`${routePath} ==> ${clazzName}.${methodName}`);
+                    console.log(`${methodTypes.join()}:${routePath} ==> ${clazzName}.${methodName}`);
                     ALLROUTE.push(routePath);
                 } else {
                     // 注册路由重复

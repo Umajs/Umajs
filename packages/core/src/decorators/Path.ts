@@ -4,6 +4,7 @@ import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
 import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
 import { TPathObjArgs } from '../types/TPathArgs';
+import { RequestMethod } from '../types/RequestMethod';
 
 /**
  * 路由装饰器
@@ -54,6 +55,8 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
         // if config is string
         if (args.length > 1 || typeHelper.isString(arg0)) {
             values.push(...args);
+            // When a string is received, the default is get request
+            methodType.push(RequestMethod.GET);
         }
 
         const [target, methodName] = props;

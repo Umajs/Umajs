@@ -31,4 +31,15 @@ export default class Index extends BaseController {
     onlyGet() {
         return Result.send('this method only can post');
     }
+
+    @Path('/get')
+    @Path({value:'/post', method:RequestMethod.POST})
+    getOrPost(){
+        return Result.send(`Methods can be accessed by both get and post requests`);
+    }
+    
+    @Path({value:'/getAndPost', method:[RequestMethod.POST, RequestMethod.GET]})
+    getAndPost(){
+        return Result.send(`Methods can be accessed by both get and post requests`);
+    }
 }

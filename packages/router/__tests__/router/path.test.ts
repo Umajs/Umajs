@@ -1,4 +1,4 @@
-import { start, stop, send } from '../__fixtures__/app/app';
+import { start, stop, send, post } from '../__fixtures__/app/app';
 
 describe('test default && @Path && @Private', () => {
     beforeAll(async () => {
@@ -23,6 +23,17 @@ describe('test default && @Path && @Private', () => {
     it('only method @path: static router ===> index.test ===> /static/test', async () => {
         const stat = await send('/static/test');
         expect(stat.text).toEqual('this is static router');
+    });
+
+    it('both get and post requests @path: router ===> index.getAndPost ===> /getAndPost', async () => {
+        const stat = await send('/getAndPost');
+        const statPost = await post('/getAndPost');
+        expect(stat.text).toEqual(statPost.text);
+    });
+    it('both get and post requests @path: router ===> index.getOrPost ===> /get or /post', async () => {
+        const stat = await send('/get');
+        const statPost = await post('/post');
+        expect(stat.text).toEqual(statPost.text);
     });
 
     it('only method @path: method cannot find in default ===> index.reg ===> /index/reg', async () => {
