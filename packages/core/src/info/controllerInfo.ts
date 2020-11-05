@@ -56,7 +56,12 @@ function setControllersInfo(clazz: Function, methodName: string, info: THelper =
         }
 
         if (methodTypes.length > 0) {
-            pathObj.methodTypes = methodTypes;
+            if (path) {
+                pathObj.methodTypes = methodTypes;
+            } else {
+                const { methodTypes: mts = [] } = methodInfo;
+                methodInfo.methodTypes = [...mts, ...methodTypes];
+            }
         }
 
         if (Reflect.ownKeys(pathObj).length > 0) {

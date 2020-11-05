@@ -48,13 +48,9 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     if (!methodInfo) return clazzInfo;
 
-    const { paths } = methodInfo;
+    const { methodTypes = [] } = methodInfo;
 
-    for (const { methodTypes } of paths) {
-        if (!methodTypes || methodTypes.length === 0) return clazzInfo;
-
-        if (methodTypes.indexOf(methodType) > -1) return clazzInfo;
-    }
+    if (methodTypes.length === 0 || methodTypes.indexOf(methodType) > -1) return clazzInfo;
 
     return null;
 }

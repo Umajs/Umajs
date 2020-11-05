@@ -10,4 +10,5 @@ export type TMethodInfo = {
     paths?: Array<TPath>;
     args?: TArg[];
     inside?: boolean; // 是否私有
+    methodTypes?: string[]; // 默认路由 method
 }
