@@ -7,7 +7,7 @@ import { ClazzMap, RegexpRouterMap } from './router';
  * @param reqPath 请求地址
  */
 export function MatchRegexp(reqPath: string) {
-    for (const [reg, { name: clazzName, methodName, keys }] of RegexpRouterMap) {
+    for (const [reg, { name: clazzName, methodName, keys, methodTypes }] of RegexpRouterMap) {
         const result = reg.exec(reqPath);
 
         if (result) {
@@ -19,7 +19,7 @@ export function MatchRegexp(reqPath: string) {
                 params[k.name] = paramArr[i];
             });
 
-            return { clazzName, methodName, params };
+            return { clazzName, methodName, params, methodTypes };
         }
     }
 
@@ -48,9 +48,13 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     if (!methodInfo) return clazzInfo;
 
-    const { methodTypes } = methodInfo;
+    const { paths } = methodInfo;
 
-    if (!methodTypes || methodTypes.length === 0) return clazzInfo;
+    for (const { methodTypes } of paths) {
+        if (!methodTypes || methodTypes.length === 0) return clazzInfo;
 
-    return methodTypes.indexOf(methodType) > -1 ? clazzInfo : null;
+        if (methodTypes.indexOf(methodType) > -1) return clazzInfo;
+    }
+
+    return null;
 }

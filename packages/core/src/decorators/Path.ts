@@ -4,7 +4,6 @@ import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
 import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
 import { TPathObjArgs } from '../types/TPathArgs';
-import { RequestMethod } from '../types/RequestMethod';
 
 /**
  * 路由装饰器
@@ -37,7 +36,7 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
         }
 
         const values = [];
-        const methodType = [];
+        const methodTypes = [];
 
         // when @Path decorate method
         // if config is object, only receive one Object as a parameter
@@ -49,14 +48,12 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
             const { value = [], method = [] } = arg0;
 
             values.push(...flat([value]));
-            methodType.push(...flat([method]));
+            methodTypes.push(...flat([method]));
         }
 
         // if config is string
         if (args.length > 1 || typeHelper.isString(arg0)) {
             values.push(...args);
-            // When a string is received, the default is get request
-            methodType.push(RequestMethod.GET);
         }
 
         const [target, methodName] = props;
@@ -66,11 +63,7 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
         values.forEach((p) => {
             if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
 
-            controllerInfo.setControllersInfo(target.constructor, methodName, { mpath: p });
-        });
-
-        methodType.forEach((m) => {
-            controllerInfo.setControllersInfo(target.constructor, methodName, { methodType: m });
+            controllerInfo.setControllersInfo(target.constructor, methodName, { path: p, methodTypes });
         });
     };
 }

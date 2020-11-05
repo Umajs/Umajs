@@ -1,5 +1,5 @@
 import { TControllerInfo } from '../types/TControllerInfo';
-import { TMethodInfo } from '../types/TMethodInfo';
+import { TMethodInfo, TPath } from '../types/TMethodInfo';
 import { THelper } from '../types/THelper';
 
 const ControllerMap: Map<Function, TControllerInfo> = new Map();
@@ -21,7 +21,7 @@ function setControllersInfo(clazz: Function, methodName: string, info: THelper =
      * methodType: controller method visit method type get|post...
      * inside: controller method is private
      */
-    const { clazzName, rootPath, mpath, methodType, inside, argProps, argIndex, argDecorator } = info;
+    const { clazzName, rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
 
     // De-weighting according to clazzName( for reload )
     if (clazzName) {
@@ -39,36 +39,36 @@ function setControllersInfo(clazz: Function, methodName: string, info: THelper =
     if (rootPath) clazzInfo.path = rootPath;
 
     if (methodName) {
-        const { methodMap = new Map() } = clazzInfo;
-        const methodInfo: TMethodInfo = methodMap.get(methodName) || {};
-
-        const {
-            path: methodPath = [],
-            methodTypes = [],
-            args = [],
-        } = methodInfo;
+        const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
+        const methodInfo: TMethodInfo = methodMap.get(methodName) || {
+            args: [],
+            paths: [],
+        };
 
         methodInfo.name = methodName;
 
         methodInfo.inside = inside !== undefined ? inside : methodInfo.inside;
 
-        if (mpath) {
-            methodPath.push(mpath);
-            methodInfo.path = methodPath;
+        const pathObj: TPath = {};
+
+        if (path) {
+            pathObj.path = path;
         }
 
-        if (methodType) {
-            methodTypes.push(methodType);
-            methodInfo.methodTypes = methodTypes;
+        if (methodTypes.length > 0) {
+            pathObj.methodTypes = methodTypes;
+        }
+
+        if (Reflect.ownKeys(pathObj).length > 0) {
+            methodInfo.paths.push(pathObj);
         }
 
         if (argDecorator) {
-            args.push({
+            methodInfo.args.push({
                 argDecorator,
                 argProps,
                 argIndex,
             });
-            methodInfo.args = args;
         }
 
         methodMap.set(methodName, methodInfo);

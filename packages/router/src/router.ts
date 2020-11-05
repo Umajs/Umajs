@@ -18,7 +18,7 @@ export default async function Router(ctx: IContext, next: Function) {
     // 先匹配静态路由(routerPath + methodPath)，地址和静态路由完全匹配时
     const staticResult = StaticRouterMap.get(reqPath);
 
-    if (staticResult) {
+    if (staticResult && (!staticResult.methodTypes || staticResult.methodTypes.indexOf(methodType) > -1)) {
         const { name: clazzName, methodName } = staticResult;
 
         return await callMethod(clazzName, methodName, {}, ctx, next, methodType);
@@ -27,7 +27,7 @@ export default async function Router(ctx: IContext, next: Function) {
     // 静态路由没有匹配项后匹配正则路由(routerPath + methodPath)
     const regexpResult = MatchRegexp(reqPath);
 
-    if (regexpResult) {
+    if (regexpResult && (!regexpResult.methodTypes || regexpResult.methodTypes.indexOf(methodType) > -1)) {
         const { clazzName, methodName, params = {} } = regexpResult;
 
         return await callMethod(clazzName, methodName, params, ctx, next, methodType);
