@@ -1,8 +1,14 @@
 import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@umajs/core';
 
+@Path()
 export default class Index extends BaseController {
+    @Path()
     index() {
         return Result.send('this is index router');
+    }
+
+    default(){
+        return Result.send('this is default router');
     }
 
     @Path('/reg/:name')
@@ -26,9 +32,10 @@ export default class Index extends BaseController {
     }
 
     @Path({
+        value:"/onlyPost",
         method: RequestMethod.POST
     })
-    onlyGet() {
+    onlyPost() {
         return Result.send('this method only can post');
     }
 

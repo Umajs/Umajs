@@ -7,6 +7,7 @@ import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
 import UserService from '../service/user.service';
 
+@Path()
 export default class Index extends BaseController {
 
     @Service(TestService)

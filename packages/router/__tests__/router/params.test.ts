@@ -14,4 +14,9 @@ describe('test @Param && @Query', () => {
         const index = await send('/home/username?title=hello');
         expect(index.text).toEqual('name=username, title=hello');
     });
+
+    it('params & query: get endWith("/") ===> index.params ===> /home/:name?title=xx', async () => {
+        const index = await send('/home/username/?title=hello');
+        expect(index.text).toEqual('name=username, title=hello');
+    });
 });

@@ -1,7 +1,7 @@
 import { Result, TControllerInfo, IContext, TMethodInfo } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
-import { MatchRegexp, getClazzInfo } from './helper';
+import { MatchRegexp, getClazzInfo, stripEndSlash } from './helper';
 
 export const StaticRouterMap: Map<String, TPathInfo> = new Map();
 export const RegexpRouterMap: Map<RegExp, TPathInfo> = new Map();
@@ -16,7 +16,7 @@ export default async function Router(ctx: IContext, next: Function) {
     const { path: reqPath, method: methodType } = ctx.request;
 
     // 先匹配静态路由(routerPath + methodPath)，地址和静态路由完全匹配时
-    const staticResult = StaticRouterMap.get(reqPath);
+    const staticResult = StaticRouterMap.get(stripEndSlash(reqPath));
 
     if (staticResult && (!staticResult.methodTypes || staticResult.methodTypes.indexOf(methodType) > -1)) {
         const { name: clazzName, methodName } = staticResult;
@@ -48,7 +48,7 @@ export default async function Router(ctx: IContext, next: Function) {
     // 未获取到，返回
     if (!routeInfo) return next();
 
-    const { clazz, methodMap = new Map() } = routeInfo;
+    const { clazz, methodMap } = routeInfo;
 
     // controller must be have method and not configuration path
     const methodInfo = methodMap.get(methodName);
@@ -57,7 +57,7 @@ export default async function Router(ctx: IContext, next: Function) {
     if (!~Reflect.ownKeys(clazz.prototype).indexOf(methodName)) return next();
 
     // if is inside or has path decorator, return
-    if (methodInfo && (methodInfo.inside || (methodInfo.path && methodInfo.path.length))) return next();
+    if (methodInfo && (methodInfo.inside || (methodInfo.paths && methodInfo.paths.length))) return next();
 
     return await callMethod(clazzName, methodName, {}, ctx, next, methodType);
 }

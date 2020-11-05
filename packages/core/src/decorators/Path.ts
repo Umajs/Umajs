@@ -20,11 +20,13 @@ import { TPathObjArgs } from '../types/TPathArgs';
  */
 export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
     return function Method(...props: TMethodDecoratorParams | TClassDecoratorParams) {
-        const [arg0] = args;
+        // when @Path() defualt '/'
+        const pathArgs = args.length !== 0 ? args : ['/'];
+        const [arg0] = pathArgs;
 
         // when @Path decorate class
         if (props.length === 1) {
-            if (args.length > 1) {
+            if (pathArgs.length > 1) {
                 throw new Error('@Path only receivew one (string) parameter when decorate class');
             }
 
@@ -41,19 +43,19 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
         // when @Path decorate method
         // if config is object, only receive one Object as a parameter
         if (typeHelper.isObject(arg0)) {
-            if (args.length > 1) {
+            if (pathArgs.length > 1) {
                 throw new Error('@Path only receive one Object as a parameter');
             }
 
-            const { value = [], method = [] } = arg0;
+            const { value = ['/'], method = [] } = arg0;
 
             values.push(...flat([value]));
             methodTypes.push(...flat([method]));
         }
 
         // if config is string
-        if (args.length > 1 || typeHelper.isString(arg0)) {
-            values.push(...args);
+        if (pathArgs.length > 1 || typeHelper.isString(arg0)) {
+            values.push(...pathArgs);
         }
 
         const [target, methodName] = props;

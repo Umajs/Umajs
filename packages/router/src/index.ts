@@ -3,6 +3,7 @@ import Uma, { TMethodInfo } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import router, { StaticRouterMap, RegexpRouterMap, ClazzMap } from './router';
+import { stripEndSlash } from './helper';
 
 export const Router = () => {
     console.log('======Init router start======');
@@ -38,7 +39,7 @@ export const Router = () => {
                 if (!p) return;
 
                 // 路由访问地址为class中的Path修饰地址 + method的Path修饰地址
-                const routePath = rootPath + p;
+                const routePath = stripEndSlash(rootPath) + p;
 
                 if (!ALLROUTE.includes(String(routePath))) {
                     console.log(`[${methodTypes ? methodTypes.join() : 'ALL'}]:${routePath} ==> ${clazzName}.${methodName}`);
@@ -58,7 +59,7 @@ export const Router = () => {
 
                     RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath, methodTypes });
                 } else {
-                    StaticRouterMap.set(routePath, { ...pathInfo, methodTypes });
+                    StaticRouterMap.set(stripEndSlash(routePath), { ...pathInfo, methodTypes });
                 }
             });
         }

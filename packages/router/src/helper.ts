@@ -60,3 +60,7 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     return clazzInfo;
 }
+
+export function stripEndSlash(str: string) {
+    return str.endsWith('/') ? str.slice(0, str.length - 1) : str;
+}

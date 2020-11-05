@@ -11,12 +11,12 @@ describe('test @RequestMethod', () => {
     });
 
     it('only post @requestMethod: do post ===> index.onlyGet ===> /index/onlyGet', async () => {
-        const index = await post('/index/onlyGet');
+        const index = await post('/onlyPost');
         expect(index.text).toEqual('this method only can post');
     });
 
     it('only post @requestMethod: do get ===> index.onlyGet ===> /index/onlyGet', async () => {
-        const index = await send('/index/onlyGet');
+        const index = await send('/onlyPost');
         expect(index.text).toEqual('Not Found');
     });
 });

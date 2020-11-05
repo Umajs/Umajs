@@ -7,10 +7,17 @@ type user = {
 }
 
 
-@Path('/argDecorator')
+@Path('/argDecorator/')
 export default class Modify extends BaseController {
+    @Path({
+        method: RequestMethod.GET
+    })
+    home() {
+        return Result.send('this method only can post');
+    }
+
     @Path('/query')
-    index(@Require('userid') userId :string, @ToNumber('age') age:number) {
+    query(@Require('userid') userId :string, @ToNumber('age') age:number) {
         // 测试路由@Path修饰冲突覆盖case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
