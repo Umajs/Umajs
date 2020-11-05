@@ -8,9 +8,9 @@ export type IArgErrorTip = {
     [key:string]:any
 }
 
-export type IBaseDecorator = (key?: string|Array<string>|Function,) => ParameterDecorator;
+export type IBaseDecorator = (key?: string | Array<string> | Function,) => ParameterDecorator;
 
-export type IBaseCheck = (key: string|Array<string>|Function, tip?:string) => ParameterDecorator
+export type IBaseCheck = (key: string, tip?:string) => ParameterDecorator
 
 export type IEqualsCheck = (key: string, comparison:string|number|any, tip?:string) => ParameterDecorator
 
@@ -21,24 +21,24 @@ interface IBody {
     isNumber?: IBaseCheck,
     ToNumber?: IBaseCheck,
     ToBoolean?: IBaseCheck,
-    ToArray?: (key: string | Function | string[], split?:string, tip?: string) => ParameterDecorator;
-    ToDate?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
+    ToArray?: (key: string, split?:string, tip?: string) => ParameterDecorator;
+    ToDate?: (key: string, tip?: string) => ParameterDecorator;
 }
 
 export interface TbodyDecorator extends IBody, IBaseDecorator {
     Equals?: IEqualsCheck,
-    DecimalMax?: (key: string | Function | string[], value: number, tip?: string) => ParameterDecorator;
-    DecimalMin?: (key: string | Function | string[], value: number, tip?: string) => ParameterDecorator;
-    Max?: (key: string | Function | string[], value: number, tip?: string) => ParameterDecorator;
-    Min?: (key: string | Function | string[], value: number, tip?: string) => ParameterDecorator;
-    Future?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
-    Past?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
-    Pattern?: (key: string | Function | string[], pattern: RegExp, tip?: string) => ParameterDecorator;
-    Size?: (key: string | Function | string[], min: number, max: number, tip?: string) => ParameterDecorator;
+    DecimalMax?: (key: string, value: number, tip?: string) => ParameterDecorator;
+    DecimalMin?: (key: string, value: number, tip?: string) => ParameterDecorator;
+    Max?: (key: string, value: number, tip?: string) => ParameterDecorator;
+    Min?: (key: string, value: number, tip?: string) => ParameterDecorator;
+    Future?: (key: string, tip?: string) => ParameterDecorator;
+    Past?: (key: string, tip?: string) => ParameterDecorator;
+    Pattern?: (key: string, pattern: RegExp, tip?: string) => ParameterDecorator;
+    Size?: (key: string, min: number, max: number, tip?: string) => ParameterDecorator;
     NotEmpty?: IBaseCheck,
-    NotBlank?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
-    Email?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
-    Phone?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
-    AssertTrue?: (key: string | Function | string[], tip?: string) => ParameterDecorator;
+    NotBlank?: (key: string, tip?: string) => ParameterDecorator;
+    Email?: (key: string, tip?: string) => ParameterDecorator;
+    Phone?: (key: string, tip?: string) => ParameterDecorator;
+    AssertTrue?: (key: string, tip?: string) => ParameterDecorator;
     AssertFalse?: IBaseCheck;
 }

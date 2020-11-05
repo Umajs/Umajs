@@ -14,9 +14,9 @@ export const Router = () => {
     StaticRouterMap.clear();
 
     // go through contollerInfo，and init each router map
-    for (const c of Uma.controllersInfo) {
-        const { name: clazzName, path: rootPath = '', clazz } = c;
-        const methodMap: Map<string, TMethodInfo> = c.methodMap || new Map();
+    for (const controllerInfo of Uma.controllersInfo) {
+        const { name: clazzName, path: rootPath = '', clazz } = controllerInfo;
+        const methodMap: Map<string, TMethodInfo> = controllerInfo.methodMap || new Map();
 
         const decoratorMethodNameArr: string[] = [...methodMap.values()].map((m) => m.name);
         const methodNameArr: (string | number | symbol)[] = Reflect.ownKeys(clazz.prototype)
@@ -30,16 +30,18 @@ export const Router = () => {
         });
 
         // 主要是对被@Path修饰过的路由进行处理
-        for (const m of methodMap.values()) {
-            const { name: methodName = '', path: methodPath = [] } = m;
-            const pathInfo: TPathInfo = { methodName, ...c };
+        for (const [methodName, methodInfo] of methodMap) {
+            const { paths } = methodInfo;
+            const pathInfo: TPathInfo = { methodName, ...controllerInfo };
 
-            methodPath.forEach((p) => {
+            paths.forEach(({ path: p, methodTypes }) => {
+                if (!p) return;
+
                 // 路由访问地址为class中的Path修饰地址 + method的Path修饰地址
                 const routePath = rootPath + p;
 
                 if (!ALLROUTE.includes(String(routePath))) {
-                    console.log(`${routePath} ==> ${clazzName}.${methodName}`);
+                    console.log(`[${methodTypes ? methodTypes.join() : 'ALL'}]:${routePath} ==> ${clazzName}.${methodName}`);
                     ALLROUTE.push(routePath);
                 } else {
                     // 注册路由重复
@@ -54,15 +56,15 @@ export const Router = () => {
                     const keys: pathToRegexp.Key[] = [];
                     const pathReg = pathToRegexp(routePath, keys);
 
-                    RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath });
+                    RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath, methodTypes });
                 } else {
-                    StaticRouterMap.set(routePath, pathInfo);
+                    StaticRouterMap.set(routePath, { ...pathInfo, methodTypes });
                 }
             });
         }
 
         // 保存所有的clazz信息到ClazzMap中
-        ClazzMap.set(clazzName, c);
+        ClazzMap.set(clazzName, controllerInfo);
     }
 
     console.log('======Init router end======');

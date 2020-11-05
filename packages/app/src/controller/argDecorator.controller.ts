@@ -19,7 +19,7 @@ export default class Modify extends BaseController {
         // 测试路由@Path修饰冲突覆盖case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
-    @Path('/get')  // 待解决bugs：接口同时提供get 和post时 get请求404 
+    @Path('/get')
     @Path({value:'/post',method:RequestMethod.POST})
     test2(@Body.isRequire('age','年龄为空') userInfo: user){
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);

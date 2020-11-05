@@ -7,7 +7,7 @@ import { ClazzMap, RegexpRouterMap } from './router';
  * @param reqPath 请求地址
  */
 export function MatchRegexp(reqPath: string) {
-    for (const [reg, { name: clazzName, methodName, keys }] of RegexpRouterMap) {
+    for (const [reg, { name: clazzName, methodName, keys, methodTypes }] of RegexpRouterMap) {
         const result = reg.exec(reqPath);
 
         if (result) {
@@ -19,7 +19,7 @@ export function MatchRegexp(reqPath: string) {
                 params[k.name] = paramArr[i];
             });
 
-            return { clazzName, methodName, params };
+            return { clazzName, methodName, params, methodTypes };
         }
     }
 
@@ -48,9 +48,15 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     if (!methodInfo) return clazzInfo;
 
-    const { methodTypes } = methodInfo;
+    // 调用默认路由判断 method
+    if (methodType) {
+        const { paths = [], methodTypes = [] } = methodInfo;
 
-    if (!methodTypes || methodTypes.length === 0) return clazzInfo;
+        // 有路由装饰器时不能走默认路由
+        if (paths.length > 0) return null;
 
-    return methodTypes.indexOf(methodType) > -1 ? clazzInfo : null;
+        return (methodTypes.length === 0 || methodTypes.indexOf(methodType) > -1) ? clazzInfo : null;
+    }
+
+    return clazzInfo;
 }

@@ -6,10 +6,11 @@
     "commit": "npx git-cz",
     "test:core": "jest ./packages/core/__tests__ --runInBand",
     "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
+    "test:arg": "jest ./packages/arg-decorator/__tests__ --runInBand --forceExit",
     "test:i18n": "jest ./packages/plugin-i18n/__tests__ --runInBand --forceExit",
     "test:session": "jest ./packages/plugin-session/__tests__ --runInBand --forceExit",
-    "test": "npm run test:core && npm run test:router && npm run test:i18n && npm run test:session",
-    "prepublish": "npm test && lerna run lint && lerna run build",
+    "test": "npm run test:core && npm run test:router && npm run test:i18n && npm run test:session && npm run test:arg",
+    "prepublish": "npm run test && lerna run lint && lerna run build",
     "publish": "lerna publish",
     "postinstall": "npx checker-init",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"

@@ -44,7 +44,7 @@ export const Equals: (key: string, comparison:string|number|any, tip?: string) =
         return ck.equals({ tip, comparison });
     });
 
-export const ToNumber : (key: string|Array<string>|Function, tip?:string) =>
+export const ToNumber : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -55,7 +55,7 @@ export const ToNumber : (key: string|Array<string>|Function, tip?:string) =>
 export const isNumber = ToNumber;
 export const isRequire = Require;
 
-export const NotEmpty : (key: string|Array<string>|Function, tip?:string) =>
+export const NotEmpty : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -63,7 +63,7 @@ export const NotEmpty : (key: string|Array<string>|Function, tip?:string) =>
         return ck.notEmpty(tip);
     });
 
-export const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
+export const isBoolean : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -71,7 +71,7 @@ export const isBoolean : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toBoolean(tip);
     });
 
-export const ToArray : (key: string|Array<string>|Function, split?:string, tip?:string) =>
+export const ToArray : (key: string, split?:string, tip?:string) =>
 ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:string, tip?:string) => {
     const val = fn(ctx, argKey);
     const ck = new Check(ctx, argKey, val);
@@ -79,7 +79,7 @@ ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, split?:s
     return ck.toArray(tip, split);
 });
 
-export const ToDate : (key: string|Array<string>|Function, tip?:string) =>
+export const ToDate : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -87,7 +87,7 @@ export const ToDate : (key: string|Array<string>|Function, tip?:string) =>
         return ck.toDate(tip);
     });
 
-export const AssertFalse : (key: string|Array<string>|Function, tip?:string) =>
+export const AssertFalse : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -95,7 +95,7 @@ export const AssertFalse : (key: string|Array<string>|Function, tip?:string) =>
         return ck.assertFalse(tip);
     });
 
-export const AssertTrue : (key: string|Array<string>|Function, tip?:string) =>
+export const AssertTrue : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -103,7 +103,7 @@ export const AssertTrue : (key: string|Array<string>|Function, tip?:string) =>
         return ck.assertTrue(tip);
     });
 
-export const DecimalMax : (key: string|Array<string>|Function, value:number, tip?:string) =>
+export const DecimalMax : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value: number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -111,7 +111,7 @@ export const DecimalMax : (key: string|Array<string>|Function, value:number, tip
         return ck.decimalMax({ tip, value });
     });
 
-export const DecimalMin : (key: string|Array<string>|Function, value:number, tip?:string) =>
+export const DecimalMin : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -119,7 +119,7 @@ export const DecimalMin : (key: string|Array<string>|Function, value:number, tip
         return ck.decimalMin({ tip, value });
     });
 
-export const Max : (key: string|Array<string>|Function, value:number, tip?:string) =>
+export const Max : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -127,7 +127,7 @@ export const Max : (key: string|Array<string>|Function, value:number, tip?:strin
         return ck.max({ tip, value });
     });
 
-export const Min : (key: string|Array<string>|Function, value:number, tip?:string) =>
+export const Min : (key: string, value:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, value:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -135,7 +135,7 @@ export const Min : (key: string|Array<string>|Function, value:number, tip?:strin
         return ck.min({ tip, value });
     });
 
-export const Future : (key: string|Array<string>|Function, tip?:string) =>
+export const Future : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -143,7 +143,7 @@ export const Future : (key: string|Array<string>|Function, tip?:string) =>
         return ck.future(tip);
     });
 
-export const Past : (key: string|Array<string>|Function, tip?:string) =>
+export const Past : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -151,7 +151,7 @@ export const Past : (key: string|Array<string>|Function, tip?:string) =>
         return ck.past(tip);
     });
 
-export const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?:string) =>
+export const Pattern : (key: string, pattern:RegExp, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, pattern:RegExp, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -159,7 +159,7 @@ export const Pattern : (key: string|Array<string>|Function, pattern:RegExp, tip?
         return ck.pattern({ tip, pattern });
     });
 
-export const Size : (key: string|Array<string>|Function, min:number, max:number, tip?:string) =>
+export const Size : (key: string, min:number, max:number, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, min:number, max:number, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -167,7 +167,7 @@ export const Size : (key: string|Array<string>|Function, min:number, max:number,
         return ck.size(tip, min, max);
     });
 
-export const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
+export const NotBlank : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -175,7 +175,7 @@ export const NotBlank : (key: string|Array<string>|Function, tip?:string) =>
         return ck.notBlank(tip);
     });
 
-export const Email : (key: string|Array<string>|Function, tip?:string) =>
+export const Email : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);
@@ -183,7 +183,7 @@ export const Email : (key: string|Array<string>|Function, tip?:string) =>
         return ck.isEmail(tip);
     });
 
-export const Phone : (key: string|Array<string>|Function, tip?:string) =>
+export const Phone : (key: string, tip?:string) =>
     ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string, tip?:string) => {
         const val = fn(ctx, argKey);
         const ck = new Check(ctx, argKey, val);

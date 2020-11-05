@@ -1,9 +1,12 @@
 import { BaseController, Path, Aspect, Query, Param } from '@umajs/core';
+import { Post } from '@umajs/path';
 import { AgeCheck } from '../decorator/AgeCheck';
 import { Result } from '../plugins/test/index';
 
 @Path('/tpl')
 export default class Template extends BaseController {
+
+    @Post('/p')
     @Path('/index')
     index() {
         return Result.send('this is index router in template');
