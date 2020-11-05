@@ -48,9 +48,15 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     if (!methodInfo) return clazzInfo;
 
-    const { methodTypes = [] } = methodInfo;
+    // 调用默认路由判断 method
+    if (methodType) {
+        const { paths = [], methodTypes = [] } = methodInfo;
 
-    if (methodTypes.length === 0 || methodTypes.indexOf(methodType) > -1) return clazzInfo;
+        // 有路由装饰器时不能走默认路由
+        if (paths.length > 0) return null;
 
-    return null;
+        return (methodTypes.length === 0 || methodTypes.indexOf(methodType) > -1) ? clazzInfo : null;
+    }
+
+    return clazzInfo;
 }

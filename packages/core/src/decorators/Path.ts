@@ -60,10 +60,14 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
         if (!typeHelper.isString(methodName)) return;
 
-        values.forEach((p) => {
-            if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
+        if (values.length > 0) {
+            values.forEach((p) => {
+                if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
 
-            controllerInfo.setControllersInfo(target.constructor, methodName, { path: p, methodTypes });
-        });
+                controllerInfo.setControllersInfo(target.constructor, methodName, { path: p, methodTypes });
+            });
+        } else {
+            controllerInfo.setControllersInfo(target.constructor, methodName, { methodTypes });
+        }
     };
 }
