@@ -1,5 +1,3 @@
-import * as flat from 'array.prototype.flat';
-
 import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
 import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
@@ -40,20 +38,23 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
         // when @Path decorate method
         // if config is object, only receive one Object as a parameter
-        if (typeHelper.isObject(arg0)) {
+        if (args.length === 0) {
+            values.push('/');
+        } else if (typeHelper.isObject(arg0)) {
             if (args.length > 1) {
                 throw new Error('@Path only receive one Object as a parameter');
             }
 
-            const { value = [], method = [] } = arg0;
+            const { value = '/', method = [] } = arg0;
 
-            values.push(...flat([value]));
-            methodTypes.push(...flat([method]));
-        }
+            values.push(...(Array.isArray(value) ? value : [value]));
+            methodTypes.push(...(Array.isArray(method) ? method : [method]));
+        } else {
+            args.forEach((arg: any) => {
+                if (typeHelper.isObject(arg)) return console.log('@Path only receive one Object as a parameter');
 
-        // if config is string
-        if (args.length > 1 || typeHelper.isString(arg0)) {
-            values.push(...args);
+                if (typeHelper.isString(arg)) values.push(arg);
+            });
         }
 
         const [target, methodName] = props;

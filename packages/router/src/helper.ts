@@ -50,13 +50,22 @@ export function getClazzInfo(clazzName: string, methodName: string, methodType: 
 
     // 调用默认路由判断 method
     if (methodType) {
-        const { paths = [], methodTypes = [] } = methodInfo;
+        const { paths = [] } = methodInfo;
 
-        // 有路由装饰器时不能走默认路由
-        if (paths.length > 0) return null;
+        for (const { path, methodTypes = [] } of paths) {
+            if (path === '/' && (methodTypes.length === 0 || methodTypes.includes(methodType))) return clazzInfo;
+        }
 
-        return (methodTypes.length === 0 || methodTypes.indexOf(methodType) > -1) ? clazzInfo : null;
+        return null;
     }
 
     return clazzInfo;
+}
+
+/**
+ * replace tail '/'
+ * @param url string
+ */
+export function replaceTailSlash(url: string) {
+    return url.endsWith('/') ? url.slice(0, -1) : url;
 }

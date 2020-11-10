@@ -2,6 +2,11 @@ import { BaseController, Path, Private, Result } from '@umajs/core';
 
 @Path('/tpl')
 export default class Template extends BaseController {
+    @Path()
+    home() {
+        return Result.send('this is home router in template');
+    }
+
     index() {
         return Result.send('this is index router in template');
     }

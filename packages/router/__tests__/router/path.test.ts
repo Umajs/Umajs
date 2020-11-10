@@ -47,6 +47,11 @@ describe('test default && @Path && @Private', () => {
         expect(reg.text).toEqual('Not Found');
     });
 
+    it('only clazz @path: default router ===> template.home ===> /tpl', async () => {
+        const reg = await send('/tpl');
+        expect(reg.text).toEqual('this is home router in template');
+    });
+
     it('only clazz @path: default router ===> template.index ===> /template/index', async () => {
         const reg = await send('/template/index');
         expect(reg.text).toEqual('this is index router in template');

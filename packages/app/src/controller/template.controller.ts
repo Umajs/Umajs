@@ -5,6 +5,10 @@ import { Result } from '../plugins/test/index';
 
 @Path('/tpl')
 export default class Template extends BaseController {
+    @Path()
+    home() {
+        return Result.send('this is home router in template');
+    }
 
     @Post('/p')
     @Path('/index')

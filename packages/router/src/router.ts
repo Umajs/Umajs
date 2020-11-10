@@ -1,7 +1,7 @@
 import { Result, TControllerInfo, IContext, TMethodInfo } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
-import { MatchRegexp, getClazzInfo } from './helper';
+import { MatchRegexp, getClazzInfo, replaceTailSlash } from './helper';
 
 export const StaticRouterMap: Map<String, TPathInfo> = new Map();
 export const RegexpRouterMap: Map<RegExp, TPathInfo> = new Map();
@@ -13,7 +13,8 @@ export const ClazzMap: Map<String, TControllerInfo> = new Map();
  * @param next
  */
 export default async function Router(ctx: IContext, next: Function) {
-    const { path: reqPath, method: methodType } = ctx.request;
+    const { method: methodType } = ctx.request;
+    const reqPath = replaceTailSlash(ctx.request.path);
 
     // 先匹配静态路由(routerPath + methodPath)，地址和静态路由完全匹配时
     const staticResult = StaticRouterMap.get(reqPath);
