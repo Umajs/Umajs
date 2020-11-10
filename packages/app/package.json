@@ -4,7 +4,7 @@
   "private": true,
   "description": "> TODO: description",
   "author": "zhangzhihua <zzh627@126.com>",
-  "license": "ISC",
+  "license": "MIT",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
