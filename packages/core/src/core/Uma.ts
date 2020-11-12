@@ -27,10 +27,9 @@ import { TPluginConfig } from '../types/TPluginConfig';
 let instance: Uma = null;
 
 export default class Uma {
-    private constructor(readonly options: TUmaOption, app = new Koa()) {
+    private constructor(readonly options: TUmaOption, app?: Koa<Koa.DefaultState, IContext>) {
         console.assert(options && options.ROOT, `Uma options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
 
-        this.app = <Koa<Koa.DefaultState, IContext>>app;
         this.options = mixin(true, {
             jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
@@ -40,10 +39,13 @@ export default class Uma {
 
         const { env, proxy, subdomainOffset } = this.options;
 
+        process.env.NODE_ENV = env;
+
+        this.env = env;
+        this.app = app || new Koa();
+
         if (proxy) this.app.proxy = proxy;
         if (subdomainOffset) this.app.subdomainOffset = subdomainOffset;
-        this.env = env;
-        process.env.NODE_ENV = this.env;
     }
 
     env: string;
@@ -253,7 +255,7 @@ export default class Uma {
     static async middleware(options: TUmaOption, app: Koa): Promise<Koa.Middleware> {
         if (instance) throw new Error('Uma can only be instantiated once, app.use(Uma.middleware({...}))');
 
-        instance = new Uma(options, app);
+        instance = new Uma(options, <Koa<Koa.DefaultState, IContext>>app);
 
         mixin(false, app.request, Request);
         mixin(false, app.response, Response);
