@@ -39,6 +39,7 @@ export default class Uma {
 
         const { env, proxy, subdomainOffset } = this.options;
 
+        this.app = new Koa();
         if (proxy) this.app.proxy = proxy;
         if (subdomainOffset) this.app.subdomainOffset = subdomainOffset;
         this.env = env;
@@ -237,7 +238,6 @@ export default class Uma {
         if (instance) return instance;
 
         instance = new Uma(options);
-        instance.app = new Koa();
 
         return instance;
     }
