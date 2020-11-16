@@ -41,8 +41,6 @@ export const Router = () => {
                 // 路由访问地址为class中的Path修饰地址 + method的Path修饰地址
                 const routePath = replaceTailSlash(rootPath + p);
 
-                if (!routePath) return;
-
                 if (!ALLROUTE.includes(String(routePath))) {
                     console.log(`[${methodTypes ? methodTypes.join() : 'ALL'}]:${routePath} ==> ${clazzName}.${methodName}`);
                     ALLROUTE.push(routePath);
