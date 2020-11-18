@@ -25,6 +25,11 @@ describe('test default && @Path && @Private', () => {
         expect(stat.text).toEqual('this is static router');
     });
 
+    it('only method @path: static router endWith("/")===> index.test ===> /static/test', async () => {
+        const stat = await send('/static/test/');
+        expect(stat.text).toEqual('this is static router');
+    });
+
     it('both get and post requests @path: router ===> index.getAndPost ===> /getAndPost', async () => {
         const stat = await send('/getAndPost');
         const statPost = await post('/getAndPost');

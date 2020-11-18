@@ -33,6 +33,11 @@ export default class Index extends BaseController {
         });
     }
 
+    @Path({ method: RequestMethod.GET })
+    home() {
+        return Result.send('this is home router!');
+    }
+
     @Get('/reg/:name*')
     @Aspect.around('test')
     reg(@AgeCheck('age') age: number, @Param('name') name: string) {
@@ -73,13 +78,6 @@ export default class Index extends BaseController {
     ss() {
         this.ctx.session.set('haha', 'Hello World');
         return Result.send(this.ctx.session.get('haha'));
-    }
-
-    @Path({
-        method: RequestMethod.POST
-    })
-    onlyGet() {
-        return Result.send('this method only can post');
     }
 
     @Path('/home/:name')

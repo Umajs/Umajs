@@ -26,9 +26,10 @@ export default class Index extends BaseController {
     }
 
     @Path({
+        value:'/onlyPost'
         method: RequestMethod.POST
     })
-    onlyGet() {
+    onlyPost() {
         return Result.send('this method only can post');
     }
 
