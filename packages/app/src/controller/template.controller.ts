@@ -5,14 +5,14 @@ import { Result } from '../plugins/test/index';
 
 @Path('/tpl')
 export default class Template extends BaseController {
-    @Path({method:RequestMethod.GET})
+    @Path({ method: RequestMethod.GET })
     home() {
-        return Result.send('this is home router in template');
+        return Result.send('this is home router in template1');
     }
 
     @Path()
-    home_a(){
-        return Result.send('this is home router in template');
+    home_a() {
+        return Result.send('this is home router in template2');
     }
 
     @Post('/p')

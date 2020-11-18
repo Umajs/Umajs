@@ -33,7 +33,7 @@ export default class Index extends BaseController {
         });
     }
 
-    @Path({method:RequestMethod.GET})
+    @Path({ method: RequestMethod.GET })
     home() {
         return Result.send('this is home router!');
     }
