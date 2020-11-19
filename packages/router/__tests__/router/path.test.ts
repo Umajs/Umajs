@@ -15,6 +15,11 @@ describe('test default && @Path && @Private', () => {
         expect(index.text).toEqual('this is index router');
     });
 
+    it('default router ===> index.home ===> /', async () => {
+        const index = await send('/');
+        expect(index.text).toEqual('this is index router home method');
+    });
+
     it('only method @path: regexp router ===> index.reg ===> /reg/index', async () => {
         const reg = await send('/reg/index');
         expect(reg.text).toEqual('this is reg router');
