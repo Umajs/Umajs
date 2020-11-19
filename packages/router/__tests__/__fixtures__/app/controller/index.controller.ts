@@ -4,6 +4,11 @@ export default class Index extends BaseController {
     index() {
         return Result.send('this is index router');
     }
+    
+    @Path()
+    home() {
+        return Result.send('this is index router home method');
+    }
 
     @Path('/reg/:name')
     reg() {
