@@ -49,10 +49,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/array.prototype.flat@^1.2.0":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@types/array.prototype.flat/-/array.prototype.flat-1.2.1.tgz#5433a141730f8e1d7a8e7486458ceb8144ee5edc"
-
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
@@ -333,7 +329,7 @@ array-includes@^3.1.1:
     es-abstract "^1.17.0"
     is-string "^1.0.5"
 
-array.prototype.flat@^1.2.2, array.prototype.flat@^1.2.3:
+array.prototype.flat@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/array.prototype.flat/-/array.prototype.flat-1.2.3.tgz#0de82b426b0318dbfdb940089e38b043d37f6c7b"
   dependencies:

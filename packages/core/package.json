@@ -28,11 +28,9 @@
   },
   "dependencies": {
     "@types/koa-send": "^4.1.2",
-    "array.prototype.flat": "^1.2.2",
     "koa-body": "^4.1.1"
   },
   "devDependencies": {
-    "@types/array.prototype.flat": "^1.2.0",
     "@types/jest": "^24.0.24",
     "@types/koa": "^2.0.51",
     "@types/node": "^10.12.15",
