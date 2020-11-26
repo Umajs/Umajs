@@ -3,7 +3,7 @@ import { createArgDecorator, IContext } from '@umajs/core';
 import { TbodyDecorator } from './type';
 import Check from './check';
 
-const fn = (ctx: IContext, argKey?: string | Array<string> | Function) => {
+export const fn = (ctx: IContext, argKey?: string | Array<string> | Function) => {
     console.assert(typeof ctx.request.body !== 'undefined',
         '@Body decorator only can be used by POST RequestMethod , Please make sure you use it correctly.');
     const body = ctx.request.body || {};

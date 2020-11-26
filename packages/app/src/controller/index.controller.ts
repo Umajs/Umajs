@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { BaseController, Path, Private, Param, Query, RequestMethod, Aspect, Service, Result } from '@umajs/core';
 import { Get, Post } from '@umajs/path';
-
+import { RequestFile } from '@umajs/arg-decorator';
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
 import UserService from '../service/user.service';
@@ -33,9 +33,17 @@ export default class Index extends BaseController {
         });
     }
 
-    @Path({ method: RequestMethod.GET })
+    @Path('/home')
     home() {
-        return Result.send('this is home router!');
+        this.setHeader('clientType','PC');
+        console.log(this.ctx.get('Cache-Control'));
+        console.log(this.ctx.get('clientType'));
+        this.ctx.set('myappend','1');
+        this.ctx.set('myappend','2');
+        console.log(this.ctx.get('myappend'));
+        this.ctx.cookies.set('name','zdj');
+        this.ctx.cookies.set('name1','zdj1');
+        return Result.send('this is home router! '+this.getHeader('Cache-Control'));
     }
 
     @Get('/reg/:name*')
@@ -45,10 +53,10 @@ export default class Index extends BaseController {
     }
 
     @Post('/submit', '/yu/:id')
-    submit() {
+    submit(@RequestFile('pic') file:File) {
         // this.ctx.request.body
         // this.ctx.request.files
-        return Result.send('submit success');
+        return Result.send(`This request get RequestFile file is ${file['path']}`);
     }
 
     @Path('/test', '/static/test2')
