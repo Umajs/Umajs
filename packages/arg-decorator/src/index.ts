@@ -4,17 +4,27 @@ import Check from './check';
 
 export * from './body';
 
-const fn = (ctx: IContext, argKey?: string) => ctx.query[argKey];
+export * from './cookies';
+
+export * from './headers';
+
+export * from './requestFile';
+
+export * from './requestParam';
+
+export const fn = (ctx: IContext, argKey?: string) => ctx.query[argKey];
+
+export const fn1 = (ctx: IContext, argKey?: string) => ctx.param[argKey];
 
 /**
  * param 装饰器
  */
-export const Param: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string):ParameterDecorator => ctx.param[argKey]);
+export const Param: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string):ParameterDecorator => fn1(ctx, argKey));
 
 /**
  * query 装饰器
  */
-export const Query: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => ctx.query[argKey]);
+export const Query: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => fn(ctx, argKey));
 
 /**
  * 参数必传

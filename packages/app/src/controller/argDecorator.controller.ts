@@ -1,5 +1,5 @@
 import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
-import { Require, ToNumber, Body, Equals } from "@umajs/arg-decorator";
+import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam } from "@umajs/arg-decorator";
 let { isRequire } = Body;
 type user = {
     userId: string,
@@ -133,4 +133,25 @@ export default class Modify extends BaseController {
     ToArray(@Body.ToArray('arr', '|') arr: Array<any>) {
         return Result.send(`This Post body info is ${arr.join(',')}`);
     }
+
+    @Path('/cookies')
+    cookies(@Cookies('name') name:string) {
+        return this.send(`This request get cookies name is ${name}`);
+    }
+
+    @Path('/headers')
+    headers(@Headers('Connection') Connection:string) {
+        return this.send(`This request get Headers Connection is ${Connection}`);
+    }
+
+    @Path('/RequestParam')
+    RequestParam(@RequestParam('param') param:string) {
+        return this.send(`This request get param is ${param}`);
+    }
+
+    @Path('/RequestFile')
+    RequestFile(@RequestFile('file') file:File) {
+        return this.send(`This request get RequestFile file is ${file['path']}`);
+    }
+    
 }

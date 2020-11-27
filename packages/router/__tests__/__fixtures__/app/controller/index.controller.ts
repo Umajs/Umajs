@@ -4,7 +4,7 @@ export default class Index extends BaseController {
     index() {
         return Result.send('this is index router');
     }
-    
+
     @Path()
     home() {
         return Result.send('this is index router home method');
@@ -31,21 +31,21 @@ export default class Index extends BaseController {
     }
 
     @Path({
-        value:'/onlyPost'
-        method: RequestMethod.POST
+        value: '/onlyPost',
+        method: RequestMethod.POST,
     })
     onlyPost() {
         return Result.send('this method only can post');
     }
 
     @Path('/get')
-    @Path({value:'/post', method:RequestMethod.POST})
-    getOrPost(){
-        return Result.send(`Methods can be accessed by both get and post requests`);
+    @Path({ value: '/post', method: RequestMethod.POST })
+    getOrPost() {
+        return Result.send('Methods can be accessed by both get and post requests');
     }
-    
-    @Path({value:'/getAndPost', method:[RequestMethod.POST, RequestMethod.GET]})
-    getAndPost(){
-        return Result.send(`Methods can be accessed by both get and post requests`);
+
+    @Path({ value: '/getAndPost', method: [RequestMethod.POST, RequestMethod.GET] })
+    getAndPost() {
+        return Result.send('Methods can be accessed by both get and post requests');
     }
 }
