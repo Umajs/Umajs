@@ -49,19 +49,11 @@ function setControllersInfo(clazz: Function, methodName: string, info: THelper =
 
         methodInfo.inside = inside !== undefined ? inside : methodInfo.inside;
 
-        const pathObj: TPath = {};
-
         if (path) {
-            pathObj.path = path;
-        }
+            const pathObj: TPath = { path };
 
-        if (methodTypes.length > 0) {
-            if (path) {
-                pathObj.methodTypes = methodTypes;
-            }
-        }
+            if (methodTypes.length > 0) pathObj.methodTypes = methodTypes;
 
-        if (Reflect.ownKeys(pathObj).length > 0) {
             methodInfo.paths.push(pathObj);
         }
 
