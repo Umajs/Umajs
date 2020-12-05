@@ -2,6 +2,7 @@ import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
 import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
 import { TPathObjArgs } from '../types/TPathArgs';
+import { RequestMethod } from '../types/RequestMethod';
 
 /**
  * 路由装饰器
@@ -16,6 +17,10 @@ import { TPathObjArgs } from '../types/TPathArgs';
  * Path({ value: ['/p1', '/p2'], method: RequestType.GET })
  * Path({ value: ['/p1', '/p2'], method: [RequestType.GET, RequestType.POST] })
  */
+export function Path(...args: string[]): Function;
+
+export function Path(arg: { value?: string | string[]; method?: RequestMethod | RequestMethod[]; }): Function;
+
 export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
     return function Method(...props: TMethodDecoratorParams | TClassDecoratorParams) {
         const [arg0] = args;

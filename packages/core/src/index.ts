@@ -7,6 +7,7 @@ export { middlewareToAround } from './utils/aspectHelper';
 export { BaseController } from './core/BaseController';
 export { BaseService } from './core/BaseService';
 export { default as Result } from './core/Result';
+export { callMethod } from './core/callMethod';
 
 export { default as Aspect } from './decorators/Aspect';
 export { Path } from './decorators/Path';
