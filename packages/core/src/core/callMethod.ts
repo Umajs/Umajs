@@ -2,43 +2,6 @@ import Result from '../core/Result';
 import { IContext } from '../types/IContext';
 import ControllerInfo from '../info/controllerInfo';
 import { TMethodInfo } from '../types/TMethodInfo';
-import { TControllerInfo } from '../types/TControllerInfo';
-
-/**
- * 判断 methodType和routerMap中的methodType 是否一致并返回 classInfo
- * @param routerMap 查找的路由表
- * @param clazz class
- * @param methodName method
- * @param methodType type
- */
-function getClazzInfo(clazz: Function, methodName: string, methodType: string): TControllerInfo {
-    const clazzInfo = ControllerInfo.get(clazz);
-
-    if (!clazzInfo) return null;
-
-    const { methodMap = '' } = clazzInfo;
-
-    // 如果该controller不存在methodMap，返回
-    if (!methodMap) return clazzInfo;
-
-    // 如果该methodMap不存在指定方法，返回
-    const methodInfo = methodMap.get(methodName);
-
-    if (!methodInfo) return clazzInfo;
-
-    // 调用默认路由判断 method
-    if (methodType) {
-        const { paths = [] } = methodInfo;
-
-        for (const { path, methodTypes = [] } of paths) {
-            if (path === '/' && (methodTypes.length === 0 || methodTypes.includes(methodType))) return clazzInfo;
-        }
-
-        return null;
-    }
-
-    return clazzInfo;
-}
 
 /**
  * 调用方法
@@ -49,8 +12,8 @@ function getClazzInfo(clazz: Function, methodName: string, methodType: string): 
  * @param next
  * @param methodType 调用方式
  */
-export async function callMethod(clazz: Function, methodName: string, param: object, ctx: IContext, next: Function, methodType?: string) {
-    const clazzInfo = getClazzInfo(clazz, methodName, methodType);
+export async function callMethod(clazz: Function, methodName: string, param: object, ctx: IContext, next: Function) {
+    const clazzInfo = ControllerInfo.get(clazz);
 
     if (!clazzInfo) return next();
 

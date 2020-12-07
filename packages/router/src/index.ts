@@ -146,6 +146,6 @@ export const Router = () => {
         // if is inside or has path decorator, return
         if (methodInfo && (methodInfo.inside || (methodInfo.paths && methodInfo.paths.length))) return next();
 
-        return callMethod(clazz, methodName, {}, ctx, next, methodType);
+        return callMethod(clazz, methodName, {}, ctx, next);
     };
 };
