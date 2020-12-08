@@ -19,18 +19,8 @@ import { IAspect } from '../types/IAspect';
  *      }
  * @param mw 中间件
  */
-export function middlewareToAround(mw: (Koa.Middleware<any, IContext>)) {
-    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => new Promise((resolve, reject) => {
-        mw(target.ctx, async () => {
-            try {
-                const result = await proceed(...args);
-
-                resolve(result);
-            } catch (err) {
-                reject(err);
-            }
-        });
-    });
+export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
+    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => middleware(target.ctx, () => proceed(...args));
 }
 
 /**

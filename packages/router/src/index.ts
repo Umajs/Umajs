@@ -1,18 +1,16 @@
 import * as pathToRegexp from 'path-to-regexp';
-import Uma, { TMethodInfo } from '@umajs/core';
+import Uma, { IContext, TControllerInfo, TMethodInfo, callMethod } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
-import router, { StaticRouterMap, RegexpRouterMap, ClazzMap } from './router';
 import { replaceTailSlash } from './helper';
 
 export const Router = () => {
     console.log('======Init router start======');
 
     const ALLROUTE: string[] = [];
-
-    // delete cache for reload
-    RegexpRouterMap.clear();
-    StaticRouterMap.clear();
+    const StaticRouterMap: Map<String, TPathInfo> = new Map();
+    const RegexpRouterMap: Map<RegExp, TPathInfo> = new Map();
+    const ClazzMap: Map<String, TControllerInfo> = new Map();
 
     // go through contollerInfo，and init each router map
     for (const controllerInfo of Uma.controllersInfo) {
@@ -22,8 +20,8 @@ export const Router = () => {
         const decoratorMethodNameArr: string[] = [...methodMap.values()].map((m) => m.name);
         const methodNameArr: (string | number | symbol)[] = Reflect.ownKeys(clazz.prototype)
             .filter((name) => name !== 'constructor'
-            && !decoratorMethodNameArr.includes(String(name))
-            && typeof clazz.prototype[`${String(name)}`] === 'function');
+                && !decoratorMethodNameArr.includes(String(name))
+                && typeof clazz.prototype[`${String(name)}`] === 'function');
 
         // 记录没有被修饰过的路由 默认路由 controller/method
         methodNameArr.forEach((methodName) => {
@@ -76,5 +74,78 @@ export const Router = () => {
         uma.routers = ALLROUTE;
     }
 
-    return router;
+    /**
+     * 正则类型的url匹配
+     * @param reqPath 请求地址
+     */
+    function MatchRegexp(reqPath: string) {
+        for (const [reg, { clazz, methodName, keys, methodTypes }] of RegexpRouterMap) {
+            const result = reg.exec(reqPath);
+
+            if (result) {
+                // mixin keys and params
+                const params = {};
+                const paramArr = result.slice(1);
+
+                keys.forEach((k, i) => {
+                    params[k.name] = paramArr[i];
+                });
+
+                return { clazz, methodName, params, methodTypes };
+            }
+        }
+
+        return false;
+    }
+
+    return function router(ctx: IContext, next: Function) {
+        const { method: methodType } = ctx.request;
+        const reqPath = replaceTailSlash(ctx.request.path) || '/';
+
+        // 先匹配静态路由(routerPath + methodPath)，地址和静态路由完全匹配时
+        const staticResult = StaticRouterMap.get(reqPath);
+
+        if (staticResult && (!staticResult.methodTypes || staticResult.methodTypes.indexOf(methodType) > -1)) {
+            const { clazz, methodName } = staticResult;
+
+            return callMethod(clazz, methodName, {}, ctx, next);
+        }
+
+        // 静态路由没有匹配项后匹配正则路由(routerPath + methodPath)
+        const regexpResult = MatchRegexp(reqPath);
+
+        if (regexpResult && (!regexpResult.methodTypes || regexpResult.methodTypes.indexOf(methodType) > -1)) {
+            const { clazz, methodName, params = {} } = regexpResult;
+
+            return callMethod(clazz, methodName, params, ctx, next);
+        }
+
+        // 上面都没有走默认路由(controllerName + methodName)
+        const url = reqPath.slice(1);
+        const pathArr: string[] = url ? url.split('/') : [];
+
+        // 默认 url 必须为/xx/xx的格式，或者/，不满足返回
+        if (!(pathArr.length === 2 || url === '')) return next();
+
+        const [clazzName = 'index', methodName = 'index'] = pathArr;
+
+        // 根据clazzName获取到当前controller信息
+        const controllerInfo: TControllerInfo = ClazzMap.get(clazzName);
+
+        // 未获取到，返回
+        if (!controllerInfo) return next();
+
+        const { clazz, methodMap } = controllerInfo;
+
+        // controller must be have method and not configuration path
+        const methodInfo = methodMap.get(methodName);
+
+        // if is not clazz method, return
+        if (!~Reflect.ownKeys(clazz.prototype).indexOf(methodName)) return next();
+
+        // if is inside or has path decorator, return
+        if (methodInfo && (methodInfo.inside || (methodInfo.paths && methodInfo.paths.length))) return next();
+
+        return callMethod(clazz, methodName, {}, ctx, next);
+    };
 };
