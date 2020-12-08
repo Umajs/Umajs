@@ -28,7 +28,7 @@ Aspect.after = function after(aspect: string | IAspect): Function {
 
 /**
  * @Aspect.around('aspect')
- * @param aspect 指定的切面或切面名称
+ * @param aspect 指定的切面或切面名称 或者 切面类
  */
 Aspect.around = function around(aspect: string | IAspect): Function {
     return aspectHelper(aspect, [ENotice.around]);

@@ -43,22 +43,17 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
         // when @Path decorate method
         // if config is object, only receive one Object as a parameter
-        if (args.length === 0) {
-            values.push('/');
-        } else if (typeHelper.isObject(arg0)) {
-            if (args.length > 1) {
-                throw new Error('@Path only receive one Object as a parameter');
-            }
+        if (typeHelper.isObject(arg0)) {
+            if (args.length > 1) throw new Error('@Path only receive one Object as a parameter');
 
             const { value = '/', method = [] } = arg0;
 
             values.push(...(Array.isArray(value) ? value : [value]));
             methodTypes.push(...(Array.isArray(method) ? method : [method]));
         } else {
-            args.forEach((arg: any) => {
-                if (typeHelper.isObject(arg)) return console.log('@Path only receive one Object as a parameter');
-
+            (args.length > 0 ? args : ['/']).forEach((arg: any) => {
                 if (typeHelper.isString(arg)) values.push(arg);
+                else throw new Error(`@Path only receive one Object as a parameter, now is "${JSON.stringify(arg)}"`);
             });
         }
 
@@ -66,14 +61,10 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
         if (!typeHelper.isString(methodName)) return;
 
-        if (values.length > 0) {
-            values.forEach((p) => {
-                if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
+        values.forEach((p) => {
+            if (!typeHelper.isString(p) || !p.startsWith('/')) throw new Error(`path must be string start with "/", now is "${p}"`);
 
-                controllerInfo.setControllersInfo(target.constructor, methodName, { path: p, methodTypes });
-            });
-        } else {
-            controllerInfo.setControllersInfo(target.constructor, methodName, { methodTypes });
-        }
+            controllerInfo.setControllersInfo(target.constructor, methodName, { path: p, methodTypes });
+        });
     };
 }

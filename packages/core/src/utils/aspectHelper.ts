@@ -19,13 +19,23 @@ import { IAspect } from '../types/IAspect';
  *      }
  * @param mw 中间件
  */
-export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
-    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => middleware(target.ctx, () => proceed(...args));
+export function middlewareToAround(mw: (Koa.Middleware<any, IContext>)) {
+    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => new Promise((resolve, reject) => {
+        mw(target.ctx, async () => {
+            try {
+                const result = await proceed(...args);
+
+                resolve(result);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    });
 }
 
 /**
  * @Aspect('aspectName')
- * @param aspect 作用的切面文件名
+ * @param aspect 指定的切面或切面名称
  * @param notices 指定通知
  */
 export function aspectHelper(aspect: string | IAspect, notices: ENotice[]): MethodDecorator {
