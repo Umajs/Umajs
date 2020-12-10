@@ -43,7 +43,7 @@ export interface IResults {
 export type TResultType = keyof IResults;
 
 export interface IResult {
-    type: TResultType; // 类别
+    type: TResultType | string; // 类别
     data?: any; // 数据
     status?: number; // 状态
 }

@@ -1,4 +1,4 @@
-import { TArg } from './TArg';
+import { TArg } from './TControllerInfo';
 
 export type THelper = TArg & {
     clazzName?: string

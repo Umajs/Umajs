@@ -1,8 +1,12 @@
 import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
 import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
-import { TPathObjArgs } from '../types/TPathArgs';
 import { RequestMethod } from '../types/RequestMethod';
+
+export type TPathObjArgs = {
+    value?: string | string[],
+    method?: RequestMethod | RequestMethod[],
+};
 
 /**
  * 路由装饰器

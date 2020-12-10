@@ -3,8 +3,7 @@ import * as Koa from 'koa';
 import AspectLoader from '../loader/AspectLoader';
 
 import { ENotice } from '../types/ENotice';
-import { IJoinPoint } from '../types/IJoinPoint';
-import { IProceedJoinPoint } from '../types/IProceedJoinPoint';
+import { IJoinPoint, IProceedJoinPoint } from '../types/IJoinPoint';
 import Result from '../core/Result';
 import { IContext } from '../types/IContext';
 import { IAspect } from '../types/IAspect';

@@ -1,7 +1,7 @@
 import Result from '../core/Result';
 import { IContext } from '../types/IContext';
 import ControllerInfo from '../info/controllerInfo';
-import { TMethodInfo } from '../types/TMethodInfo';
+import { TMethodInfo } from '../types/TControllerInfo';
 
 /**
  * 调用方法

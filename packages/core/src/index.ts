@@ -18,14 +18,11 @@ export { createArgDecorator, Context, Param, Query } from './decorators/ArgDecor
 
 export { TUmaOption } from './types/TUmaOption';
 export { RequestMethod } from './types/RequestMethod';
-export { TArg } from './types/TArg';
-export { TControllerInfo } from './types/TControllerInfo';
-export { TMethodInfo } from './types/TMethodInfo';
+export { TControllerInfo, TMethodInfo, TArg } from './types/TControllerInfo';
 export { TPlugin } from './types/TPlugin';
 export { TPluginConfig } from './types/TPluginConfig';
 export { IContext } from './types/IContext';
 export { IRequest } from './types/IRequest';
 export { IResponse } from './types/IResponse';
 export { IAspect } from './types/IAspect';
-export { IJoinPoint } from './types/IJoinPoint';
-export { IProceedJoinPoint } from './types/IProceedJoinPoint';
+export { IJoinPoint, IProceedJoinPoint } from './types/IJoinPoint';

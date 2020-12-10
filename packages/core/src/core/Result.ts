@@ -13,7 +13,7 @@ export default class Result<T = any> implements IResult {
         this.status = status;
     }
 
-    type: TResultType;
+    type: TResultType | string;
 
     data: T;
 
