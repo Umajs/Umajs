@@ -1,6 +1,6 @@
 'use strict';
 
-import { requireDefault, template, formatLocale } from '../lib/utils';
+import { requireDefault, template, formatLocale } from '../src/utils';
 
 describe('i18n utils tests', () => {
     it('requireDefault test', () => {

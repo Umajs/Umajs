@@ -4,12 +4,17 @@ export default class Require {
      * @param {string} modulePath
      */
     static deleteCache(modulePath: string) {
+        /* global NodeModule */
         const module: NodeModule = require.cache[modulePath];
 
         if (!module) return;
 
         if (module.parent) {
             module.parent.children.splice(module.parent.children.indexOf(module), 1);
+        }
+
+        if (module.children) {
+            module.children.splice(module.children.indexOf(module), 1);
         }
 
         delete require.cache[modulePath];

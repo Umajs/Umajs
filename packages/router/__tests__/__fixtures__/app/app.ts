@@ -12,14 +12,14 @@ const uma = Uma.instance({
 export const start = () => new Promise((resolve, reject) => {
     uma.start(8053, (e) => {
         if (e) return reject();
-        resolve();
+        resolve(null);
     });
 });
 
 export const stop = () => new Promise((resolve, reject) => {
     uma.server.close((e) => {
         if (e) return reject();
-        resolve();
+        resolve(null);
     });
 });
 
