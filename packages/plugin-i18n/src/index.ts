@@ -70,12 +70,18 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
         console.warn('[i18n warning]: The variable "%s" will be replaced by i18n on app.context', functionName);
     }
 
+    const LOCAL = Symbol('local');
+
     return {
         context: {
-            get [functionName]() {
-                const locale = this.getLocale();
+            [LOCAL]: null,
 
-                return i18nMap.get(locale);
+            get [functionName]() {
+                if (!this[LOCAL]) {
+                    this[LOCAL] = this.getLocale();
+                }
+
+                return i18nMap.get(this.getLocale());
             },
 
             /**
@@ -83,6 +89,8 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
              * @param locale 新国际化
              */
             setLocale(locale: string) {
+                this[LOCAL] = null;
+
                 let newlocale = formatLocale(locale);
 
                 if (!i18nMap.has(newlocale)) {
