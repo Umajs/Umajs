@@ -134,8 +134,24 @@ export default class Uma {
     async start(port: number = 8058, callback?: Function) {
         if (!this.port) this.port = port;
         if (callback) this.callback = callback;
+        const { app, options: { createServer } } = this;
+        const koaCallback = app.callback();
 
-        const { app, options: { createServer, Router, beforeLoad, afterLoaded } } = this;
+        await this.prepare();
+        this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
+
+        this.server.listen(this.port, async () => {
+            console.log(`Uma server running at port: ${this.port} `);
+            console.log(`Uma version: ${packageInfo.version}`);
+
+            if (typeof this.callback === 'function') {
+                await Promise.resolve(Reflect.apply(this.callback, this, []));
+            }
+        });
+    }
+
+    async prepare() {
+        const { app, options: { Router, beforeLoad, afterLoaded } } = this;
 
         mixin(false, app.request, Request);
         mixin(false, app.response, Response);
@@ -149,22 +165,7 @@ export default class Uma {
 
         if (typeHelper.isFunction(afterLoaded)) await Promise.resolve(Reflect.apply(afterLoaded, this, [this]));
 
-        if (createServer) {
-            console.assert(typeHelper.isFunction(createServer), 'config.createServer must be a function');
-        }
-
-        const koaCallback = app.callback();
-
-        this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
-
-        this.server.listen(this.port, async () => {
-            console.log(`Uma server running at port: ${this.port} `);
-            console.log(`Uma version: ${packageInfo.version}`);
-
-            if (typeof this.callback === 'function') {
-                await Promise.resolve(Reflect.apply(this.callback, this, []));
-            }
-        });
+        return this;
     }
 
     // static property start
@@ -264,5 +265,26 @@ export default class Uma {
         await instance.load();
 
         return this.options.Router();
+    }
+
+    /**
+     * (async () => {
+     *    const app = express();
+     *    const callback = <any> await Uma.callback(options);
+     *    app.use((req, res, next) => callback(req, res).then(() => {
+     *          if (res.headersSent) return;
+     *          next();
+     *      }));
+     * })()
+     * @param options Uma options
+     * @param app Koa instance
+     */
+    static async callback(options: TUmaOption, app?: Koa) {
+        if (instance) throw new Error('Uma can only be instantiated once, const koaCallback = Uma.callback({...})');
+
+        instance = new Uma(options, <Koa<Koa.DefaultState, IContext>>app);
+        await instance.prepare();
+
+        return instance.app.callback();
     }
 }
