@@ -164,8 +164,6 @@ export default class Uma {
         this.use(Router());
 
         if (typeHelper.isFunction(afterLoaded)) await Promise.resolve(Reflect.apply(afterLoaded, this, [this]));
-
-        return this;
     }
 
     // static property start
