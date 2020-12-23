@@ -17,9 +17,9 @@ export type TPathObjArgs = {
  * Path('/p1')
  * Path('/p1', 'p2')
  * Path({ value: '/p1' })
- * Path({ value: '/p1', method: RequestType.GET })
- * Path({ value: ['/p1', '/p2'], method: RequestType.GET })
- * Path({ value: ['/p1', '/p2'], method: [RequestType.GET, RequestType.POST] })
+ * Path({ value: '/p1', method: RequestMethod.GET })
+ * Path({ value: ['/p1', '/p2'], method: RequestMethod.GET })
+ * Path({ value: ['/p1', '/p2'], method: [RequestMethod.GET, RequestMethod.POST] })
  */
 export function Path(...args: string[]): Function;
 
