@@ -35,8 +35,10 @@ export default class {
             clazzInfo.name = clazzName;
         }
 
-        // if (clazzName) clazzInfo.name = clazzName;
-        if (rootPath) clazzInfo.path = rootPath;
+        if (rootPath) {
+            clazzInfo.path = clazzInfo.path || [];
+            clazzInfo.path.push(rootPath);
+        }
 
         if (methodName) {
             const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();

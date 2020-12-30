@@ -14,7 +14,7 @@ export default class Index extends BaseController {
 
     @Service('user')
     userService: UserService;
-
+    
     index() {
         console.log(this.userService.getDefaultUserAge());
 
@@ -32,7 +32,7 @@ export default class Index extends BaseController {
             frameName: this.testService.returnFrameName(),
         });
     }
-
+    @Path()
     @Path('/home')
     home() {
         this.setHeader('clientType','PC');

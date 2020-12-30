@@ -3,6 +3,7 @@ import { Post } from '@umajs/path';
 import { AgeCheck } from '../decorator/AgeCheck';
 import { Result } from '../plugins/test/index';
 
+@Path('/template')
 @Path('/tpl')
 export default class Template extends BaseController {
     @Path({ method: RequestMethod.GET })

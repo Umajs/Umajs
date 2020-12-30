@@ -14,7 +14,7 @@ export const Router = () => {
 
     // go through contollerInfo，and init each router map
     for (const controllerInfo of Uma.controllersInfo) {
-        const { name: clazzName, path: rootPath = '', clazz } = controllerInfo;
+        const { name: clazzName, path: rootPath = ['/'], clazz } = controllerInfo;
         const methodMap: Map<string, TMethodInfo> = controllerInfo.methodMap || new Map();
 
         const decoratorMethodNameArr: string[] = [...methodMap.values()].map((m) => m.name);
@@ -36,29 +36,31 @@ export const Router = () => {
             paths.forEach(({ path: p, methodTypes }) => {
                 if (!p) return;
 
-                // 路由访问地址为class中的Path修饰地址 + method的Path修饰地址
-                const routePath = replaceTailSlash(rootPath + p) || '/';
+                rootPath.forEach((root:string) => {
+                    // 路由访问地址为class中的Path修饰地址 + method的Path修饰地址
+                    const routePath = replaceTailSlash(root + p) || '/';
 
-                if (!ALLROUTE.includes(String(routePath))) {
-                    console.log(`[${methodTypes ? methodTypes.join() : 'ALL'}]:${routePath} ==> ${clazzName}.${methodName}`);
-                    ALLROUTE.push(routePath);
-                } else {
+                    if (!ALLROUTE.includes(String(routePath))) {
+                        console.log(`[${methodTypes ? methodTypes.join() : 'ALL'}]:${routePath} ==> ${clazzName}.${methodName}`);
+                        ALLROUTE.push(routePath);
+                    } else {
                     // 注册路由重复
-                    console.error(`${routePath} ==> ${clazzName}.${methodName} has been registered.
+                        console.error(`${routePath} ==> ${clazzName}.${methodName} has been registered.
                     Recommended use the Path decorator to annotate the ${clazzName}.controller.ts`);
 
-                    return;
-                }
+                        return;
+                    }
 
-                // 如果method设置的Path中有:/(被认定为正则匹配路由，否则为静态路由
-                if (p.indexOf(':') > -1 || p.indexOf('(') > -1) {
-                    const keys: pathToRegexp.Key[] = [];
-                    const pathReg = pathToRegexp(routePath, keys);
+                    // 如果method设置的Path中有:/(被认定为正则匹配路由，否则为静态路由
+                    if (p.indexOf(':') > -1 || p.indexOf('(') > -1) {
+                        const keys: pathToRegexp.Key[] = [];
+                        const pathReg = pathToRegexp(routePath, keys);
 
-                    RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath, methodTypes });
-                } else {
-                    StaticRouterMap.set(routePath, { ...pathInfo, methodTypes });
-                }
+                        RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath, methodTypes });
+                    } else {
+                        StaticRouterMap.set(routePath, { ...pathInfo, methodTypes });
+                    }
+                });
             });
         }
 
