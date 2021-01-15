@@ -79,6 +79,8 @@ export function aspectHelper(aspect: string | IAspect, notices: ENotice[]): Meth
                     return Reflect.apply(method, this, proceedArgs.length ? proceedArgs : args);
                 };
 
+                Reflect.defineProperty(proceed, 'name', { value: methodName });
+
                 try {
                     if (notices.includes(ENotice.around) && around) {
                         const proceedPoint: IProceedJoinPoint = { proceed, ...point };
