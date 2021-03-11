@@ -1,9 +1,9 @@
-# `Umajs`
+# `Umajs`（Launched by 58）
 > A easy-to-use framework base on Typescript
 
 ## 简介
 
-Umajs 是58同城推出的一款轻量级 node web 框架。它的中文含义是大熊座，北斗七星都是它的组成部分；正如同 Umajs 也是由不同的 package 所组合在一起。我们希望 Umajs 的每一部分，都是优秀的、闪耀的、经受的住各种大型项目检验的。
+Umajs 是58同城推出的一款基于 Typescript 轻量级 Nodejs Web 框架。它的中文含义是大熊座，北斗七星都是它的组成部分；正如同 Umajs 也是由不同的 package 所组合在一起。我们希望 Umajs 的每一部分，都是优秀的、闪耀的、经受的住各种大型项目检验的。
 
 ## 使用方法
 
