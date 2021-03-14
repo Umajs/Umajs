@@ -1,5 +1,5 @@
 # `Umajs`（Launched by 58）
-> A easy-to-use framework base on Typescript
+> An easy-to-use framework base on Typescript
 
 ## 简介
 
