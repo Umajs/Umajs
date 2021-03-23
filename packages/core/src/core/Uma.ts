@@ -33,7 +33,7 @@ export default class Uma {
         this.options = mixin(true, {
             jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
-            env: process.env.NODE_ENV,
+            env: process.env.NODE_ENV || 'development',
             strictDir: false,
         }, options);
 
