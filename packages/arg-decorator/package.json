@@ -27,6 +27,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
+    "@umajs/model": "^0.2.0",
     "validate": "^5.1.0",
     "validator": "^13.1.17"
   },

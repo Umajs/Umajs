@@ -1,5 +1,6 @@
 import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
 import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam } from "@umajs/arg-decorator";
+import UserModel from './../model/user.model';
 let { isRequire } = Body;
 type user = {
     userId: string,
@@ -18,6 +19,12 @@ export default class Modify extends BaseController {
     queryEquals(@Equals('userid', 0) userId: string, @ToNumber('age') age: number) {
         // 测试路由@Path修饰冲突覆盖case
         return Result.send(`This router queryParms is ${userId} ${age}`);
+    }
+
+    @Path('/model')
+    @Path({ value: '/post', method: RequestMethod.POST })
+    model(@Body(UserModel) userInfo: user) {
+        return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
 
     @Path('/get')

@@ -24,6 +24,7 @@
   "dependencies": {
     "@umajs/arg-decorator": "^1.2.2",
     "@umajs/core": "^1.2.1",
+    "@umajs/model": "^0.2.0",
     "@umajs/path": "^1.2.1",
     "@umajs/plugin-i18n": "^1.2.2",
     "@umajs/plugin-session": "^1.2.2",

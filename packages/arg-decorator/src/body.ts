@@ -1,9 +1,15 @@
-import { createArgDecorator, IContext } from '@umajs/core';
+import { createArgDecorator, IContext, Result } from '@umajs/core';
+import Model from '@umajs/model/app/Model';
+import { Validate } from '@umajs/model/app';
 
 import { TbodyDecorator } from './type';
 import Check from './check';
 
-export const fn = (ctx: IContext, argKey?: string | Array<string> | Function) => {
+declare class UmaModel extends Model {
+    constructor(data:any)
+}
+
+export const fn = (ctx: IContext, argKey?: string | Array<string> | UmaModel | Function) => {
     console.assert(typeof ctx.request.body !== 'undefined',
         '@Body decorator only can be used by POST RequestMethod , Please make sure you use it correctly.');
     const body = ctx.request.body || {};
@@ -18,6 +24,18 @@ export const fn = (ctx: IContext, argKey?: string | Array<string> | Function) =>
         });
 
         return bodyParms;
+    }
+
+    if (typeof argKey === 'function' && typeof argKey.constructor === 'function') {
+        const ArgModel:any = argKey;
+        const scheme = new ArgModel(body, false);
+        const [valid, schemeInfo] = Validate(scheme);
+
+        if (!valid) {
+            return schemeInfo;
+        }
+
+        return Result.json({ code: 0, data: valid });
     }
 
     if (typeof argKey === 'function') {

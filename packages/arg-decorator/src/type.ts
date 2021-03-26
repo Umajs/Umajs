@@ -1,4 +1,5 @@
 import { IContext } from '@umajs/core';
+import Model from '@umajs/model/app/Model';
 
 export type IArgErrorTip = {
     key:string, // 修饰参数属性名称
@@ -8,7 +9,7 @@ export type IArgErrorTip = {
     [key:string]:any
 }
 
-export type IBaseDecorator = (key?: string | Array<string> | Function,) => ParameterDecorator;
+export type IBaseDecorator = (key?: string | Array<string> | Model | Function,) => ParameterDecorator;
 
 export type IBaseCheck = (key: string, tip?:string) => ParameterDecorator
 
