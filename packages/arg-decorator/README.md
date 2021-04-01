@@ -31,6 +31,39 @@ saveUser(@Body.ToNumber('age') age: number){
 }
 ```
 
+## Body参数装饰器支持Model模式
+> 当Body传递为model类时，会将请求参数中获取到的数据作为参数调用model构造函数，同时也会进行属性类型校验，校验成功则返回实例化对象model.关于Model更多的使用请参考`@umajs/model`
+```ts
+// model定义
+import { Type, Required, Min, Model } from '@umajs/model';
+export default class UserInfo extends Model {
+    constructor({ id, name, age }: UserInfo, isValid: boolean) {
+        super(isValid);
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    @Type('number')
+    id: number = 123;
+
+    @Required()
+    name?: string;
+
+    @Min(0)
+    age?: number;
+}
+
+// 参数装饰器使用
+@Path({ value: '/post', method: RequestMethod.POST })
+model(@Body(UserInfo) userInfo: user) {
+    return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
+
+    // >> {"code": 0,"validate": {"id": ["type must be number"]}}
+}
+
+```
+
 ## API
 
 |修饰器| 使用说明 | 

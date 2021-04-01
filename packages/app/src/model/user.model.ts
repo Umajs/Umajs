@@ -1,5 +1,4 @@
-import { Type, Required, Min } from '@umajs/model/app';
-import Model from '@umajs/model/app/Model';
+import { Type, Required, Min, Model } from '@umajs/class-validator';
 
 export default class UserInfo extends Model {
     constructor({ id, name, age }: UserInfo, isValid: boolean) {
