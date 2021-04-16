@@ -1,7 +1,6 @@
 import { TArg } from './TControllerInfo';
 
 export type THelper = TArg & {
-    clazzName?: string
     rootPath?: string
     path?: string
     methodTypes?: string[]

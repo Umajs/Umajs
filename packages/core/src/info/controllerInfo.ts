@@ -21,21 +21,8 @@ export default class {
          * methodType: controller method visit method type get|post...
          * inside: controller method is private
          */
-        const { clazzName, rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
+        const { rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
 
-        // De-weighting according to clazzName( for reload )
-        if (clazzName) {
-            // for (const [k, { name }] of ControllerMap) {
-            //     if (name === clazzName) {
-            //         ControllerMap.delete(k);
-            //         console.log('hot reload', clazzName);
-            //     }
-            // }
-
-            clazzInfo.name = clazzName;
-        }
-
-        // if (clazzName) clazzInfo.name = clazzName;
         if (rootPath) clazzInfo.path = rootPath;
 
         if (methodName) {

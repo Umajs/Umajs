@@ -7,10 +7,6 @@ export default class Template extends BaseController {
         return Result.send('this is home router in template');
     }
 
-    index() {
-        return Result.send('this is index router in template');
-    }
-
     @Path('/reg/:name')
     reg() {
         return Result.send('this is reg router in template');

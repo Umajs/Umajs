@@ -9,15 +9,9 @@ describe('test default && @Path && @Private', () => {
         await stop();
     });
 
-    // method add @Path decorator
-    it('default router ===> index.index ===> /index/index', async () => {
-        const index = await send('/index/index');
-        expect(index.text).toEqual('this is index router');
-    });
-
     it('default router ===> index.home ===> /', async () => {
         const index = await send('/');
-        expect(index.text).toEqual('this is index router home method');
+        expect(index.text).toEqual('this is index router');
     });
 
     it('only method @path: regexp router ===> index.reg ===> /reg/index', async () => {
@@ -60,11 +54,6 @@ describe('test default && @Path && @Private', () => {
     it('only clazz @path: default router ===> template.home ===> /tpl', async () => {
         const reg = await send('/tpl');
         expect(reg.text).toEqual('this is home router in template');
-    });
-
-    it('only clazz @path: default router ===> template.index ===> /template/index', async () => {
-        const reg = await send('/template/index');
-        expect(reg.text).toEqual('this is index router in template');
     });
 
     it('only clazz @path: no path router ===> template.index ===> /tpl/index', async () => {

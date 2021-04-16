@@ -1,6 +1,7 @@
 import { BaseController, Result, Path } from '@umajs/core';
 
 export default class Index extends BaseController {
+    @Path('/')
     index() {
         this.ctx.cookies.set('c', 'cc');
 

@@ -4,9 +4,6 @@ import * as http from 'http';
 import * as https from 'https';
 import * as bodyParser from 'koa-body';
 
-import AspectLoader from '../loader/AspectLoader';
-import ControllerLoader from '../loader/ControllerLoader';
-import ServiceLoader from '../loader/ServiceLoader';
 import ResourceLoader from '../loader/ResourceLoader';
 import ConfigLoader from '../loader/ConfigLoader';
 import PluginLoader from '../loader/PluginLoader';
@@ -65,46 +62,17 @@ export default class Uma {
     private async load() {
         this.loadConfig();
 
-        this.loadAspect();
-
-        this.loadResource();
-
-        if (!this.options.strictDir) {
-            this.loadService();
-
-            this.loadController();
-        }
-
         await this.loadPlugin();
+
+        const reservedDir = ['aspect', 'plugins'];
+
+        ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
     }
 
     loadConfig() {
         ConfigLoader.loadConfigDir(this.options.configPath);
         Object.freeze(ConfigLoader.config);
         this.config = ConfigLoader.config;
-    }
-
-    loadAspect() {
-        AspectLoader.loadAspectDir(path.resolve(this.options.ROOT, 'aspect'));
-    }
-
-    loadResource() {
-        // ['aspect', 'plugins'] reserved dir
-        const reservedDir = ['aspect', 'plugins'];
-
-        if (!this.options.strictDir) {
-            reservedDir.push('controller', 'service');
-        }
-
-        ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
-    }
-
-    loadService() {
-        ServiceLoader.loadServiceDir(path.resolve(this.options.ROOT, 'service'));
-    }
-
-    loadController() {
-        ControllerLoader.loadControllerDir(path.resolve(this.options.ROOT, 'controller'));
     }
 
     async loadPlugin() {

@@ -1,21 +1,7 @@
-import { IAspect, middlewareToAround } from '@umajs/core';
+import { middlewareToAround } from '@umajs/core';
 
-
-
-export default class implements IAspect {
-    // async around({ target, proceed, args }) {
-    //     const result = await middlewareToAround(async (ctx, next) => {
-    //         console.log("****** mw before ******");
-    //         await next();
-    //         console.log("****** mw after *******");
-    //     })({ target, proceed, args })
-
-    //     return result;
-    // }
-
-    around = middlewareToAround(async (ctx, next) => {
-        console.log("****** mw before ******");
-        await next();
-        console.log("****** mw after *******");
-    });
-}
+export const mw = middlewareToAround(async (ctx, next) => {
+    console.log("****** mw before ******");
+    await next();
+    console.log("****** mw after *******");
+});

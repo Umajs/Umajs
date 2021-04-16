@@ -5,20 +5,9 @@ import Log from '../utils/log';
 import Require from '../utils/Require';
 
 import { Uma } from '../index';
-import ControllerLoader from './ControllerLoader';
-import AspectLoader from './AspectLoader';
-import ServiceLoader from './ServiceLoader';
 
 const log = new Log();
 const loadMethods = {
-    controller: (p: string, uma: Uma) => {
-        ControllerLoader.loadController(p);
-        uma.options.Router();
-    },
-    aspect: (p: string) => {
-        AspectLoader.loadAspect(p);
-    },
-    service: ServiceLoader.loadService,
 };
 
 /**
