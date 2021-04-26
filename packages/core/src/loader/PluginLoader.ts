@@ -84,8 +84,8 @@ export default class PluginLoader {
 
             if (typeHelper.isFunction(pluginResult)) uma.use(pluginResult);
             else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
-        } else if (typeHelper.isObject(plugin)) {
-            PluginLoader.complexPlugin(plugin, options);
+        } else {
+            console.log(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
         }
     }
 
