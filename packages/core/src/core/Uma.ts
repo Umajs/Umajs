@@ -76,18 +76,6 @@ export default class Uma {
     }
 
     async loadPlugin() {
-        if (this.options.bodyParser) {
-            this.app.use((ctx, next) => {
-                if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
-                    const bodyParserOpts = mixin(false, { multipart: true }, this.options.bodyParser);
-
-                    return Reflect.apply(bodyParser(bodyParserOpts), null, [ctx, next]);
-                }
-
-                return next();
-            });
-        }
-
         await PluginLoader.loadDir(this.options.ROOT);
     }
 
@@ -126,6 +114,19 @@ export default class Uma {
         mixin(false, app.context, Context);
 
         if (typeHelper.isFunction(beforeLoad)) await Promise.resolve(Reflect.apply(beforeLoad, this, [this]));
+
+        // koa-body
+        if (this.options.bodyParser) {
+            this.app.use((ctx, next) => {
+                if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
+                    const bodyParserOpts = mixin(false, { multipart: true }, this.options.bodyParser);
+
+                    return Reflect.apply(bodyParser(bodyParserOpts), null, [ctx, next]);
+                }
+
+                return next();
+            });
+        }
 
         await this.load();
 

@@ -9,9 +9,8 @@ export { default as Result } from './core/Result';
 export { callMethod } from './core/callMethod';
 
 export { Around, Middleware, middlewareToAround } from './decorators/Aspect';
-export { Path } from './decorators/Path';
+export { Path, Get, Post, Put, Del } from './decorators/Path';
 export { Service } from './decorators/Service';
-export { Private } from './decorators/Private';
 export { Resource, Inject } from './decorators/Resource';
 export { createArgDecorator, Context, Param, Query } from './decorators/ArgDecorator';
 
