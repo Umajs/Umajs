@@ -1,5 +1,4 @@
-import { BaseController, Path, Around, Query, Param, RequestMethod } from '@umajs/core';
-import { Post } from '@umajs/path';
+import { BaseController, Path, Post, Query, Param, RequestMethod } from '@umajs/core';
 import { AgeCheck } from '../decorator/AgeCheck';
 import { Result } from '../plugins/test/index';
 

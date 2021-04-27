@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { BaseController, Path, Private, Param, Query, RequestMethod, Around, Service, Result } from '@umajs/core';
-import { Get, Post } from '@umajs/path';
+import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result } from '@umajs/core';
 import { RequestFile } from '@umajs/arg-decorator';
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
@@ -79,7 +78,6 @@ export default class Index extends BaseController {
         return Result.send(this.ctx.cookies.get('hehe'));
     }
 
-    @Private
     inline() {
         return Result.send('this is private router');
     }
