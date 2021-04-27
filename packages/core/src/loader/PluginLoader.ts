@@ -7,7 +7,7 @@ import mixin from '../utils/mixin';
 import typeHelper from '../utils/typeHelper';
 import Require from '../utils/Require';
 
-import { TPluginConfig } from '../types/TPluginConfig';
+import { TPluginConfig } from '../types/TConfig';
 import { TPlugin } from '../types/TPlugin';
 import { IContext } from '../types/IContext';
 import { Results } from '../extends/Results';

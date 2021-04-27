@@ -18,7 +18,7 @@ export { TUmaOption } from './types/TUmaOption';
 export { RequestMethod } from './types/RequestMethod';
 export { TControllerInfo, TMethodInfo, TArg } from './types/TControllerInfo';
 export { TPlugin } from './types/TPlugin';
-export { TPluginConfig } from './types/TPluginConfig';
+export { TPluginConfig, TConfig } from './types/TConfig';
 export { IContext } from './types/IContext';
 export { IRequest } from './types/IRequest';
 export { IResponse } from './types/IResponse';

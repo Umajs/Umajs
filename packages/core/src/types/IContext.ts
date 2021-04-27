@@ -29,7 +29,7 @@ export interface BaseContext {
      * @param viewPath 模板地址
      * @param locals 变量
      */
-    view(viewPath: string, locals?: any): Promise<any>;
+    view(viewPath: string, locals?: any): void;
 
     /**
      * userAgent

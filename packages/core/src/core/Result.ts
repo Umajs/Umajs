@@ -25,23 +25,23 @@ export default class Result<T> implements IResult<T> {
         });
     }
 
-    static send<T = string | Buffer>(data: T, status?: number) {
-        return new Result<T>({
+    static send<TT = string | Buffer>(data: TT, status?: number) {
+        return new Result<TT>({
             type: 'send',
             data,
             status,
         });
     }
 
-    static json<T extends { [key: string]: any }>(data: T) {
-        return new Result<T>({
+    static json<TT extends { [key: string]: any }>(data: TT) {
+        return new Result<TT>({
             type: 'json',
             data,
         });
     }
 
-    static jsonp<T extends { [key: string]: any }>(data: T, callbackField: string = 'callback') {
-        return new Result<T>({
+    static jsonp<TT extends { [key: string]: any }>(data: TT, callbackField: string = 'callback') {
+        return new Result<TT>({
             type: 'jsonp',
             data: {
                 ...data,
@@ -90,7 +90,7 @@ export default class Result<T> implements IResult<T> {
         });
     }
 
-    static finish<T>(ctx: IContext, result: Result<T>) {
+    static finish<TT>(ctx: IContext, result: Result<TT>) {
         const { type, status, data } = result;
 
         if (status) ctx.status = status;

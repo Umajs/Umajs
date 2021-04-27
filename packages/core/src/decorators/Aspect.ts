@@ -8,7 +8,7 @@ import typeHelper from '../utils/typeHelper';
 export interface IProceedJoinPoint<T = any> {
     target: T;
     args: Array<any>;
-    proceed(...props: any[]): Promise<Result>;
+    proceed(...props: any[]): Promise<Result<any>>;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface IProceedJoinPoint<T = any> {
     @Around(around)
  */
 export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
-    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => new Promise((resolve, reject) => {
+    return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result<any>> => new Promise((resolve, reject) => {
         if (!(target instanceof BaseController)) throw new Error('@Around [middleware] only use on class extends BaseController.');
 
         middleware(target.ctx, async () => {
@@ -50,7 +50,7 @@ export function Middleware(middleware: (Koa.Middleware<any, IContext>)) {
  * @Around(around: Funtion)
  * @param aspect 指定的切面或切面名称 或者 切面类
  */
-export function Around(around: (point: IProceedJoinPoint) => Promise<Result>): Function {
+export function Around(around: (point: IProceedJoinPoint) => Promise<Result<any>>): Function {
     if (!typeHelper.isFunction(around)) throw new Error('@Around param must be Function.');
 
     return function aroundDecorator(target: Function, methodName: string, desc: PropertyDescriptor): PropertyDescriptor {

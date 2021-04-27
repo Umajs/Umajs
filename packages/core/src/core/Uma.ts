@@ -17,9 +17,8 @@ import typeHelper from '../utils/typeHelper';
 import mixin from '../utils/mixin';
 import { TUmaOption } from '../types/TUmaOption';
 import { IContext } from '../types/IContext';
-import { TConfig } from '../types/TConfig';
+import { TConfig, TPluginConfig } from '../types/TConfig';
 import { TControllerInfo } from '../types/TControllerInfo';
-import { TPluginConfig } from '../types/TPluginConfig';
 
 let instance: Uma = null;
 
