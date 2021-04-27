@@ -1,6 +1,5 @@
 import typeHelper from '../utils/typeHelper';
 import controllerInfo from '../info/controllerInfo';
-import { TMethodDecoratorParams, TClassDecoratorParams } from '../types/TDecorator';
 import { RequestMethod } from '../types/RequestMethod';
 
 export type TPathObjArgs = {
@@ -26,7 +25,7 @@ export function Path(...args: string[]): Function;
 export function Path(arg: { value?: string | string[]; method?: RequestMethod | RequestMethod[]; }): Function;
 
 export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
-    return function Method(...props: TMethodDecoratorParams | TClassDecoratorParams) {
+    return function Method(...props: Parameters<MethodDecorator | ClassDecorator>) {
         const [arg0] = args;
 
         // when @Path decorate class

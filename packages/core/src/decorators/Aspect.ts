@@ -23,6 +23,8 @@ export interface IProceedJoinPoint<T = any> {
  */
 export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
     return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result> => new Promise((resolve, reject) => {
+        if (!(target instanceof BaseController)) throw new Error('@Around [middleware] only use on class extends BaseController.');
+
         middleware(target.ctx, async () => {
             try {
                 const result = await proceed(...args);
@@ -63,8 +65,6 @@ export function Around(around: (point: IProceedJoinPoint) => Promise<Result>): F
 
             return;
         }
-
-        if (!(target instanceof BaseController)) throw new Error('@Around only use on class extends BaseController.');
 
         const { value: method, configurable, enumerable } = desc;
 

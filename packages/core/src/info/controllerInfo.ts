@@ -1,5 +1,4 @@
-import { TControllerInfo, TMethodInfo, TPath } from '../types/TControllerInfo';
-import { THelper } from '../types/THelper';
+import { TControllerInfo, TMethodInfo, TPath, THelper } from '../types/TControllerInfo';
 
 const ControllerMap: Map<Function, TControllerInfo> = new Map();
 
