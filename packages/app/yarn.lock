@@ -149,49 +149,49 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
 
-"@umajs/arg-decorator@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/arg-decorator/-/arg-decorator-1.1.5.tgz#f6a4418201f5e9d9f6a1d2b71a855b7a7e9a5f33"
+"@umajs/arg-decorator@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@umajs/arg-decorator/-/arg-decorator-1.2.2.tgz#1ff91b03955334f9329871ab7e40438edabf6e2e"
   dependencies:
     validate "^5.1.0"
     validator "^13.1.17"
 
-"@umajs/core@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/core/-/core-1.1.5.tgz#9af8c077d8a1c4226171ad17a1ac71ae1f6dc511"
+"@umajs/core@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@umajs/core/-/core-1.2.1.tgz#832b65e1ded29b2bee0f3e1f4b18f7b99ce3ce52"
   dependencies:
     "@types/koa-send" "^4.1.2"
     koa-body "^4.1.1"
 
-"@umajs/path@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/path/-/path-1.1.5.tgz#ea6b7866fa9181e00e9b87e944c13d246a00a2eb"
+"@umajs/path@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@umajs/path/-/path-1.2.1.tgz#a65352b9b2ceb9ae3e44f6c0d96a20f4a00d1f08"
 
-"@umajs/plugin-i18n@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/plugin-i18n/-/plugin-i18n-1.1.5.tgz#c6476e2a3273136c9705c87bfe5ec6b97c3fb1c0"
+"@umajs/plugin-i18n@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@umajs/plugin-i18n/-/plugin-i18n-1.2.2.tgz#f7c9de3b57a3569051d6abc8ac8c69afb015e643"
   dependencies:
     humanize-ms "^1.2.1"
 
-"@umajs/plugin-session@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/plugin-session/-/plugin-session-1.1.5.tgz#cb2c9844b343957a3de54c615763ecfe0de2a5b7"
+"@umajs/plugin-session@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@umajs/plugin-session/-/plugin-session-1.2.2.tgz#d8ac1d32eb03ab4439783d8e9f525039b67b3d72"
   dependencies:
     crypto-js "^4.0.0"
 
-"@umajs/plugin-static@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@umajs/plugin-static/-/plugin-static-1.1.4.tgz#04412887ed32310ce9b2cfc8269199ab888732e4"
+"@umajs/plugin-static@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@umajs/plugin-static/-/plugin-static-1.2.0.tgz#59462b1ccaf9f09a8d933e9afbdf702cc63e2986"
   dependencies:
     koa-static "^5.0.0"
 
-"@umajs/plugin-status@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@umajs/plugin-status/-/plugin-status-1.1.4.tgz#3be3ea378525f0c04f4a573716ce2c9978945278"
+"@umajs/plugin-status@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@umajs/plugin-status/-/plugin-status-1.2.0.tgz#3bf046a3203607a98534316470c1313d911c479c"
 
-"@umajs/router@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@umajs/router/-/router-1.1.5.tgz#fea4af56a0e573f2bb66800e97d455515636ac3b"
+"@umajs/router@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@umajs/router/-/router-1.2.2.tgz#f4ff37375d8ed3546d1520303316b56dba232698"
   dependencies:
     path-to-regexp "^3.0.0"
 
@@ -635,8 +635,8 @@ has@^1.0.3:
     function-bind "^1.1.1"
 
 hosted-git-info@^2.1.4:
-  version "2.8.8"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.8.tgz#7539bd4bc1e0e0a895815a2e0262420b12858488"
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
 
 http-assert@^1.3.0:
   version "1.4.1"
