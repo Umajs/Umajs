@@ -3,7 +3,7 @@
 
 ## 简介
 
-Umajs 是58同城推出的一款基于 Typescript 轻量级 Nodejs Web 框架。它的中文含义是大熊座，北斗七星都是它的组成部分；正如同 Umajs 也是由不同的 package 所组合在一起。我们希望 Umajs 的每一部分，都是优秀的、闪耀的、经受的住各种大型项目检验的。
+Umajs 是 58同城 推出的一款基于 Typescript 轻量级 Nodejs Web 框架。它的中文含义是大熊座，北斗七星都是它的组成部分；正如同 Umajs 也是由不同的 package 所组合在一起。我们希望 Umajs 的每一部分，都是优秀的、闪耀的、经受的住各种大型项目检验的。
 
 ## Features
 * 基于 Koa2，兼容 middleware
@@ -55,3 +55,74 @@ cd packages/app && npm run app
 
 欢迎提交 PR 或者 Issue，向我们反馈建议和问题。
 
+## 特性展示
+
+下面代码展示了以下几个特性：
+> 1、通过 `createArgDecorator` 创建参数装饰器，对 `age` 参数进行校验和类型转换
+> 
+> 2、controller 通过框架提供的 `Result` 便捷的响应数据
+> 
+> 3、`Aspect` 通过 `around` 方法进行方法的拦截，对方法的 `参数` 进行校验, 对 `返回值` 进行校验/修改
+
+```js
+// index.controller.ts
+import Method from './method.aspect';
+import { AgeCheck } from './ArgDecorator';
+
+@Aspect(Method) // 可以装饰在类上对所有方法进行装饰
+export default class extends  BaseController {
+
+    // @Aspect(Method) // 可以装饰在方法上对单一方法进行装饰
+    @Path('/hello')
+    index(@Query('name') name: string, @AgeCheck('age') age: number ) {
+        return Result.json({
+            name,
+            age,
+        });
+    }
+}
+```
+
+```js
+// ArgDecorator.ts
+export const AgeCheck = createArgDecorator((ctx: IContext, ageKey: string) => {
+    let age = ctx.query[ageKey];
+
+    if (age === undefined) return Result.json({
+        code: 0,
+        msg: '请加上 age 参数',
+    });
+
+    age = +age;
+
+    if (Number.isNaN(age) || age < 0 || age > 120) return Result.json({
+        code: 0,
+        msg: '请传入正确的 age 参数',
+    });
+
+    return age;
+});
+```
+
+```js
+// method.aspect.ts
+import { IAspect, IProceedJoinPoint } from '@umajs/core';
+
+export default class implements IAspect {
+    async around(proceedPoint: IProceedJoinPoint) {
+        const { proceed, args } = proceedPoint;
+
+        // 校验参数
+        if (args[0] !== 'Umajs') return Result.send('name 必须为 Umajs');
+
+        const result = await proceed(...args);
+
+        if (result.type === 'json') {
+            // 为 JSON 返回值加上时间戳
+            result.data.time = new Date();
+        }
+
+        return result;
+    }
+}
+```
