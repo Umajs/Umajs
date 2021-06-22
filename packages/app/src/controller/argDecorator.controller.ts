@@ -1,6 +1,5 @@
 import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
 import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam } from "@umajs/arg-decorator";
-import UserModel from './../model/user.model';
 let { isRequire } = Body;
 type user = {
     userId: string,
