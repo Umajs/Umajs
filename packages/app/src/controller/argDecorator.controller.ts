@@ -21,12 +21,6 @@ export default class Modify extends BaseController {
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
 
-    @Path('/model')
-    @Path({ value: '/post', method: RequestMethod.POST })
-    model(@Body(UserModel) userInfo: user) {
-        return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
-    }
-
     @Path('/get')
     @Path({ value: '/post', method: RequestMethod.POST })
     test2(@Body.isRequire('age', '年龄为空') userInfo: user) {

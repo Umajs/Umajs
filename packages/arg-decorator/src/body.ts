@@ -1,7 +1,8 @@
-import { createArgDecorator, IContext, Result } from '@umajs/core';
-import { Validate } from '@umajs/class-validator';
+import { createArgDecorator, IContext } from '@umajs/core';
+import { Validate, Model } from '@umajs/class-validator';
 
-import { TbodyDecorator, Model } from './type';
+import { TbodyDecorator } from './type';
+import { DefualtReturn } from './Tips';
 import Check from './check';
 
 export const fn = (ctx: IContext, argKey?: string | Array<string> | Model | Function) => {
@@ -23,14 +24,13 @@ export const fn = (ctx: IContext, argKey?: string | Array<string> | Model | Func
 
     if (typeof argKey === 'function' && typeof argKey.constructor === 'function') {
         const ArgModel:any = argKey;
-        const scheme:object = new ArgModel(body, false);
-        const [valid, schemeInfo] = Validate(scheme);
+        const [valid, schemeInfo] = Validate(new ArgModel(body, false));
 
         if (!valid) {
             return schemeInfo;
         }
 
-        return Result.json({ code: 0, validate: valid });
+        return DefualtReturn({ validate: valid, parms: schemeInfo });
     }
 
     if (typeof argKey === 'function') {

@@ -1,5 +1,5 @@
 import { IContext } from '@umajs/core';
-// import { Model } from '@umajs/model';
+import { Model } from '@umajs/class-validator';
 
 export type IArgErrorTip = {
     key:string, // 修饰参数属性名称
@@ -8,23 +8,12 @@ export type IArgErrorTip = {
     tip?:string, // 自定义提示内容
     [key:string]:any
 }
-// export declare class Model extends UmaModel {
-//     constructor(data:object, isValid?: boolean)
-// }
 
-// interface Model extends UmaModel{
-//     constructor(data:object, isValid?: boolean)
-// }
-// export declare class Model extends UmaModel {}
-// interface ModelArg extends Model{}
+// type ClassModel<T> = new (...args: any[]) => T;
 
-export declare class Model {
-    constructor(data:object, isValid?: boolean);
-}
+interface ClassModel extends Model{}
 
-type ClassExtendsModel<T> = new(...args: any[]) => T;
-
-export type IBaseDecorator = (key?: string | Array<string> | ClassExtendsModel<Model> | Function) => ParameterDecorator;
+export type IBaseDecorator = (key?: string | Array<string> | ClassModel | Function) => ParameterDecorator;
 
 export type IBaseCheck = (key: string, tip?:string) => ParameterDecorator
 

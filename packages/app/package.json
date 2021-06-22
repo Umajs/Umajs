@@ -23,9 +23,7 @@
   },
   "dependencies": {
     "@umajs/arg-decorator": "^1.2.2",
-    "@umajs/class-validator": "^0.2.1",
     "@umajs/core": "^1.2.1",
-    "@umajs/model": "^1.0.4",
     "@umajs/path": "^1.2.1",
     "@umajs/plugin-i18n": "^1.2.2",
     "@umajs/plugin-session": "^1.2.2",
