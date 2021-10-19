@@ -1,7 +1,7 @@
 {
-  "name": "@umajs/plugin-views",
-  "version": "2.0.1-alpha.0",
-  "description": "umajs views, template",
+  "name": "@umajs/path",
+  "version": "1.2.4",
+  "description": "umajs status",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -27,17 +27,13 @@
     "build": "tsc",
     "prepublish": "npm run build"
   },
-  "dependencies": {
-    "koa-views": "^6.3.1"
-  },
   "devDependencies": {
     "@types/jest": "^26.0.19",
     "@types/koa": "^2.11.6",
-    "@types/koa-views": "^2.0.4",
     "@types/node": "^12.12.9",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.9.1",
-    "@umajs/core": "^2.0.1-alpha.0",
+    "@umajs/core": "^1.2.4",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.23.4",

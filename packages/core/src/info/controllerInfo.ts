@@ -21,11 +21,11 @@ export default class {
          * inside: controller method is private
          */
         const { rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
+        const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
 
         if (rootPath) clazzInfo.path = rootPath;
 
         if (methodName) {
-            const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
             const methodInfo: TMethodInfo = methodMap.get(methodName) || {
                 args: [],
                 paths: [],
@@ -52,9 +52,9 @@ export default class {
             }
 
             methodMap.set(methodName, methodInfo);
-            clazzInfo.methodMap = methodMap;
         }
 
+        clazzInfo.methodMap = methodMap;
         // update controller info
         ControllerMap.set(clazz, { clazz, ...clazzInfo });
     }

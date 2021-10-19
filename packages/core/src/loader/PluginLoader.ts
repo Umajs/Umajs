@@ -101,6 +101,7 @@ export default class PluginLoader {
         const dirs = [
             path.resolve(rootPath, './plugins'),
             path.resolve(rootPath, '../node_modules'),
+            path.resolve(process.cwd(), './node_modules'),
         ];
 
         for (const [name, config] of Object.entries(pluginConfig)) {
