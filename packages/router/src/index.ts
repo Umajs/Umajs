@@ -32,6 +32,8 @@ export const Router = () => {
                 if (ALLROUTE.indexOf(routePath) > -1) {
                     console.error(`${routePath} ==> ${clazz.name}.${methodName} has been registered.
                         Recommended use the Path decorator to annotate the ${clazz.name}.controller.ts`);
+
+                    return;
                 }
 
                 ALLROUTE.push(routePath);

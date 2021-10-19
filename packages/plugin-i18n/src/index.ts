@@ -121,7 +121,7 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
 
                 // query or cookie
                 let locale = ctx.query[queryField]
-                    ? ctx.query[queryField]
+                    ? <string>ctx.query[queryField]
                     : cookieLocale;
 
                 // header or defaultLocale
