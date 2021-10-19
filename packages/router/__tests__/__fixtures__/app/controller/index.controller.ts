@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@umajs/core';
+import { BaseController, Path, Param, Query, RequestMethod, Result } from '@umajs/core';
 
 export default class Index extends BaseController {
     @Path('/')
@@ -14,11 +14,6 @@ export default class Index extends BaseController {
     @Path('/static/test')
     test() {
         return Result.send('this is static router');
-    }
-
-    @Private
-    inline() {
-        return Result.send('this is private router');
     }
 
     @Path('/home/:name')

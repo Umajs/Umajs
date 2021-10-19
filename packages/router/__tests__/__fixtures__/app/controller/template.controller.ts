@@ -1,4 +1,4 @@
-import { BaseController, Path, Private, Result } from '@umajs/core';
+import { BaseController, Path, Result } from '@umajs/core';
 
 @Path('/tpl')
 export default class Template extends BaseController {
@@ -15,10 +15,5 @@ export default class Template extends BaseController {
     @Path('/static/test')
     test() {
         return Result.send('this is static router in template');
-    }
-
-    @Private
-    inline() {
-        return Result.send('this is private router in template');
     }
 }
