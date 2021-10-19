@@ -1,5 +1,4 @@
-import { BaseController, Path, Aspect, Query, Param, RequestMethod } from '@umajs/core';
-import { Post } from '@umajs/path';
+import { BaseController, Path, Post, Query, Param, RequestMethod } from '@umajs/core';
 import { AgeCheck } from '../decorator/AgeCheck';
 import { Result } from '../plugins/test/index';
 
@@ -22,12 +21,10 @@ export default class Template extends BaseController {
     }
 
     @Path('/reg/:name*')
-    @Aspect.around('test')
     reg(@AgeCheck('age') age: number, @Param('name') name: string) {
         return Result.send(`this is reg router. ${name} ${age}`);
     }
 
-    @Aspect.around('mw')
     @Path('/test')
     test(@Query('name') name: string) {
         console.log('hi tpl test', name);

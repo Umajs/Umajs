@@ -17,7 +17,7 @@ export async function callMethod(clazz: Function, methodName: string, param: obj
 
     if (!clazzInfo) return next();
 
-    const { name: clazzName, methodMap = new Map() } = clazzInfo;
+    const { methodMap = new Map() } = clazzInfo;
     const { args: argArr = [] } = <TMethodInfo>methodMap.get(methodName) || {};
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
@@ -40,5 +40,5 @@ export async function callMethod(clazz: Function, methodName: string, param: obj
 
     if (methodResult instanceof Result) return Result.finish(ctx, methodResult);
 
-    throw new Error(`[NOT_RETURN_RESULT] ${clazzName}.${methodName} does not return result, e.g "Result.[view|json]()"`);
+    throw new Error(`[NOT_RETURN_RESULT] ${clazz.name}.${methodName} does not return result, e.g "Result.[view|json]()"`);
 }

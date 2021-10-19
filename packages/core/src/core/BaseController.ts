@@ -28,7 +28,7 @@ export class BaseController implements BaseContext {
 
     jsonp = Result.jsonp;
 
-    view = async (viewPath: string, locals: { [key: string]: any } = {}) => Result.view(viewPath, locals);
+    view = Result.view;
 
     stream = Result.stream
 

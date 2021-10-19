@@ -1,26 +1,20 @@
 import { BaseController } from '../core/BaseController';
-import ServiceLoader from '../loader/ServiceLoader';
+import { BaseService } from '../core/BaseService';
 import typeHelper from '../utils/typeHelper';
 
 /**
  * 注入 service
  * @param serviceName 文件名
  */
-export function Service(service: string | Function): Function {
-    return function s(target: Function, property: string, desc: PropertyDescriptor): any {
-        const serviceName = typeHelper.isString(service) ? service : service.name;
-
+export function Service<T extends typeof BaseService>(service: T): Function {
+    return function s(target: T, property: string, desc: PropertyDescriptor): any {
         if (!(target instanceof BaseController) || !typeHelper.isUndef(desc)) {
-            throw new Error(`Please check @Service(${serviceName})/${property} used on Controller's property, and Controller extends BaseController.`);
+            throw new Error(`Please check @Service(${service.name})/${property} used on Controller's property, and Controller extends BaseController.`);
         }
 
         return {
             get() {
-                const serviceClass = typeHelper.isString(service) ? ServiceLoader.getService(service) : service;
-
-                if (!serviceClass) throw new Error(`Please check ${service}.service.ts is exists and extends BaseService.`);
-
-                return Reflect.construct(serviceClass, [this.ctx]);
+                return Reflect.construct(service, [this.ctx]);
             },
         };
     };

@@ -1,6 +1,6 @@
 {
   "name": "@umajs/router",
-  "version": "1.2.4",
+  "version": "2.0.1-alpha.0",
   "description": "umajs router",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "@types/node": "^12.12.9",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.9.1",
-    "@umajs/core": "^1.2.4",
+    "@umajs/core": "^2.0.1-alpha.0",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.23.4",

@@ -1,6 +1,6 @@
 import { IContext, TPlugin, RequestMethod, Result as R } from "@umajs/core";
 
-export class Result extends R {
+export class Result<T> extends R<T> {
     static redirect2(url: string, status: number) {
         return new Result({
             type: 'redirect',

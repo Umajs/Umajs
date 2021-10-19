@@ -1,20 +1,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { BaseController, Path, Private, Param, Query, RequestMethod, Aspect, Service, Result } from '@umajs/core';
-import { Get, Post } from '@umajs/path';
+import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result } from '@umajs/core';
 import { RequestFile } from '@umajs/arg-decorator';
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
 import UserService from '../service/user.service';
+import { method } from '../aspect/method.aspect';
 
 export default class Index extends BaseController {
 
     @Service(TestService)
     testService: TestService
 
-    @Service('user')
+    @Service(UserService)
     userService: UserService;
 
+    @Path('/')
     index() {
         console.log(this.userService.getDefaultUserAge());
 
@@ -47,7 +48,7 @@ export default class Index extends BaseController {
     }
 
     @Get('/reg/:name*')
-    @Aspect.around('test')
+    @Around(method)
     reg(@AgeCheck('age') age: number, @Param('name') name: string) {
         return Result.send(`this is reg router. ${name} ${age}`);
     }
@@ -77,7 +78,6 @@ export default class Index extends BaseController {
         return Result.send(this.ctx.cookies.get('hehe'));
     }
 
-    @Private
     inline() {
         return Result.send('this is private router');
     }

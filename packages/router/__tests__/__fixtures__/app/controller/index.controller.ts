@@ -1,13 +1,9 @@
 import { BaseController, Path, Private, Param, Query, RequestMethod, Result } from '@umajs/core';
 
 export default class Index extends BaseController {
+    @Path('/')
     index() {
         return Result.send('this is index router');
-    }
-
-    @Path()
-    home() {
-        return Result.send('this is index router home method');
     }
 
     @Path('/reg/:name')

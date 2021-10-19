@@ -1,5 +1,4 @@
-import { TControllerInfo, TMethodInfo, TPath } from '../types/TControllerInfo';
-import { THelper } from '../types/THelper';
+import { TControllerInfo, TMethodInfo, TPath, THelper } from '../types/TControllerInfo';
 
 const ControllerMap: Map<Function, TControllerInfo> = new Map();
 
@@ -21,22 +20,9 @@ export default class {
          * methodType: controller method visit method type get|post...
          * inside: controller method is private
          */
-        const { clazzName, rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
+        const { rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
         const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
 
-        // De-weighting according to clazzName( for reload )
-        if (clazzName) {
-            // for (const [k, { name }] of ControllerMap) {
-            //     if (name === clazzName) {
-            //         ControllerMap.delete(k);
-            //         console.log('hot reload', clazzName);
-            //     }
-            // }
-
-            clazzInfo.name = clazzName;
-        }
-
-        // if (clazzName) clazzInfo.name = clazzName;
         if (rootPath) clazzInfo.path = rootPath;
 
         if (methodName) {

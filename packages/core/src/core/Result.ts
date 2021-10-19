@@ -6,8 +6,8 @@ import { Results } from '../extends/Results';
 import { IResult, TResultType } from '../types/IResult';
 import { IContext } from '../types/IContext';
 
-export default class Result<T = any> implements IResult {
-    constructor({ type, data, status }: IResult) {
+export default class Result<T> implements IResult<T> {
+    constructor({ type, data, status }: IResult<T>) {
         this.type = type;
         this.data = data;
         this.status = status;
@@ -20,28 +20,28 @@ export default class Result<T = any> implements IResult {
     status: number;
 
     static done() {
-        return new Result({
+        return new Result<never>({
             type: 'done',
         });
     }
 
-    static send(data: string | Buffer, status?: number) {
-        return new Result({
+    static send<TT = string | Buffer>(data: TT, status?: number) {
+        return new Result<TT>({
             type: 'send',
             data,
             status,
         });
     }
 
-    static json(data: { [key: string]: any }) {
-        return new Result({
+    static json<TT extends { [key: string]: any }>(data: TT) {
+        return new Result<TT>({
             type: 'json',
             data,
         });
     }
 
-    static jsonp(data: { [key: string]: any }, callbackField: string = 'callback') {
-        return new Result({
+    static jsonp<TT extends { [key: string]: any }>(data: TT, callbackField: string = 'callback') {
+        return new Result<TT>({
             type: 'jsonp',
             data: {
                 ...data,
@@ -90,7 +90,7 @@ export default class Result<T = any> implements IResult {
         });
     }
 
-    static finish(ctx: IContext, result: Result) {
+    static finish<TT>(ctx: IContext, result: Result<TT>) {
         const { type, status, data } = result;
 
         if (status) ctx.status = status;

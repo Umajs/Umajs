@@ -42,8 +42,8 @@ export interface IResults {
 
 export type TResultType = keyof IResults;
 
-export interface IResult {
+export interface IResult<T> {
     type: TResultType | string; // 类别
-    data?: any; // 数据
+    data?: T; // 数据
     status?: number; // 状态
 }

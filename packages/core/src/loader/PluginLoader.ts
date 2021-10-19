@@ -7,7 +7,7 @@ import mixin from '../utils/mixin';
 import typeHelper from '../utils/typeHelper';
 import Require from '../utils/Require';
 
-import { TPluginConfig } from '../types/TPluginConfig';
+import { TPluginConfig } from '../types/TConfig';
 import { TPlugin } from '../types/TPlugin';
 import { IContext } from '../types/IContext';
 import { Results } from '../extends/Results';
@@ -84,8 +84,8 @@ export default class PluginLoader {
 
             if (typeHelper.isFunction(pluginResult)) uma.use(pluginResult);
             else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
-        } else if (typeHelper.isObject(plugin)) {
-            PluginLoader.complexPlugin(plugin, options);
+        } else {
+            console.log(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
         }
     }
 

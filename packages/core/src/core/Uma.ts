@@ -4,9 +4,6 @@ import * as http from 'http';
 import * as https from 'https';
 import * as bodyParser from 'koa-body';
 
-import AspectLoader from '../loader/AspectLoader';
-import ControllerLoader from '../loader/ControllerLoader';
-import ServiceLoader from '../loader/ServiceLoader';
 import ResourceLoader from '../loader/ResourceLoader';
 import ConfigLoader from '../loader/ConfigLoader';
 import PluginLoader from '../loader/PluginLoader';
@@ -20,9 +17,8 @@ import typeHelper from '../utils/typeHelper';
 import mixin from '../utils/mixin';
 import { TUmaOption } from '../types/TUmaOption';
 import { IContext } from '../types/IContext';
-import { TConfig } from '../types/TConfig';
+import { TConfig, TPluginConfig } from '../types/TConfig';
 import { TControllerInfo } from '../types/TControllerInfo';
-import { TPluginConfig } from '../types/TPluginConfig';
 
 let instance: Uma = null;
 
@@ -65,17 +61,11 @@ export default class Uma {
     private async load() {
         this.loadConfig();
 
-        this.loadAspect();
-
-        this.loadResource();
-
-        if (!this.options.strictDir) {
-            this.loadService();
-
-            this.loadController();
-        }
-
         await this.loadPlugin();
+
+        const reservedDir = ['aspect', 'plugins'];
+
+        ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
     }
 
     loadConfig() {
@@ -84,42 +74,7 @@ export default class Uma {
         this.config = ConfigLoader.config;
     }
 
-    loadAspect() {
-        AspectLoader.loadAspectDir(path.resolve(this.options.ROOT, 'aspect'));
-    }
-
-    loadResource() {
-        // ['aspect', 'plugins'] reserved dir
-        const reservedDir = ['aspect', 'plugins'];
-
-        if (!this.options.strictDir) {
-            reservedDir.push('controller', 'service');
-        }
-
-        ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
-    }
-
-    loadService() {
-        ServiceLoader.loadServiceDir(path.resolve(this.options.ROOT, 'service'));
-    }
-
-    loadController() {
-        ControllerLoader.loadControllerDir(path.resolve(this.options.ROOT, 'controller'));
-    }
-
     async loadPlugin() {
-        if (this.options.bodyParser) {
-            this.app.use((ctx, next) => {
-                if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
-                    const bodyParserOpts = mixin(false, { multipart: true }, this.options.bodyParser);
-
-                    return Reflect.apply(bodyParser(bodyParserOpts), null, [ctx, next]);
-                }
-
-                return next();
-            });
-        }
-
         await PluginLoader.loadDir(this.options.ROOT);
     }
 
@@ -158,6 +113,19 @@ export default class Uma {
         mixin(false, app.context, Context);
 
         if (typeHelper.isFunction(beforeLoad)) await Promise.resolve(Reflect.apply(beforeLoad, this, [this]));
+
+        // koa-body
+        if (this.options.bodyParser) {
+            this.app.use((ctx, next) => {
+                if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
+                    const bodyParserOpts = mixin(false, { multipart: true }, this.options.bodyParser);
+
+                    return Reflect.apply(bodyParser(bodyParserOpts), null, [ctx, next]);
+                }
+
+                return next();
+            });
+        }
 
         await this.load();
 
