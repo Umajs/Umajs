@@ -1,11 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result } from '@umajs/core';
+import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result,Middleware } from '@umajs/core';
 import { RequestFile } from '@umajs/arg-decorator';
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
 import UserService from '../service/user.service';
 import { method } from '../aspect/method.aspect';
+import { mw ,middleware } from '../aspect/mw.aspect';
+
 
 export default class Index extends BaseController {
 
@@ -14,7 +16,8 @@ export default class Index extends BaseController {
 
     @Service(UserService)
     userService: UserService;
-
+    @Around(mw)
+    @Middleware(middleware)
     @Path('/')
     index() {
         console.log(this.userService.getDefaultUserAge());

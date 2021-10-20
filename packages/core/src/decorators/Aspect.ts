@@ -42,8 +42,10 @@ export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) 
  * @param middleware 中间件
  * @returns Around 装饰器
  */
-export function Middleware(middleware: (Koa.Middleware<any, IContext>)) {
-    return middlewareToAround(middleware);
+export function Middleware(middleware: (Koa.Middleware<any, IContext>)):Function {
+    if (!typeHelper.isFunction(middleware)) throw new Error('@Middleware param must be Function.');
+
+    return Around(middlewareToAround(middleware));
 }
 
 /**
