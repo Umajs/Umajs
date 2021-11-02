@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "2.0.1-alpha.0",
+  "version": "2.0.1",
   "private": true,
   "description": "> TODO: description",
   "author": "zhangzhihua <zzh627@126.com>",
@@ -22,14 +22,14 @@
     "app": "ts-node-dev --respawn src/app.ts"
   },
   "dependencies": {
-    "@umajs/arg-decorator": "^2.0.1-alpha.0",
-    "@umajs/core": "^2.0.1-alpha.0",
+    "@umajs/arg-decorator": "^2.0.1",
+    "@umajs/core": "^2.0.1",
     "@umajs/path": "^1.2.1",
-    "@umajs/plugin-i18n": "^2.0.1-alpha.0",
-    "@umajs/plugin-session": "^2.0.1-alpha.0",
+    "@umajs/plugin-i18n": "^2.0.1",
+    "@umajs/plugin-session": "^2.0.1",
     "@umajs/plugin-static": "^1.2.0",
     "@umajs/plugin-status": "^1.2.0",
-    "@umajs/router": "^2.0.1-alpha.0",
+    "@umajs/router": "^2.0.1",
     "koa": "^2.13.0",
     "koa-views": "^6.3.1",
     "nunjucks": "^3.2.0"

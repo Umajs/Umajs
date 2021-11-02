@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-status",
-  "version": "2.0.1-alpha.0",
+  "version": "2.0.1",
   "description": "umajs status",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
