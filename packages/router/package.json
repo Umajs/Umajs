@@ -14,7 +14,7 @@
     "index.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://registry.npmjs.org",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "scripts": {
@@ -54,5 +54,6 @@
   "bugs": {
     "url": "https://github.com/wuba/Umajs/issues"
   },
-  "homepage": "https://github.com/wuba/Umajs#readme"
+  "homepage": "https://github.com/wuba/Umajs#readme",
+  "gitHead": "09332985b53ab8ba55636751fa2ec70990c39aa6"
 }
