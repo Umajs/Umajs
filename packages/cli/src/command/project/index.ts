@@ -25,7 +25,7 @@ export default async (...props: string[]) => {
     const { templaeName } = await inquirer.prompt({
         name: 'templaeName',
         type: 'list',
-        message: 'please choise a template to create project',
+        message: 'please select a template to create the project',
         choices: Object.keys(templateDesc).map((key) => ({ name: `${key},${templateDesc[key]}`, value: key })),
     });
 
