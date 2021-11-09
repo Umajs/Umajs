@@ -14,9 +14,11 @@ export function requireDefault(p: string) {
  * 多语言字符串模板处理
  * @param strings  字符串数组
  * @param keys  变量数组
- *
- * eg: template`HAHA, ${0} ${'name'}!`('Welcome', { name: 'xiaoming' })
- * ===> HAHA, Welcome xiaoming!
+ * return Function;
+ * eg: 
+ *  const tmp = template`HAHA, ${0} ${'name'}!`;
+ *  const str = temp('Welcome', { name: 'xiaoming' });
+ *  console.log(str); // ===> HAHA, Welcome xiaoming! 
  */
 export function template(strings: ReadonlyArray<string>, ...keys: (string | number)[]): Function {
     return (...values: Array<string | object>): string => {
