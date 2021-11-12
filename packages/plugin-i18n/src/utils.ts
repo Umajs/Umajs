@@ -15,10 +15,10 @@ export function requireDefault(p: string) {
  * @param strings  字符串数组
  * @param keys  变量数组
  * return Function;
- * eg: 
+ * eg:
  *  const tmp = template`HAHA, ${0} ${'name'}!`;
  *  const str = temp('Welcome', { name: 'xiaoming' });
- *  console.log(str); // ===> HAHA, Welcome xiaoming! 
+ *  console.log(str); // ===> HAHA, Welcome xiaoming!
  */
 export function template(strings: ReadonlyArray<string>, ...keys: (string | number)[]): Function {
     return (...values: Array<string | object>): string => {
