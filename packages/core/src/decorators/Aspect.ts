@@ -58,7 +58,7 @@ export function Around(around: (point: IProceedJoinPoint) => Promise<Result<any>
     return function aroundDecorator(target: Function, methodName: string, desc: PropertyDescriptor): PropertyDescriptor {
         if (!methodName) {
             Reflect.ownKeys(target.prototype).forEach((method: string) => {
-                if (method === 'constructor') return;
+                if (method === 'constructor' || !typeHelper.isFunction(Reflect.get(target.prototype, method))) return;
 
                 const aroundMethod = aroundDecorator(target.prototype, method, Reflect.getOwnPropertyDescriptor(target.prototype, method));
 
