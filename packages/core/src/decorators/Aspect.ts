@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 
 import { BaseController } from '../core/BaseController';
+import controllerInfo from '../info/controllerInfo';
 import Result from '../core/Result';
 import { IContext } from '../types/IContext';
 import typeHelper from '../utils/typeHelper';
@@ -74,10 +75,15 @@ export function Around(around: (point: IProceedJoinPoint) => Promise<Result<any>
             configurable,
             enumerable,
             writable: true,
-            value: async function aspect(...args: any[]) {
+            value: function aspect(...args: any[]) {
                 const proceed = (...proceedArgs: any[]) => Reflect.apply(method, this, proceedArgs.length ? proceedArgs : args);
+                const contrInfo = controllerInfo.get(this.constructor);
 
-                return await Promise.resolve(Reflect.apply(around, this, [{ target: this, args, proceed }]));
+                if (contrInfo?.methodMap.get(method.name)) {
+                    return Promise.resolve(Reflect.apply(around, this, [{ target: this, args, proceed }]));
+                }
+
+                return proceed();
             },
         };
     };
