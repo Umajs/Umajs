@@ -23,6 +23,10 @@ export default class typeHelper {
         return typeof target === 'function';
     }
 
+    static isPromise(target: any): target is Function {
+        return typeof target === 'function';
+    }
+
     static isBoolean(target: any): target is boolean {
         return typeHelper.type(target) === 'Boolean';
     }
