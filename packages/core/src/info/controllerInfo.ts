@@ -67,7 +67,7 @@ export default class {
         return ControllerMap.get(clazz);
     }
 
-    static isRouterMethod(clazz: Function, method: string) {
+    static isAspectMethod(clazz: Function, method: string) {
         const info: TControllerInfo = ControllerMap.get(clazz);
 
         if (!info) return true;
