@@ -17,7 +17,7 @@ export default class ResourceLoader {
                 ResourceClassMap.set(clazz, clazzInstance);
             }
         } catch (err) {
-            if (process.env.NODE_ENV === 'debugger') console.log(err);
+            if (process.env.NODE_ENV !== 'production') console.log(err);
         }
     }
 

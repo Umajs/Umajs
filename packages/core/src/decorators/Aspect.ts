@@ -60,7 +60,7 @@ export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P)
         if (!methodName) {
             Reflect.ownKeys(target.prototype).forEach((method: string) => {
                 if (method === 'constructor'
-                    || !controllerInfo.isRouterMethod(target, method)
+                    || !controllerInfo.isAspectMethod(target, method)
                     || !typeHelper.isFunction(Reflect.get(target.prototype, method))) return;
 
                 const aroundMethod = aroundDecorator(target.prototype, method, Reflect.getOwnPropertyDescriptor(target.prototype, method));
@@ -79,6 +79,7 @@ export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P)
             writable: true,
             value: function aspect(...args: any[]) {
                 const proceed = (...proceedArgs: any[]) => Reflect.apply(method, this, proceedArgs.length ? proceedArgs : args);
+
                 return Reflect.apply(around, this, [{ target: this, args, proceed }]);
             },
         };
