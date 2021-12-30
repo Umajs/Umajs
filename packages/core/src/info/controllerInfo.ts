@@ -66,4 +66,12 @@ export default class {
     static get(clazz: Function) {
         return ControllerMap.get(clazz);
     }
+
+    static isAspectMethod(clazz: Function, method: string) {
+        const info: TControllerInfo = ControllerMap.get(clazz);
+
+        if (!info) return true;
+
+        return info.methodMap.has(method);
+    }
 }
