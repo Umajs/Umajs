@@ -15,14 +15,20 @@ export interface IProceedJoinPoint<T = any, P = any> {
 /**
  * 将中间件转成切面 Around 装饰器
  * @param middleware 中间件
- * eg:
-    const around = middlewareToAround((ctx, next) => {
-        console.log('》》', ctx.request.path);
-        return next();
-    });
-    @Around(around)
+ * @deprecated - Use `Middleware` instead
  */
 export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
+    console.warn('[Warning] @middlewareToAround is deprecated! Use @Middleware instead');
+
+    return middlewareToAspect(middleware);
+}
+
+/**
+ * 将中间件转成切面 Around 装饰器
+ * @param middleware koa中间件
+ * @returns Around 切面函数
+ */
+function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
     return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result<any>> => new Promise((resolve, reject) => {
         if (!(target instanceof BaseController)) throw new Error('@Around [middleware] only use on class extends BaseController.');
 
@@ -46,7 +52,7 @@ export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) 
 export function Middleware(middleware: (Koa.Middleware<any, IContext>)):Function {
     if (!typeHelper.isFunction(middleware)) throw new Error('@Middleware param must be Function.');
 
-    return Around(middlewareToAround(middleware));
+    return Around(middlewareToAspect(middleware));
 }
 
 /**
