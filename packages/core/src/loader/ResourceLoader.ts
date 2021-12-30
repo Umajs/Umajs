@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 
+import Uma from '../core/Uma';
 import Require from '../utils/Require';
 import loadDir from '../utils/loadDir';
 import { ResourceClazzMap } from '../decorators/Resource';
@@ -17,7 +18,7 @@ export default class ResourceLoader {
                 ResourceClassMap.set(clazz, clazzInstance);
             }
         } catch (err) {
-            if (process.env.NODE_ENV === 'debugger') console.log(err);
+            if (Uma.env !== 'production') console.log(err);
         }
     }
 

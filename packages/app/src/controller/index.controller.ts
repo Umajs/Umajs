@@ -6,7 +6,7 @@ import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
 import UserService from '../service/user.service';
 import { method } from '../aspect/method.aspect';
-import { mw ,middleware } from '../aspect/mw.aspect';
+import { middleware } from '../aspect/mw.aspect';
 
 
 export default class Index extends BaseController {
@@ -16,7 +16,6 @@ export default class Index extends BaseController {
 
     @Service(UserService)
     userService: UserService;
-    @Around(mw)
     @Middleware(middleware)
     @Path('/')
     index() {
