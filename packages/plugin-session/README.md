@@ -4,6 +4,6 @@
 
 ### Usage
 
-[https://umajs.github.io](https://umajs.github.io/%E6%8F%92%E4%BB%B6/Session.html "uma doc")
+[https://umajs.github.io](https://umajs.github.io/plugin/Session.html "uma doc")
 
 
