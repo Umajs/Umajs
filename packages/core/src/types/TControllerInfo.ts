@@ -28,5 +28,4 @@ export type THelper = TArg & {
     rootPath?: string
     path?: string
     methodTypes?: string[]
-    inside?: boolean,
 }

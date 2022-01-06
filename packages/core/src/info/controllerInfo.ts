@@ -14,13 +14,10 @@ export default class {
 
         /**
          * 获取需要设置或更新的字段
-         * clazzName: controller name
-         * rootpath: controller visit path
-         * mpath: controller method visit path
-         * methodType: controller method visit method type get|post...
-         * inside: controller method is private
+         * rootPath: controller visit path
+         * methodTypes: controller method visit method type get|post...
          */
-        const { rootPath, path, methodTypes = [], inside, argProps, argIndex, argDecorator } = info;
+        const { rootPath, path, methodTypes = [], argProps, argIndex, argDecorator } = info;
         const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
 
         if (rootPath) clazzInfo.path = rootPath;
@@ -32,8 +29,6 @@ export default class {
             };
 
             methodInfo.name = methodName;
-
-            methodInfo.inside = inside !== undefined ? inside : methodInfo.inside;
 
             if (path) {
                 const pathObj: TPath = { path };

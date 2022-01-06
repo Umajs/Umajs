@@ -2,7 +2,7 @@ import controllerInfo from '../info/controllerInfo';
 import { IContext } from '../types/IContext';
 
 /**
- * 自定义参数装饰器
+ * create argument decorator
  * @param fn (ctx: IContext, ...argProps: any[]) => (...argProps: any[]) => TParameterDecorator
  */
 export function createArgDecorator(fn: (ctx: IContext, ...argProps: any[]) => any) {

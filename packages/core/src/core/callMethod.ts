@@ -4,13 +4,12 @@ import ControllerInfo from '../info/controllerInfo';
 import { TMethodInfo } from '../types/TControllerInfo';
 
 /**
- * 调用方法
- * @param clazzName class
- * @param methodName 调用的方法名
- * @param param 参数
- * @param ctx 上下文
- * @param next
- * @param methodType 调用方式
+ * @param clazz class
+ * @param methodName call class's method name
+ * @param param method's param
+ * @param ctx context
+ * @param next Koa.next
+ * @returns Promise<any>
  */
 export async function callMethod(clazz: Function, methodName: string, param: object, ctx: IContext, next: Function) {
     const clazzInfo = ControllerInfo.get(clazz);
@@ -22,7 +21,7 @@ export async function callMethod(clazz: Function, methodName: string, param: obj
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
 
-    if (typeof method !== 'function') return next(); // When Controller has been decorator by Service, Default route will be throw Error
+    if (typeof method !== 'function') return next();
 
     const args = [];
 
