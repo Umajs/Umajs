@@ -16,10 +16,10 @@ export default async (...props: string[]) => {
 
     const targetDir = path.resolve(process.cwd(), projectName);
 
-    if (fs.existsSync(targetDir)) return console.log(`\nPROJECT ["${projectName}"] is exists, please check your project name.\n`);
+    if (fs.existsSync(targetDir)) return console.log(`\nPROJECT ["${projectName}"] is exists, please check the name of your project.\n`);
 
     // 下载模板
-    await waitFnloading(download, 'loading template')();
+    await waitFnloading(download, 'downloading template')();
 
     const templateDesc = readDesc();
     const { templaeName } = await inquirer.prompt({
