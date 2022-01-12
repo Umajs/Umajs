@@ -2,7 +2,7 @@ import * as pathToRegexp from 'path-to-regexp';
 import Uma, { IContext, TMethodInfo, callMethod } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
-import { replaceTailSlash } from './helper';
+import { replaceTailSlash, MatchRegexp } from './helper';
 
 export const Router = () => {
     console.log('======Init router start======');
@@ -55,33 +55,7 @@ export const Router = () => {
 
     const uma = Uma.instance();
 
-    if (uma && uma instanceof Uma) {
-        uma.routers = ALLROUTE;
-    }
-
-    /**
-     * 正则类型的url匹配
-     * @param reqPath 请求地址
-     */
-    function MatchRegexp(reqPath: string) {
-        for (const [reg, { clazz, methodName, keys, methodTypes }] of RegexpRouterMap) {
-            const result = reg.exec(reqPath);
-
-            if (result) {
-                // mixin keys and params
-                const params = {};
-                const paramArr = result.slice(1);
-
-                keys.forEach((k, i) => {
-                    params[k.name] = paramArr[i];
-                });
-
-                return { clazz, methodName, params, methodTypes };
-            }
-        }
-
-        return false;
-    }
+    if (uma && uma instanceof Uma) uma.routers = ALLROUTE;
 
     return function router(ctx: IContext, next: Function) {
         const { method: methodType } = ctx.request;
@@ -97,7 +71,7 @@ export const Router = () => {
         }
 
         // 静态路由没有匹配项后匹配正则路由(routerPath + methodPath)
-        const regexpResult = MatchRegexp(reqPath);
+        const regexpResult = MatchRegexp(RegexpRouterMap, reqPath);
 
         if (regexpResult && (!regexpResult.methodTypes || regexpResult.methodTypes.indexOf(methodType) > -1)) {
             const { clazz, methodName, params = {} } = regexpResult;

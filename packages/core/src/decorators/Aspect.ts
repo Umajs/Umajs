@@ -79,6 +79,8 @@ export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P)
 
         const { value: method, configurable, enumerable } = desc;
 
+        if (!typeHelper.isFunction(method)) return;
+
         return {
             configurable,
             enumerable,
