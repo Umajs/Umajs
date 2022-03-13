@@ -1,6 +1,7 @@
 import { createArgDecorator, IContext } from '@umajs/core';
 
 import Check from './check';
+import { TQueryDecorator } from './type';
 
 export * from './body';
 
@@ -24,7 +25,7 @@ export const Param: (key: string) => ParameterDecorator = createArgDecorator((ct
 /**
  * query 装饰器
  */
-export const Query: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => fn(ctx, argKey));
+export const Query: TQueryDecorator = createArgDecorator((ctx: IContext, argKey: string) => fn(ctx, argKey));
 
 /**
  * 参数必传
@@ -200,3 +201,40 @@ export const Phone : (key: string, tip?:string) =>
 
         return ck.isPhone(tip);
     });
+
+Query.Require = isRequire;
+Query.isRequire = isRequire;
+Query.ToNumber = ToNumber;
+Query.isNumber = ToNumber;
+Query.NotEmpty = NotEmpty;
+Query.Equals = Equals;
+Query.isBoolean = isBoolean;
+Query.ToBoolean = isBoolean;
+Query.ToArray = ToArray;
+Query.ToDate = ToDate;
+// @AssertFalse(id,message)
+Query.AssertFalse = AssertFalse; //  限制必须为false
+// @AssertTrue(id,message)限制必须为true
+Query.AssertTrue = AssertTrue;
+// @DecimalMax(id,value,message)限制必须为一个不大于指定值的数字
+Query.DecimalMax = DecimalMax;
+// @DecimalMin(id,value,message)限制必须为一个不小于指定值的数字
+Query.DecimalMin = DecimalMin;
+// @Max(id,value,message)限制必须为一个不大于指定值的数字
+Query.Max = Max;
+// @Min(id,value,message)限制必须为一个不小于指定值的数字
+Query.Min = Min;
+// @Future(id,message)限制必须是一个将来的日期
+Query.Future = Future;
+// @Past(id,message)限制必须是一个过去的日期
+Query.Past = Past;
+// @Pattern(id,value,message)限制必须符合指定的正则表达式
+Query.Pattern = Pattern;
+// @Size(id,max,min,message)限制字符长度必须在min到max之间
+Query.Size = Size;
+// @NotBlank(id,message)验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的空格
+Query.NotBlank = NotBlank;
+// @Email(id,message)验证注解的元素值是Email，也可以通过正则表达式和flag指定自定义的email格式
+Query.Email = Email;
+// @Phone(id,message)验证元素值是手机号
+Query.Phone = Phone;

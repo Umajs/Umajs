@@ -19,18 +19,15 @@ export type IBaseCheck = (key: string, tip?:string) => ParameterDecorator
 
 export type IEqualsCheck = (key: string, comparison:string|number|any, tip?:string) => ParameterDecorator
 
-interface IBody {
-    Require?: IBaseCheck,
-    isRequire?: IBaseCheck,
-    isBoolean?: IBaseCheck,
-    isNumber?: IBaseCheck,
-    ToNumber?: IBaseCheck,
-    ToBoolean?: IBaseCheck,
+interface TVerifierMethod {
+    Require?: IBaseCheck;
+    isRequire?: IBaseCheck;
+    isBoolean?: IBaseCheck;
+    isNumber?: IBaseCheck;
+    ToNumber?: IBaseCheck;
+    ToBoolean?: IBaseCheck;
     ToArray?: (key: string, split?:string, tip?: string) => ParameterDecorator;
     ToDate?: (key: string, tip?: string) => ParameterDecorator;
-}
-
-export interface TbodyDecorator extends IBody, IBaseDecorator {
     Equals?: IEqualsCheck,
     DecimalMax?: (key: string, value: number, tip?: string) => ParameterDecorator;
     DecimalMin?: (key: string, value: number, tip?: string) => ParameterDecorator;
@@ -46,4 +43,9 @@ export interface TbodyDecorator extends IBody, IBaseDecorator {
     Phone?: (key: string, tip?: string) => ParameterDecorator;
     AssertTrue?: (key: string, tip?: string) => ParameterDecorator;
     AssertFalse?: IBaseCheck;
+}
+
+export interface TbodyDecorator extends TVerifierMethod, IBaseDecorator{}
+
+export interface TQueryDecorator extends TVerifierMethod, IBaseCheck{
 }
