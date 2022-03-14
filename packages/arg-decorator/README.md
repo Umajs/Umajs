@@ -9,11 +9,11 @@
 ## 示例
 
 ```ts
-import { ToNumber, Body } from '@umajs/arg-decorator';
+import { Query, Body } from '@umajs/arg-decorator';
 
 // url参数类型修饰校验
 @Path('/saveUser')
-saveUser(@ToNumber('age') age :number) {
+saveUser(@Query.ToNumber('age') age :number) {
     return Result.send(`This router queryParms is ${userId} ${age}`);
 }
 

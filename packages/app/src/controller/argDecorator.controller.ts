@@ -1,5 +1,5 @@
 import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
-import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam } from "@umajs/arg-decorator";
+import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam, Query } from "@umajs/arg-decorator";
 let { isRequire } = Body;
 type user = {
     userId: string,
@@ -10,6 +10,11 @@ type user = {
 export default class Modify extends BaseController {
     @Path('/query')
     index(@Require('userid') userId: string, @ToNumber('age') age: number) {
+        // 测试路由@Path修饰冲突覆盖case
+        return Result.send(`This router queryParms is ${userId} ${age}`);
+    }
+    @Path('/queryIsRequire')
+    queryIsRequire(@Query.Require('userid') userId: string, @Query.Size('age',0,10) age: number) {
         // 测试路由@Path修饰冲突覆盖case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
