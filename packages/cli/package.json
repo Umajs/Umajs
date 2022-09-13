@@ -35,7 +35,7 @@
     "commander": "^3.0.2",
     "inquirer": "^8.0.0",
     "ora": "^4.0.2",
-    "simple-git": "^1.129.0"
+    "simple-git": "^3.5.0"
   },
   "devDependencies": {
     "@types/inquirer": "^8.0.0",
