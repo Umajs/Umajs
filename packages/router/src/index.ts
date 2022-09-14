@@ -1,10 +1,11 @@
+import * as Koa from 'koa';
 import * as pathToRegexp from 'path-to-regexp';
 import Uma, { IContext, TControllerInfo, TMethodInfo, callMethod } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
 import { replaceTailSlash } from './helper';
 
-export const Router = () => {
+export const Router:()=>Koa.Middleware = () => {
     console.log('======Init router start======');
 
     const ALLROUTE: string[] = [];
