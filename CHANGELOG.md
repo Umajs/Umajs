@@ -1,4 +1,49 @@
-# [](https://github.com/Umajs/Umajs/compare/v2.0.1...v) (2021-11-08)
+# [](https://github.com/Umajs/Umajs/compare/v2.0.4-alpha.0...v) (2022-09-14)
+
+
+### Features
+
+* update ts-node ([bd5db1f](https://github.com/Umajs/Umajs/commit/bd5db1fff2b32257561cb99eefc60f632c6c2dde))
+
+
+### Performance Improvements
+
+* upgrade npm version ([837aa8d](https://github.com/Umajs/Umajs/commit/837aa8ded859262996772b077d6a49bf166313e7))
+
+
+
+## [2.0.4-alpha.0](https://github.com/Umajs/Umajs/compare/v2.0.3...v2.0.4-alpha.0) (2022-09-13)
+
+
+### Features
+
+* ts插件版本升级,@umajs/router类型定义修复 ([56e2774](https://github.com/Umajs/Umajs/commit/56e2774c73524c35accc2296ab5053fdc4662fd0))
+
+
+
+## [2.0.3](https://github.com/Umajs/Umajs/compare/v2.0.2...v2.0.3) (2022-03-14)
+
+
+### Features
+
+* **arg-decorator:** The query decorator supports direct access to the verification function decorator, etc: @Query.isRequire ([4c63db7](https://github.com/Umajs/Umajs/commit/4c63db765de5b62e334ab0311bc05676dd5c0be0))
+
+
+
+## [2.0.2](https://github.com/Umajs/Umajs/compare/v2.0.1...v2.0.2) (2021-12-30)
+
+
+### Bug Fixes
+
+* around decorator ([1eeca15](https://github.com/Umajs/Umajs/commit/1eeca150df88277455a4bc6d5da28c8bf2470f40))
+* **around:** fix around err ([33c454c](https://github.com/Umajs/Umajs/commit/33c454c74727f32d005864f6a195745fc6661036))
+* **typehelper:** isPromise return type ([8cce060](https://github.com/Umajs/Umajs/commit/8cce0601a74ab11234c3567fd0ae845aeca17aa8))
+* update style ([fea0c62](https://github.com/Umajs/Umajs/commit/fea0c6299ba39d8174760510b1d83beb91cb79d7))
+
+
+### Performance Improvements
+
+* optimization comments ([bc40575](https://github.com/Umajs/Umajs/commit/bc4057506a13b0384da05e03ef4907018160b91a))
 
 
 
