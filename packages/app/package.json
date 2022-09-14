@@ -38,7 +38,7 @@
     "@types/koa": "^2.11.6",
     "@types/koa-views": "^2.0.3",
     "npm-run-all": "^4.1.5",
-    "ts-node": "^8.8.1",
-    "ts-node-dev": "^1.0.0-pre.44"
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0"
   }
 }
