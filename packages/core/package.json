@@ -1,6 +1,6 @@
 {
   "name": "@umajs/core",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "uma core",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "index.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://registry.npmjs.org",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "scripts": {
@@ -57,5 +57,6 @@
   "bugs": {
     "url": "https://github.com/wuba/Umajs/issues"
   },
-  "homepage": "https://github.com/wuba/Umajs#readme"
+  "homepage": "https://github.com/wuba/Umajs#readme",
+  "gitHead": "f30084ad6d7637290f231ce96a4cb488d36186ee"
 }

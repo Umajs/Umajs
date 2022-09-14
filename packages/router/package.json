@@ -1,6 +1,6 @@
 {
   "name": "@umajs/router",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "umajs router",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "index.d.ts"
   ],
   "publishConfig": {
-    "registry": "http://registry.npmjs.org",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "scripts": {
@@ -35,7 +35,7 @@
     "@types/node": "^12.12.9",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.9.1",
-    "@umajs/core": "^1.2.4",
+    "@umajs/core": "^1.2.5",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.23.4",
@@ -54,5 +54,6 @@
   "bugs": {
     "url": "https://github.com/wuba/Umajs/issues"
   },
-  "homepage": "https://github.com/wuba/Umajs#readme"
+  "homepage": "https://github.com/wuba/Umajs#readme",
+  "gitHead": "f30084ad6d7637290f231ce96a4cb488d36186ee"
 }
