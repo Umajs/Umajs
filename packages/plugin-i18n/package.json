@@ -1,6 +1,6 @@
 {
   "name": "@umajs/plugin-i18n",
-  "version": "2.0.4-alpha.0",
+  "version": "2.0.4",
   "description": "umajs i18n",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
@@ -36,8 +36,8 @@
     "@types/supertest": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
-    "@umajs/core": "^2.0.4-alpha.0",
-    "@umajs/router": "^2.0.4-alpha.0",
+    "@umajs/core": "^2.0.4",
+    "@umajs/router": "^2.0.4",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.23.4",
