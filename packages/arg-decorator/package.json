@@ -1,6 +1,6 @@
 {
   "name": "@umajs/arg-decorator",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "uma arg-decorator",
   "author": "zhangzhihua <zzh627@126.com>",
   "license": "MIT",
@@ -35,8 +35,8 @@
     "@types/node": "^18.7.17",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
-    "@umajs/core": "^2.0.4",
-    "@umajs/router": "^2.0.4",
+    "@umajs/core": "^2.0.5",
+    "@umajs/router": "^2.0.5",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.23.4",
