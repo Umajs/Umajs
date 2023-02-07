@@ -1,6 +1,6 @@
 import { TPluginConfig } from '@umajs/core';
 
-export default <{[key: string]: TPluginConfig}>{
+export default <{[key: string]: boolean | TPluginConfig}>{
     'status': true,
     'session': true,
     'i18n': {

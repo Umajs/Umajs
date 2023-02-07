@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "init": "del -f packages/*/node_modules && del -f packages/*/lib && lerna bootstrap",
+    "clear:lock":"del -f packages/*/yarn.lock",
     "commit": "npx git-cz",
     "test:core": "jest ./packages/core/__tests__ --runInBand",
     "test:router": "jest ./packages/router/__tests__ --runInBand --forceExit",
