@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+type paramType = string | number;
+type templateParamsType = [...paramType[], paramType | Record<string, paramType>];
+
 export const i18nMap: Map<string, { [key: string]: any }> = new Map();
 
 export function requireDefault(p: string) {
@@ -20,13 +23,14 @@ export function requireDefault(p: string) {
  *  const str = temp('Welcome', { name: 'xiaoming' });
  *  console.log(str); // ===> HAHA, Welcome xiaoming!
  */
-export function template(strings: ReadonlyArray<string>, ...keys: (string | number)[]): Function {
-    return (...values: Array<string | object>): string => {
-        const dict = values[values.length - 1] || {};
-        const result: Array<string | number> = [strings[0]];
+export function template(strings: ReadonlyArray<string>, ...keys: paramType[]): Function {
+    return (...values: templateParamsType): string => {
+        const lastValue = values[values.length - 1];
+        const dict = typeof lastValue === 'object' ? lastValue : {};
+        const result: Array<paramType> = [strings[0]];
 
-        keys.forEach((key: number | string, i: number) => {
-            let value: number | string;
+        keys.forEach((key: paramType, i: number) => {
+            let value: paramType;
 
             if (Number.isInteger(key as number)) {
                 value = values[key] && !(values[key] instanceof Object) ? values[key] : '';
