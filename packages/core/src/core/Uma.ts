@@ -2,7 +2,7 @@ import * as Koa from 'koa';
 import * as path from 'path';
 import * as http from 'http';
 import * as https from 'https';
-import * as bodyParser from 'koa-body';
+import { koaBody } from 'koa-body';
 
 import ResourceLoader from '../loader/ResourceLoader';
 import ConfigLoader from '../loader/ConfigLoader';
@@ -120,7 +120,7 @@ export default class Uma {
                 if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
                     const bodyParserOpts = mixin(false, { multipart: true }, this.options.bodyParser);
 
-                    return Reflect.apply(bodyParser(bodyParserOpts), null, [ctx, next]);
+                    return Reflect.apply(koaBody(bodyParserOpts), null, [ctx, next]);
                 }
 
                 return next();

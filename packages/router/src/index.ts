@@ -1,5 +1,5 @@
 import * as Koa from 'koa';
-import * as pathToRegexp from 'path-to-regexp';
+import { pathToRegexp, Key } from 'path-to-regexp';
 import Uma, { IContext, TMethodInfo, callMethod } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';
@@ -41,10 +41,9 @@ export const Router:()=>Koa.Middleware = () => {
 
                 // 如果method设置的Path中有:/(被认定为正则匹配路由，否则为静态路由
                 if (methodPath.indexOf(':') > -1 || methodPath.indexOf('(') > -1) {
-                    const keys: pathToRegexp.Key[] = [];
-                    const pathReg = pathToRegexp(routePath, keys);
+                    const { regexp, keys } = pathToRegexp(routePath);
 
-                    RegexpRouterMap.set(pathReg, { ...pathInfo, keys, routePath, methodTypes });
+                    RegexpRouterMap.set(regexp, { ...pathInfo, keys, routePath, methodTypes });
                 } else {
                     StaticRouterMap.set(routePath, { ...pathInfo, methodTypes });
                 }
