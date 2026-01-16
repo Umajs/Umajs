@@ -1,7 +1,7 @@
 import Result from '../core/Result';
-import { IContext } from '../types/IContext';
+import type { IContext } from '../types/IContext';
 import ControllerInfo from '../info/controllerInfo';
-import { TMethodInfo } from '../types/TControllerInfo';
+import type { TMethodInfo } from '../types/TControllerInfo';
 
 /**
  * @param clazz class
@@ -17,17 +17,22 @@ export async function callMethod(clazz: Function, methodName: string, param: obj
     if (!clazzInfo) return next();
 
     const { methodMap = new Map() } = clazzInfo;
-    const { args: argArr = [] } = <TMethodInfo>methodMap.get(methodName) || {};
+    const methodInfo = methodMap.get(methodName) as TMethodInfo;
+
+    if (!methodInfo) return next();
+
+    const { args: argArr = [] } = methodInfo;
+    // eslint-disable-next-line new-cap
     const instance = Reflect.construct(clazz, [ctx]);
     const method = Reflect.get(instance, methodName);
 
     if (typeof method !== 'function') return next();
 
-    const args = [];
+    const args: any[] = [];
 
     ctx.param = param;
+
     for (const { argDecorator, argProps, argIndex } of argArr) {
-        // v1.0.* TArg = { argDecorator, argKey, argIndex }
         const argVal = await Promise.resolve(argDecorator(ctx, ...argProps));
 
         if (argVal instanceof Result) return Result.finish(ctx, argVal);

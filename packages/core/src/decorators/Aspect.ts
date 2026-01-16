@@ -30,17 +30,23 @@ export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) 
  */
 function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
     return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result<any>> => new Promise((resolve, reject) => {
-        if (!(target instanceof BaseController)) throw new Error('@Around [middleware] only use on class extends BaseController.');
+        if (!(target instanceof BaseController)) {
+            return reject(new Error('@Around [middleware] only use on class extends BaseController.'));
+        }
 
-        middleware(target.ctx, async () => {
-            try {
-                const result = await proceed(...args);
+        try {
+            return middleware(target.ctx, async () => {
+                try {
+                    const result = await proceed(...args);
 
-                resolve(result);
-            } catch (error) {
-                reject(error);
-            }
-        });
+                    resolve(result);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        } catch (error) {
+            return reject(error);
+        }
     });
 }
 
@@ -49,7 +55,7 @@ function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
  * @param middleware 中间件
  * @returns Around 装饰器
  */
-export function Middleware(middleware: (Koa.Middleware<any, IContext>)):Function {
+export function Middleware(middleware: (Koa.Middleware<any, IContext>)): Function {
     if (!typeHelper.isFunction(middleware)) throw new Error('@Middleware param must be Function.');
 
     return Around(middlewareToAspect(middleware));
@@ -62,16 +68,19 @@ export function Middleware(middleware: (Koa.Middleware<any, IContext>)):Function
 export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P): Function {
     if (!typeHelper.isFunction(around)) throw new Error('@Around param must be Function.');
 
-    return function aroundDecorator(target: Function, methodName: string, desc: PropertyDescriptor): PropertyDescriptor {
+    return function aroundDecorator(target: Function, methodName: string, desc: PropertyDescriptor): PropertyDescriptor | void {
         if (!methodName) {
-            Reflect.ownKeys(target.prototype).forEach((method: string) => {
-                if (method === 'constructor'
-                    || !controllerInfo.isAspectMethod(target, method)
+            Reflect.ownKeys(target.prototype).forEach((method: string | symbol) => {
+                if (method === 'constructor' || typeof method !== 'string') return;
+                
+                if (!controllerInfo.isAspectMethod(target, method)
                     || !typeHelper.isFunction(Reflect.get(target.prototype, method))) return;
 
-                const aroundMethod = aroundDecorator(target.prototype, method, Reflect.getOwnPropertyDescriptor(target.prototype, method));
+                const aroundMethod = aroundDecorator(target.prototype, method, Reflect.getOwnPropertyDescriptor(target.prototype, method) as PropertyDescriptor);
 
-                Reflect.defineProperty(target.prototype, method, aroundMethod);
+                if (aroundMethod) {
+                    Reflect.defineProperty(target.prototype, method, aroundMethod);
+                }
             });
 
             return;

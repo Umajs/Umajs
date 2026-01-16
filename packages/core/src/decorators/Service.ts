@@ -14,6 +14,7 @@ export function Service<T extends typeof BaseService>(service: T): Function {
 
         return {
             get() {
+                // @ts-ignore
                 return Reflect.construct(service, [this.ctx]);
             },
         };
