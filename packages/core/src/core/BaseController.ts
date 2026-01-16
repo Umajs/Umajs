@@ -30,11 +30,11 @@ export class BaseController implements BaseContext {
 
     view = Result.view;
 
-    stream = Result.stream
+    stream = Result.stream;
 
-    download = Result.download
+    download = Result.download;
 
-    redirect = Result.redirect
+    redirect = Result.redirect;
 
     get userAgent() {
         return this.ctx.header['user-agent'];

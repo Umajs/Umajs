@@ -45,7 +45,7 @@ const downloadFromGit = async (gitSource = 'github') => {
 export const download = async () => {
     try {
         await downloadFromGit('gitee');
-    } catch (err) {
+    } catch (err) { // eslint-disable-line @typescript-eslint/no-unused-vars
         await downloadFromGit('github');
     }
 };

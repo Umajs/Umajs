@@ -9,7 +9,9 @@
         "alwaysStrict": true,
         "removeComments": true,
         "preserveWatchOutput": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+
     },
     "include":[
         "./src/**/*"

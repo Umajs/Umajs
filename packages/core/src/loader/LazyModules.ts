@@ -4,7 +4,7 @@ export default class LazyModules {
     static requireCatch(pName: string) {
         try {
             return Require.default(pName);
-        } catch (err) {
+        } catch (err) { // eslint-disable-line @typescript-eslint/no-unused-vars
             throw new Error(`Before you use ${pName}, please run "npm i -S ${pName}"\n`);
         }
     }

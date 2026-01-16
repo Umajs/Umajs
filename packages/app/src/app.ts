@@ -1,7 +1,6 @@
 import * as Koa from 'koa';
-import Uma from '@umajs/core';
+import Uma, { TUmaOption } from '@umajs/core';
 import { Router } from '@umajs/router';
-import { TUmaOption } from '@umajs/core';
 
 const options: TUmaOption = {
     Router,
@@ -18,7 +17,6 @@ const options: TUmaOption = {
 
         app.listen(8058);
     } else {
-
         const uma = Uma.instance(options);
 
         uma.start(8058);

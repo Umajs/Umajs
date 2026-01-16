@@ -1,4 +1,4 @@
-export default function (template) {
+export default function i18n(template) {
     return {
         hi: '很高兴遇见你!',
         empty: '',

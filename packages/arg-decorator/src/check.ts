@@ -83,7 +83,7 @@ export default class Check {
             if (newVal instanceof Array) {
                 return newVal;
             }
-        } catch (e) {
+        } catch {
             return Tips.ToArray.err({ key, val, tip, ctx, splitStr });
         }
 
@@ -132,7 +132,7 @@ export default class Check {
             if (!valid) {
                 return Tips.toDate.err({ key, val, tip, ctx });
             }
-        } catch (error) {
+        } catch {
             return Tips.toDate.err({ key, val, tip, ctx });
         }
 

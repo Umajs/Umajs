@@ -11,9 +11,9 @@
         "removeComments": true,
         "preserveWatchOutput": true,
         "experimentalDecorators": true,
-        "baseUrl": "./src",
+        "baseUrl": "./src"
     },
     "include":[
-        "./src/**/*",
-    ],
+        "./src/**/*"
+    ]
 }

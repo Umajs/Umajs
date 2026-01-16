@@ -33,7 +33,7 @@ function color(s: string, c: string): string {
  * either bright red in case of an error or green otherwise.
  */
 export default class Log {
-    useDebug: boolean
+    useDebug: boolean;
 
     constructor(config = { debug: false }) {
         this.useDebug = config.debug;

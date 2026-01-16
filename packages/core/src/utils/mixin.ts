@@ -5,6 +5,7 @@ import typeHelper from './typeHelper';
  * @param target target
  * @param source source
  */
+// eslint-disable-next-line default-param-last
 export default function mixin(deep: boolean = false, target: any, ...sources: any[]) {
     if (!typeHelper.isObject(target)) return target;
 

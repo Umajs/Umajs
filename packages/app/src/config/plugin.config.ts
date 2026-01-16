@@ -1,24 +1,24 @@
 import { TPluginConfig } from '@umajs/core';
 
 export default <{[key: string]: boolean | TPluginConfig}>{
-    'status': true,
-    'session': true,
-    'i18n': {
+    status: true,
+    session: true,
+    i18n: {
         enable: true,
         name: 'i18n',
         options: {
             defaultLocale: 'zh-cn',
         },
     },
-    'static': {
+    static: {
         options: {
             root: './static',
             opts: {
             },
         },
     },
-    'test': true,
-    'views': {
+    test: true,
+    views: {
         enable: true,
         name: 'views',
         options: {

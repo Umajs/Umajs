@@ -58,10 +58,10 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
             else methodTypes.push(method);
         } else {
             const paths = args.length > 0 ? args : ['/'];
-            
+
             for (const arg of paths) {
-                 if (typeHelper.isString(arg)) values.push(arg as string);
-                 else throw new Error(`@Path only receive one Object as a parameter, now is "${JSON.stringify(arg)}"`);
+                if (typeHelper.isString(arg)) values.push(arg as string);
+                else throw new Error(`@Path only receive one Object as a parameter, now is "${JSON.stringify(arg)}"`);
             }
         }
 

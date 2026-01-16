@@ -232,9 +232,12 @@ Query.Past = Past;
 Query.Pattern = Pattern;
 // @Size(id,max,min,message) Character length must be between min and max
 Query.Size = Size;
-// @NotBlank(id,message) Validates that the annotated element value is not empty (not null, length is 0 after removing leading and trailing spaces). Unlike @NotEmpty, @NotBlank applies only to strings and removes spaces during comparison.
+// @NotBlank(id,message) Validates that the annotated element value is not empty
+// (not null, length is 0 after removing leading and trailing spaces).
+// Unlike @NotEmpty, @NotBlank applies only to strings and removes spaces during comparison.
 Query.NotBlank = NotBlank;
-// @Email(id,message) Validates that the annotated element value is an Email. Custom email formats can also be specified via regex and flags.
+// @Email(id,message) Validates that the annotated element value is an Email.
+// Custom email formats can also be specified via regex and flags.
 Query.Email = Email;
 // @Phone(id,message) Validates that the element value is a mobile phone number
 Query.Phone = Phone;

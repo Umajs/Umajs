@@ -1,6 +1,5 @@
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import * as bodyParser from 'koa-body';
 import * as Koa from 'koa';
 
 import Uma from '../core/Uma';
@@ -20,7 +19,7 @@ export type TUmaOption = {
     proxy?: boolean,
     subdomainOffset?: number,
     jsonpBody?: TJsonpBody,
-    bodyParser?: bodyParser.IKoaBodyOptions,
+    bodyParser?: any,
     createServer?: (cb: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void) => Server,
     beforeLoad?: (uma: Uma) => void,
     afterLoaded?: (uma: Uma) => void,

@@ -114,7 +114,9 @@ export default class PluginLoader {
                 if (typeHelper.isFunction(handler)) {
                     uma.use(handler);
                 } else {
-                    console.error(new Error(`Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`));
+                    console.error(new Error(
+                        `Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`,
+                    ));
                 }
 
                 continue;

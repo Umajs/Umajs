@@ -1,6 +1,8 @@
 import { BaseController, Result, Path, RequestMethod } from '@umajs/core';
-import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam, Query } from "@umajs/arg-decorator";
-let { isRequire } = Body;
+import { Require, ToNumber, Body, Equals, Headers, Cookies, RequestFile, RequestParam, Query } from '@umajs/arg-decorator';
+
+const { isRequire } = Body;
+
 type user = {
     userId: string,
     age: number
@@ -13,8 +15,9 @@ export default class Modify extends BaseController {
         // Test router @Path decoration conflict coverage case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
+
     @Path('/queryIsRequire')
-    queryIsRequire(@Query.Require('userid') userId: string, @Query.Size('age',0,10) age: number) {
+    queryIsRequire(@Query.Require('userid') userId: string, @Query.Size('age', 0, 10) age: number) {
         // Test router @Path decoration conflict coverage case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
@@ -33,9 +36,9 @@ export default class Modify extends BaseController {
 
     @Path({ value: '/bodyCheck', method: RequestMethod.POST })
     testValidated(@isRequire('User ID required') userInfo: user) {
-       
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
+
     @Path({ value: '/equals', method: RequestMethod.POST })
     equals(@Body.Equals('age', 18, 'Not 18 years old!') @Body.isRequire('age') userInfo: user) {
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
@@ -47,8 +50,8 @@ export default class Modify extends BaseController {
     }
 
     @Path({ value: '/post_argArr', method: RequestMethod.POST })
-    test5(@Body(['userid', 'age']) userInfo: user, @Body.Size('name', 1, 20) name: string) {
-        return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
+    test5(@Body(['userId', 'age']) userInfo: user, @Body.Size('name', 1, 20) name: string) {
+        return Result.send(`This Post body info is ${JSON.stringify(userInfo)} name is ${name}`);
     }
 
     @Path({ value: '/AssertFalse', method: RequestMethod.POST })
@@ -85,6 +88,7 @@ export default class Modify extends BaseController {
     Future(@Body.Future('Future') Future: Date) {
         return Result.send(`This Post body info is ${Future}`);
     }
+
     @Path({ value: '/Past', method: RequestMethod.POST })
     Past(@Body.Past('Past') Past: Date) {
         return Result.send(`This Post body info is ${Past}`);
@@ -114,6 +118,7 @@ export default class Modify extends BaseController {
     Email(@Body.Email('Email') Email: string) {
         return Result.send(`This Post body info is ${Email}`);
     }
+
     @Path({ value: '/Phone', method: RequestMethod.POST })
     Phone(@Body.Phone('Phone') Phone: string) {
         return Result.send(`This Post body info is ${Phone}`);
@@ -156,7 +161,6 @@ export default class Modify extends BaseController {
 
     @Path('/RequestFile')
     RequestFile(@RequestFile('file') file:File) {
-        return this.send(`This request get RequestFile file is ${file['path']}`);
+        return this.send(`This request get RequestFile file is ${file.path}`);
     }
-    
 }

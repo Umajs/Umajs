@@ -28,6 +28,7 @@ export default class Template extends BaseController {
     @Path('/test')
     test(@Query('name') name: string) {
         console.log('hi tpl test', name);
+
         return Result.send('this is static router in template');
     }
 

@@ -10,17 +10,21 @@ import { createArgDecorator, Result, IContext } from '@umajs/core';
 export const AgeCheck = createArgDecorator((ctx: IContext, ageKey: string) => {
     let age = <number><unknown>ctx.query[ageKey];
 
-    if (age === undefined) return Result.json({
-        code: 0,
-        msg: 'Please add age parameter',
-    });
+    if (age === undefined) {
+        return Result.json({
+            code: 0,
+            msg: 'Please add age parameter',
+        });
+    }
 
     age = +age;
 
-    if (Number.isNaN(age) || age < 0 || age > 120) return Result.json({
-        code: 0,
-        msg: 'Please pass correct age parameter',
-    });
+    if (Number.isNaN(age) || age < 0 || age > 120) {
+        return Result.json({
+            code: 0,
+            msg: 'Please pass correct age parameter',
+        });
+    }
 
     return age;
 });

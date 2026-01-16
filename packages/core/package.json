@@ -17,9 +17,9 @@
     "access": "public"
   },
   "scripts": {
-    "fix": "esw src --fix --ext .ts",
-    "lint": "eslint src --ext .ts",
-    "lint-w": "esw src --clear --color -w --ext .ts",
+    "fix": "ESLINT_USE_FLAT_CONFIG=false esw src --fix --ext .ts",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .ts",
+    "lint-w": "ESLINT_USE_FLAT_CONFIG=false esw src --clear --color -w --ext .ts",
     "build-w": "tsc -w --inlineSourceMap",
     "start": "run-p lint-w build-w",
     "prebuild": "npm run lint",

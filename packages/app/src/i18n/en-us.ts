@@ -1,4 +1,4 @@
-export default function (template) {
+export default function i18n(template) {
     return {
         hi: 'nice to meet you!',
         empty: '',
@@ -11,5 +11,5 @@ export default function (template) {
         overflow_index: template`index overflow ${0} ${1} ${2} ${'name'}`,
         overflow_var: template`overflow ${0} ${'name'} ${'noname'}`,
         repeat: template`repeat ${0} ${0} ${'name'} ${'name'}`,
-    }; 
+    };
 }

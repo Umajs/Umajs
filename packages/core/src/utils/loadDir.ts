@@ -23,6 +23,7 @@ export default function loadDir(dirPath: string, loadFn: (filePath: string) => v
         } else if (stat.isFile()) {
             // Only load .ts, .js, .json files, ignore .d.ts and other files
             const ext = path.extname(file);
+
             if (['.ts', '.js', '.json'].includes(ext) && !file.endsWith('.d.ts')) {
                 loadFn(filePath);
             }

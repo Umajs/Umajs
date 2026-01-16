@@ -1,5 +1,5 @@
 import * as Koa from 'koa';
-import { pathToRegexp, Key } from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 import Uma, { IContext, TMethodInfo, callMethod } from '@umajs/core';
 
 import { TPathInfo } from './types/TPathInfo';

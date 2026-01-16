@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result,Middleware } from '@umajs/core';
+import { BaseController, Path, Param, Query, Get, Post, Around, Service, Result, Middleware } from '@umajs/core';
 import { RequestFile } from '@umajs/arg-decorator';
 import TestService from '../service/test.service';
 import { AgeCheck } from '../decorator/AgeCheck';
@@ -8,14 +8,13 @@ import UserService from '../service/user.service';
 import { method } from '../aspect/method.aspect';
 import { middleware } from '../aspect/mw.aspect';
 
-
 export default class Index extends BaseController {
-
     @Service(TestService)
-    testService: TestService
+        testService: TestService;
 
     @Service(UserService)
-    userService: UserService;
+        userService: UserService;
+
     @Middleware(middleware)
     @Path('/')
     index() {
@@ -38,15 +37,16 @@ export default class Index extends BaseController {
 
     @Path('/home')
     home() {
-        this.setHeader('clientType','PC');
+        this.setHeader('clientType', 'PC');
         console.log(this.ctx.get('Cache-Control'));
         console.log(this.ctx.get('clientType'));
-        this.ctx.set('myappend','1');
-        this.ctx.set('myappend','2');
+        this.ctx.set('myappend', '1');
+        this.ctx.set('myappend', '2');
         console.log(this.ctx.get('myappend'));
-        this.ctx.cookies.set('name','zdj');
-        this.ctx.cookies.set('name1','zdj1');
-        return Result.send('this is home router! '+this.getHeader('Cache-Control'));
+        this.ctx.cookies.set('name', 'zdj');
+        this.ctx.cookies.set('name1', 'zdj1');
+
+        return Result.send(`this is home router! ${this.getHeader('Cache-Control')}`);
     }
 
     @Get('/reg/:name*')
@@ -56,17 +56,17 @@ export default class Index extends BaseController {
     }
 
     @Post('/submit', '/yu/:id')
-    submit(@RequestFile('pic') file:File) {
+    submit(@RequestFile('pic') file: any) {
         // this.ctx.request.body
         // this.ctx.request.files
-        return Result.send(`This request get RequestFile file is ${file['path']}`);
+        return Result.send(`This request get RequestFile file is ${file.path}`);
     }
 
     @Path('/test', '/static/test2')
     async test() {
         console.log('>>>');
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise((resolve) => { setTimeout(resolve, 3000); });
 
         console.log('<<<');
 
@@ -87,6 +87,7 @@ export default class Index extends BaseController {
     @Path('/ss')
     ss() {
         this.ctx.session.set('haha', 'Hello World');
+
         return Result.send(this.ctx.session.get('haha'));
     }
 
@@ -103,6 +104,7 @@ export default class Index extends BaseController {
     @Path('/stream')
     donwStream() {
         const rs = fs.createReadStream(path.resolve(__dirname, './template.controller.ts'));
+
         return Result.stream(rs, 'controller.ts');
     }
 }

@@ -31,11 +31,14 @@ export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) 
 function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
     return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result<any>> => new Promise((resolve, reject) => {
         if (!(target instanceof BaseController)) {
-            return reject(new Error('@Around [middleware] only use on class extends BaseController.'));
+            reject(new Error('@Around [middleware] only use on class extends BaseController.'));
+
+            return;
         }
 
         try {
-            return middleware(target.ctx, async () => {
+            // eslint-disable-next-line no-void
+            void middleware(target.ctx, async () => {
                 try {
                     const result = await proceed(...args);
 
@@ -45,7 +48,7 @@ function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
                 }
             });
         } catch (error) {
-            return reject(error);
+            reject(error);
         }
     });
 }
@@ -72,11 +75,15 @@ export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P)
         if (!methodName) {
             Reflect.ownKeys(target.prototype).forEach((method: string | symbol) => {
                 if (method === 'constructor' || typeof method !== 'string') return;
-                
+
                 if (!controllerInfo.isAspectMethod(target, method)
                     || !typeHelper.isFunction(Reflect.get(target.prototype, method))) return;
 
-                const aroundMethod = aroundDecorator(target.prototype, method, Reflect.getOwnPropertyDescriptor(target.prototype, method) as PropertyDescriptor);
+                const aroundMethod = aroundDecorator(
+                    target.prototype,
+                    method,
+                    Reflect.getOwnPropertyDescriptor(target.prototype, method) as PropertyDescriptor,
+                );
 
                 if (aroundMethod) {
                     Reflect.defineProperty(target.prototype, method, aroundMethod);

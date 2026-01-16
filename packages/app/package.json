@@ -19,7 +19,11 @@
   },
   "scripts": {
     "koa": "ts-node-dev --respawn src/app.ts --koa",
-    "app": "ts-node-dev --respawn src/app.ts"
+    "app": "ts-node-dev --respawn src/app.ts",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .ts",
+    "lint-w": "ESLINT_USE_FLAT_CONFIG=false esw src --clear --color -w --ext .ts",
+    "build-w": "tsc -w --inlineSourceMap",
+    "prebuild": "npm run lint"
   },
   "dependencies": {
     "@umajs/arg-decorator": "^2.0.5",

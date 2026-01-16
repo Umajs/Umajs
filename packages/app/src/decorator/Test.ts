@@ -1,4 +1,4 @@
-import { Around } from "@umajs/core";
+import { Around } from '@umajs/core';
 
 export const DecoratorA = () => Around(async ({ proceed, args }) => {
     console.log('decorator a..1.');
@@ -18,6 +18,6 @@ export const AroundB = async ({ proceed, args }) => {
     console.log('decorator b..2.');
 
     return result;
-}
+};
 
 export const DecoratorB = () => Around(AroundB);
