@@ -15,16 +15,18 @@ import { Request } from '../extends/Request';
 import { Response } from '../extends/Response';
 import typeHelper from '../utils/typeHelper';
 import mixin from '../utils/mixin';
-import { TUmaOption } from '../types/TUmaOption';
-import { IContext } from '../types/IContext';
-import { TConfig, TPluginConfig } from '../types/TConfig';
-import { TControllerInfo } from '../types/TControllerInfo';
+import type { TUmaOption } from '../types/TUmaOption';
+import type { IContext } from '../types/IContext';
+import type { TConfig, TPluginConfig } from '../types/TConfig';
+import type { TControllerInfo } from '../types/TControllerInfo';
 
-let instance: Uma = null;
+let instance: Uma | null = null;
 
 export default class Uma {
     private constructor(readonly options: TUmaOption, app?: Koa<Koa.DefaultState, IContext>) {
-        console.assert(options && options.ROOT, `Uma options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
+        if (!options || !options.ROOT) {
+            throw new Error(`Uma options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
+        }
 
         this.options = mixin(true, {
             jsonpBody: {},
@@ -46,11 +48,11 @@ export default class Uma {
 
     env: string;
 
-    app: Koa<Koa.DefaultState, IContext> = null;
+    app: Koa<Koa.DefaultState, IContext>;
 
     server: http.Server | https.Server;
 
-    callback: Function;
+    callback: (...args: any[]) => any;
 
     port: number;
 
@@ -86,7 +88,7 @@ export default class Uma {
         return this.app.context;
     }
 
-    async start(port: number = 8058, callback?: Function) {
+    async start(port: number = 8058, callback?: (...args: any[]) => any) {
         if (!this.port) this.port = port;
         if (callback) this.callback = callback;
         const { app, options: { createServer } } = this;
@@ -205,6 +207,10 @@ export default class Uma {
      */
     static instance(options?: TUmaOption): Uma {
         if (instance) return instance;
+
+        if (!options) {
+            throw new Error('Uma.instance(options) requires options to be passed for the first call.');
+        }
 
         instance = new Uma(options);
 

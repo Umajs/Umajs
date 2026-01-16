@@ -1,6 +1,6 @@
 import typeHelper from '../utils/typeHelper';
 
-export const ResourceClazzMap: Map<Function, any[]> = new Map();
+export const ResourceClazzMap: Map<Function, any> = new Map();
 
 /**
  * 修饰 class

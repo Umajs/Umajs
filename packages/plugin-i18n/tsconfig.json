@@ -6,7 +6,6 @@
         "sourceMap": false,
         "rootDir":"./src",
         "outDir":"./lib",
-        "watch":false,
         "declaration": true,
         "alwaysStrict": true,
         "removeComments": true,

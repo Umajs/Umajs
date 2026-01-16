@@ -3,12 +3,8 @@ export default class typeHelper {
         return Object.prototype.toString.call(target).slice(8, -1);
     }
 
-    static get undef(): undefined {
-        return ((undef) => undef)();
-    }
-
     static isUndef(obj: any): obj is undefined {
-        return obj === typeHelper.undef;
+        return obj === undefined;
     }
 
     static isString(target: any): target is string {
@@ -23,8 +19,8 @@ export default class typeHelper {
         return typeof target === 'function';
     }
 
-    static isPromise(target: any): boolean {
-        return typeof target === 'function';
+    static isPromise(target: any): target is Promise<any> {
+        return !!target && (typeof target === 'object' || typeof target === 'function') && typeof target.then === 'function';
     }
 
     static isBoolean(target: any): target is boolean {
