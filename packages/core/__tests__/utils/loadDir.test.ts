@@ -12,7 +12,7 @@ describe('test/utils/loadDir.test.ts', () => {
             assert(result === undefined);
         });
 
-        it('load dir with ignoreDirs', async (done) => {
+        it('load dir with ignoreDirs', async () => {
             const loadDirAsync = (dir: string, ignore: string[]): Promise<string[]> => new Promise(resolve => {
                 let timer = null;
                 const files = [];
@@ -33,7 +33,6 @@ describe('test/utils/loadDir.test.ts', () => {
 
             assert(result.length === 1);
             assert(result[0].indexOf('dir2') < 0);
-            done();
         });
     });
 });

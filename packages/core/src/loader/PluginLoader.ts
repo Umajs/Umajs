@@ -71,7 +71,7 @@ export default class PluginLoader {
         if (mws.length > 0) uma.use(compose(mws));
     }
 
-    static async loadPLugin(pluginConfig: TPluginConfig) {
+    static async loadPlugin(pluginConfig: TPluginConfig) {
         const uma = Uma.instance();
         const plugin: TPlugin | Function = Require.default(pluginConfig.path);
         const options = mixin(true, {}, pluginConfig.options || {}, Uma.config[pluginConfig.name] || {});
@@ -85,7 +85,7 @@ export default class PluginLoader {
             if (typeHelper.isFunction(pluginResult)) uma.use(pluginResult);
             else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
         } else {
-            console.log(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
+            console.error(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
         }
     }
 
@@ -114,7 +114,7 @@ export default class PluginLoader {
                 if (typeHelper.isFunction(handler)) {
                     uma.use(handler);
                 } else {
-                    console.log(new Error(`Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`));
+                    console.error(new Error(`Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`));
                 }
 
                 continue;
@@ -138,7 +138,7 @@ export default class PluginLoader {
 
                 // path 存在则加载插件
                 if (config.path) {
-                    await PluginLoader.loadPLugin(config);
+                    await PluginLoader.loadPlugin(config);
                     isDirExist = true;
                     break;
                 }

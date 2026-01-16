@@ -14,19 +14,25 @@ module.exports = {
     ],
     coverageDirectory: './__coverage__',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    // moduleNameMapper: {
-    //     "@app(.*)$": "<rootDir>/packages/app/src/$1",
-    //     "@cli(.*)$": "<rootDir>/packages/cli/src/$1",
-    //     "@core(.*)$": "<rootDir>/packages/core/src/$1",
-    //     "@logger(.*)$": "<rootDir>/packages/logger/src/$1",
-    //     "@model(.*)$": "<rootDir>/packages/model/src/$1",
-    //     "@router(.*)$": "<rootDir>/packages/router/src/$1"
-    // },
-    globals: {
-        "ts-jest": {
-            "diagnostics": {
+    moduleNameMapper: {
+        "^@umajs/core(.*)$": "<rootDir>/packages/core/src$1",
+        "^@umajs/router(.*)$": "<rootDir>/packages/router/src$1",
+        "^@umajs/app(.*)$": "<rootDir>/packages/app/src$1",
+        "^@umajs/cli(.*)$": "<rootDir>/packages/cli/src$1",
+        "^@umajs/arg-decorator(.*)$": "<rootDir>/packages/arg-decorator/src$1",
+        "^@umajs/plugin-i18n(.*)$": "<rootDir>/packages/plugin-i18n/src$1",
+        "^@umajs/plugin-session(.*)$": "<rootDir>/packages/plugin-session/src$1",
+        "^@umajs/plugin-static(.*)$": "<rootDir>/packages/plugin-static/src$1",
+        "^@umajs/plugin-status(.*)$": "<rootDir>/packages/plugin-status/src$1",
+        "^@umajs/plugin-views(.*)$": "<rootDir>/packages/plugin-views/src$1"
+    },
+    transform: {
+        "^.+\.(ts|tsx)$": ["ts-jest", {
+            diagnostics: {
                 warnOnly: true
             }
-        }
+        }]
+    },
+    globals: {
     }
 }

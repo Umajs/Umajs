@@ -3,8 +3,8 @@ import * as send from 'koa-send';
 
 import { CALLBACK_FIELD, VIEW_PATH, DOWNLOAD_PATH } from '../info/UniqueKey';
 import { Results } from '../extends/Results';
-import { IResult, TResultType } from '../types/IResult';
-import { IContext } from '../types/IContext';
+import type { IResult, TResultType } from '../types/IResult';
+import type { IContext } from '../types/IContext';
 
 export default class Result<T> implements IResult<T> {
     constructor({ type, data, status }: IResult<T>) {
@@ -17,7 +17,7 @@ export default class Result<T> implements IResult<T> {
 
     data: T;
 
-    status: number;
+    status?: number;
 
     static done() {
         return new Result<never>({
@@ -95,6 +95,12 @@ export default class Result<T> implements IResult<T> {
 
         if (status) ctx.status = status;
 
-        return Reflect.get(Results, type)(ctx, data);
+        const handler = Reflect.get(Results, type);
+
+        if (typeof handler === 'function') {
+            return handler(ctx, data);
+        }
+
+        return undefined;
     }
 }

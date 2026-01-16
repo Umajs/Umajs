@@ -22,14 +22,6 @@ describe('test/utils/typeHelper.test.ts', () => {
         });
     });
 
-    describe('undef(): undefined', () => {
-        it('should return undefined', () => {
-            const result = typeHelper.undef;
-
-            assert(result === undefined);
-        });
-    });
-
     describe('isUndef(obj: any): boolean', () => {
         it('string is not undefined', () => {
             const result = typeHelper.isUndef('a');
@@ -38,7 +30,7 @@ describe('test/utils/typeHelper.test.ts', () => {
         });
 
         it('undefined is undefined', () => {
-            const result = typeHelper.isUndef(typeHelper.undef);
+            const result = typeHelper.isUndef(undefined);
 
             assert(result === true);
         });
@@ -91,6 +83,21 @@ describe('test/utils/typeHelper.test.ts', () => {
             const result = typeHelper.isFunction(function () {});
 
             assert(result === true);
+        });
+    });
+
+    describe('isPromise(target: any): boolean', () => {
+        it('{} is not promise', () => {
+            assert(typeHelper.isPromise({}) === false);
+        });
+
+        it('Promise is promise', () => {
+            assert(typeHelper.isPromise(new Promise(() => {})) === true);
+        });
+
+        it('Async function call is promise', () => {
+             const fn = async () => {};
+             assert(typeHelper.isPromise(fn()) === true);
         });
     });
 

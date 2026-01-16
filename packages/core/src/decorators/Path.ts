@@ -41,8 +41,8 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
             return controllerInfo.setControllersInfo(props[0], null, { rootPath: arg0 });
         }
 
-        const values = [];
-        const methodTypes = [];
+        const values: string[] = [];
+        const methodTypes: RequestMethod[] = [];
 
         // when @Path decorate method
         // if config is object, only receive one Object as a parameter
@@ -51,13 +51,18 @@ export function Path(...args: [...string[]] | [TPathObjArgs]): Function {
 
             const { value = '/', method = [] } = arg0;
 
-            values.push(...(Array.isArray(value) ? value : [value]));
-            methodTypes.push(...(Array.isArray(method) ? method : [method]));
+            if (Array.isArray(value)) values.push(...value);
+            else if (typeof value === 'string') values.push(value);
+
+            if (Array.isArray(method)) methodTypes.push(...method);
+            else methodTypes.push(method);
         } else {
-            (args.length > 0 ? args : ['/']).forEach((arg: any) => {
-                if (typeHelper.isString(arg)) values.push(arg);
-                else throw new Error(`@Path only receive one Object as a parameter, now is "${JSON.stringify(arg)}"`);
-            });
+            const paths = args.length > 0 ? args : ['/'];
+            
+            for (const arg of paths) {
+                 if (typeHelper.isString(arg)) values.push(arg as string);
+                 else throw new Error(`@Path only receive one Object as a parameter, now is "${JSON.stringify(arg)}"`);
+            }
         }
 
         const [target, methodName] = props;
