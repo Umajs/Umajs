@@ -5,26 +5,26 @@ import { ICrypto } from './types/ICrypto';
 
 export type sessionOptions = {
     /**
-     * 设置cookie中，保存session的字段名称
-     * 默认：uma:sess
+     * Field name for saving session in cookie
+     * Default: uma:sess
      */
     key: string;
     /**
-     * 保存时长
-     * 默认：1d
+     * Duration
+     * Default: 1d
      */
     maxAge?: number;
     /**
-     * 加密签名
+     * Encryption signature
      */
     secret: string;
     /**
-     * 是否覆盖
-     * 默认：true
+     * Whether to overwrite
+     * Default: true
      */
     overwrite?: boolean;
     /**
-     * 加密算法，实现接口 ICrypto，实例化后传入
+     * Encryption algorithm, implements ICrypto interface, passed in after instantiation
      */
     crypto?: ICrypto;
 }

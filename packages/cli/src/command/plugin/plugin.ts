@@ -27,21 +27,21 @@ export default class Plugin {
             type: 'list',
             message: 'Please select the type to create the plugin',
             choices: [
-                { name: '给当前 Uma 工程添加插件', value: 'local' },
-                { name: '新建插件工程，一般用于发包至仓库', value: 'project' },
+                { name: 'Add plugin to current Uma project', value: 'local' },
+                { name: 'Create new plugin project, usually for publishing to registry', value: 'project' },
             ],
         });
 
         Plugin[type](pluginName, ...props);
     }
 
-    // TODO 安装插件到工程
+    // TODO Install plugin to project
     static async install(pluginName: string) {
         // TODO 1.install 2 add plugin.config.ts 3.new pluginName.config.ts
         console.log(pluginName);
     }
 
-    // 初始化插件工程
+    // Initialize plugin project
     static async project(pluginName: string) {
         const projectPath = path.resolve(process.cwd(), pluginName);
         const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig);
@@ -51,7 +51,7 @@ export default class Plugin {
             callback: (dest) => reRender(dest, { pluginName, ...projectConfig }),
         });
 
-        // 下载模板
+        // Download template
         await waitFnloading(download, 'loading template')();
 
         const { pluginType } = await promptPluginType();
@@ -64,7 +64,7 @@ export default class Plugin {
         console.log(`Project ["${pluginName}"] initialization completed.`);
     }
 
-    // 初始化本地插件，用在 Uma.js 工程中
+    // Initialize local plugin, used in Uma.js project
     static async local(pluginName: string) {
         const rootDir = path.resolve(process.cwd(), 'src');
 
@@ -73,7 +73,7 @@ export default class Plugin {
         const pluginsDir = mkdir(rootDir, 'plugins');
         const pluginDir = mkdir(pluginsDir, pluginName);
 
-        // 下载模板
+        // Download template
         await waitFnloading(download, 'loading template')();
 
         const { pluginType } = await promptPluginType();

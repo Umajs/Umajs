@@ -3,8 +3,8 @@ import typeHelper from '../utils/typeHelper';
 export const ResourceClazzMap: Map<Function, any> = new Map();
 
 /**
- * 修饰 class
- * @param props 实例化参数
+ * Decorate class
+ * @param props instantiation parameters
  */
 export function Resource(...props: any[]): Function {
     return function resource(target: Function): any {
@@ -15,8 +15,8 @@ export function Resource(...props: any[]): Function {
 }
 
 /**
- * 将实例化后的类注入使用
- * @param resourceName 资源文件名
+ * Inject the instantiated class for use
+ * @param resourceName resource file name
  */
 export function Inject(resource: Function): Function {
     return function inject(target: Function, property: string, desc: PropertyDescriptor): any {

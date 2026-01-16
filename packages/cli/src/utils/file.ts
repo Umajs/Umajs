@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
- * 新建目录
- * @param dir 目录绝对地址
+ * Create directory
+ * @param dir Directory absolute path
  */
 export function mkdir(...pathSegments: string[]) {
     const fullPath: string = path.resolve(...pathSegments);
@@ -18,8 +18,8 @@ export function mkdir(...pathSegments: string[]) {
 }
 
 /**
- * 删除目录
- * @param dir 目录绝对地址
+ * Remove directory
+ * @param dir Directory absolute path
  */
 export function rm(dir: string) {
     if (!fs.existsSync(dir)) {

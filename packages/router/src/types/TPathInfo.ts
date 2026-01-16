@@ -1,16 +1,16 @@
 import * as pathToRegexp from 'path-to-regexp';
 
 export type TPathInfo = {
-    // 文件名
+    // File name
     name?: string,
 
-    // 方法名
+    // Method name
     methodName?: string,
 
-    // class 对象
+    // class object
     clazz?: Function,
 
-    // methodPath匹配的param
+    // params matched by methodPath
     keys?: pathToRegexp.Key[];
 
     routePath?: string;

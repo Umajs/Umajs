@@ -2,15 +2,15 @@ import * as Koa from 'koa';
 
 export type statusOptions = {
     /**
-     * 前缀
-     * 默认：_
+     * Prefix
+     * Default: _
      */
     prefix?: string,
 
     /**
-     * 状态或者错误调用方法
-     * 错误方法参数 (err, ctx, next)
-     * 状态方法参数 (ctx, next)
+     * Status or error call method
+     * Error method parameters (err, ctx, next)
+     * Status method parameters (ctx, next)
      */
     [key: string]: string | Function,
 }

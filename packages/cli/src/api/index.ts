@@ -22,7 +22,7 @@ const downloadFromGit = async (gitSource = 'github') => {
     // /Users/xxx/.uma-templates/uma
     const { commitSha: localSha } = readInfo();
 
-    // 获取版本信息 若为最新版本则重新下载，若不是则直接拉取本地
+    // Get version info. If it is the latest version, re-download; otherwise, use local copy.
     const gitCommits: any = await xhr('GET', gitSource === 'github' ? GITHUB_COMMITS : GITEE_COMMITS);
 
     if (!gitCommits) {

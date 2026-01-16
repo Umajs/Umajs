@@ -6,7 +6,7 @@
  */
 import { createArgDecorator, IContext } from '@umajs/core';
 
-/** 装饰器 Cookies
+/** Decorator Cookies
  * @Cookies(key:string)
  */
 export const Cookies: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => ctx.cookies.get(argKey));

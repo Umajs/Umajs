@@ -4,8 +4,8 @@ import { INFO_PATH, DESC_PATH } from '../const/constants';
 import { TTemplateInfo } from '../types/TTempleInfo';
 
 /**
- * 写入信息
- * @param params 参数键值对
+ * Write information
+ * @param params Parameter key-value pairs
  */
 export const writeInfo = async (params: TTemplateInfo) => {
     const info = { ...readInfo(), ...params };
@@ -14,7 +14,7 @@ export const writeInfo = async (params: TTemplateInfo) => {
 };
 
 /**
- * 读取工程信息
+ * Read project information
  */
 export const readInfo = (): TTemplateInfo => {
     if (!fs.existsSync(INFO_PATH)) return { commitSha: null };
@@ -25,7 +25,7 @@ export const readInfo = (): TTemplateInfo => {
 };
 
 /**
- * 读取模板信息
+ * Read template information
  */
 export const readDesc = (): TTemplateInfo => {
     if (!fs.existsSync(INFO_PATH)) throw new Error('template error...');

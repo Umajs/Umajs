@@ -13,8 +13,8 @@ export interface IProceedJoinPoint<T = any, P = any> {
 }
 
 /**
- * 将中间件转成切面 Around 装饰器
- * @param middleware 中间件
+ * Convert middleware to Around aspect decorator
+ * @param middleware middleware
  * @deprecated - Use `Middleware` instead
  */
 export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) {
@@ -24,9 +24,9 @@ export function middlewareToAround(middleware: (Koa.Middleware<any, IContext>)) 
 }
 
 /**
- * 将中间件转成切面 Around 装饰器
- * @param middleware koa中间件
- * @returns Around 切面函数
+ * Convert middleware to Around aspect decorator
+ * @param middleware koa middleware
+ * @returns Around aspect function
  */
 function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
     return ({ target, proceed, args }: IProceedJoinPoint): Promise<Result<any>> => new Promise((resolve, reject) => {
@@ -51,9 +51,9 @@ function middlewareToAspect(middleware: (Koa.Middleware<any, IContext>)) {
 }
 
 /**
- * 中间件
- * @param middleware 中间件
- * @returns Around 装饰器
+ * Middleware
+ * @param middleware middleware
+ * @returns Around decorator
  */
 export function Middleware(middleware: (Koa.Middleware<any, IContext>)): Function {
     if (!typeHelper.isFunction(middleware)) throw new Error('@Middleware param must be Function.');
@@ -63,7 +63,7 @@ export function Middleware(middleware: (Koa.Middleware<any, IContext>)): Functio
 
 /**
  * @Around(around: Funtion)
- * @param aspect 指定的切面或切面名称 或者 切面类
+ * @param aspect specified aspect or aspect name or aspect class
  */
 export function Around<P = any>(around: (point: IProceedJoinPoint<any, P>) => P): Function {
     if (!typeHelper.isFunction(around)) throw new Error('@Around param must be Function.');

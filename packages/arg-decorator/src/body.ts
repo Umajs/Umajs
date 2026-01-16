@@ -47,11 +47,11 @@ export const fn = (ctx: IContext, argKey?: string | Array<string> | Model | Func
 };
 
 /**
- * body 装饰器
- * @body()  修饰完全body
- * @body('key') 修饰特定单个属性值
- * @body(['key1','key2']) 修饰多个属性，返回一个包含key1,key2属性的对象属性
- * @body(Model) 修饰多个属性，返回一个Model对象
+ * body decorator
+ * @body()  Decorate the entire body
+ * @body('key') Decorate a specific single property value
+ * @body(['key1','key2']) Decorate multiple properties, return an object property containing key1, key2 properties
+ * @body(Model) Decorate multiple properties, return a Model object
  */
 export const Body: TbodyDecorator = createArgDecorator(fn);
 
@@ -231,32 +231,32 @@ Body.ToBoolean = isBoolean;
 Body.ToArray = toArray;
 Body.ToDate = toDate;
 // @AssertFalse(id,message)
-Body.AssertFalse = AssertFalse; //  限制必须为false
-// @AssertTrue(id,message)限制必须为true
+Body.AssertFalse = AssertFalse; //  Must be false
+// @AssertTrue(id,message) Must be true
 Body.AssertTrue = AssertTrue;
-// @DecimalMax(id,value,message)限制必须为一个不大于指定值的数字
+// @DecimalMax(id,value,message) Must be a number not greater than the specified value
 Body.DecimalMax = DecimalMax;
-// @DecimalMin(id,value,message)限制必须为一个不小于指定值的数字
+// @DecimalMin(id,value,message) Must be a number not less than the specified value
 Body.DecimalMin = DecimalMin;
-// @Max(id,value,message)限制必须为一个不大于指定值的数字
+// @Max(id,value,message) Must be a number not greater than the specified value
 Body.Max = Max;
-// @Min(id,value,message)限制必须为一个不小于指定值的数字
+// @Min(id,value,message) Must be a number not less than the specified value
 Body.Min = Min;
-// @Future(id,message)限制必须是一个将来的日期
+// @Future(id,message) Must be a future date
 Body.Future = Future;
-// @Past(id,message)限制必须是一个过去的日期
+// @Past(id,message) Must be a past date
 Body.Past = Past;
-// @Pattern(id,value,message)限制必须符合指定的正则表达式
+// @Pattern(id,value,message) Must match the specified regular expression
 Body.Pattern = Pattern;
-// @Size(id,max,min,message)限制字符长度必须在min到max之间
+// @Size(id,max,min,message) Character length must be between min and max
 Body.Size = Size;
-// @NotBlank(id,message)验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的空格
+// @NotBlank(id,message) Validates that the annotated element value is not empty (not null, length is 0 after removing leading and trailing spaces). Unlike @NotEmpty, @NotBlank applies only to strings and removes spaces during comparison.
 Body.NotBlank = NotBlank;
-// @Email(id,message)验证注解的元素值是Email，也可以通过正则表达式和flag指定自定义的email格式
+// @Email(id,message) Validates that the annotated element value is an Email. Custom email formats can also be specified via regex and flags.
 Body.Email = Email;
-// @Phone(id,message)验证元素值是手机号
+// @Phone(id,message) Validates that the element value is a mobile phone number
 Body.Phone = Phone;
 
-// Body 实体JSON校验
-// 参考1 https://github.com/eivindfjeldstad/validate
-// 参考2 https://github.com/skaterdav85/validatorjs#readme
+// Body entity JSON validation
+// Reference 1 https://github.com/eivindfjeldstad/validate
+// Reference 2 https://github.com/skaterdav85/validatorjs#readme

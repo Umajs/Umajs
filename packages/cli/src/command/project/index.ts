@@ -18,7 +18,7 @@ export default async (...props: string[]) => {
 
     if (fs.existsSync(targetDir)) return console.log(`\nPROJECT ["${projectName}"] is exists, please check the name of your project.\n`);
 
-    // 下载模板
+    // Download template
     await waitFnloading(download, 'downloading template')();
 
     const templateDesc = readDesc();
@@ -29,7 +29,7 @@ export default async (...props: string[]) => {
         choices: Object.keys(templateDesc).map((key) => ({ name: `${key},${templateDesc[key]}`, value: key })),
     });
 
-    const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig); // 弹出消息
+    const projectConfig: { [key: string]: string } = await inquirer.prompt(packageConfig); // Pop up message
 
     await cp(path.resolve(DOWNLOAD_DIR, templaeName), path.resolve(projectName), {
         callback: (dest) => reRender(dest, projectConfig),

@@ -8,7 +8,7 @@ import { createArgDecorator, IContext, RequestMethod } from '@umajs/core';
 import { fn as getBody } from './body';
 import { fn as getQuery } from './index';
 
-/** 装饰器 RequestParam
+/** Decorator RequestParam
  * @RequestParam(key:string)
  */
 export const RequestParam: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => {

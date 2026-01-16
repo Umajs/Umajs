@@ -13,7 +13,7 @@ export default class {
         const clazzInfo: TControllerInfo = ControllerMap.get(clazz) || {};
 
         /**
-         * 获取需要设置或更新的字段
+         * Get fields that need to be set or updated
          * rootPath: controller visit path
          * methodTypes: controller method visit method type get|post...
          */

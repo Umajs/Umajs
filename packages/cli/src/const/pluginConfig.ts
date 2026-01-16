@@ -1,10 +1,10 @@
 export default [
     {
-        name: '中间件形式插件',
+        name: 'Middleware type plugin',
         value: 'mw',
     },
     {
-        name: '复合形式插件',
+        name: 'Complex type plugin',
         value: 'complex',
     },
 ];

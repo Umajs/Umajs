@@ -1,30 +1,32 @@
-# 内置参数装饰器（ArgDecorator）
+[中文](./README.zh-CN.md)
 
-`UMajs` 提供了 `createArgDecorator` 可以很方便的创建自定义参数装饰器，并且框架还提供了如下装饰器直接使用。
+# Built-in Argument Decorators (ArgDecorator)
 
-## 使用
+`UMajs` provides `createArgDecorator` to easily create custom argument decorators, and the framework also provides the following decorators for direct use.
 
-> 安装 `npm install -S @umajs/arg-decorator`
+## Usage
 
-## 示例
+> Install: `npm install -S @umajs/arg-decorator`
+
+## Example
 
 ```ts
 import { Query, Body } from '@umajs/arg-decorator';
 
-// url参数类型修饰校验
+// URL parameter type validation
 @Path('/saveUser')
 saveUser(@Query.ToNumber('age') age :number) {
     return Result.send(`This router queryParms is ${userId} ${age}`);
 }
 
-// POST参数类型修饰校验
+// POST parameter type validation
 @Path({value:'/post',method:RequestMethod.POST})
 saveUser(@Body.ToNumber('age') age: number){
     return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
 }
 ```
 
-当接口访问`localhost:port//saveUser?age=str`时，controller方法将终止执行，并默认返回客户端提示信息
+When the interface is accessed via `localhost:port//saveUser?age=str`, the controller method will stop execution and return a client prompt message by default:
 
 ```js
 {
@@ -33,52 +35,52 @@ saveUser(@Body.ToNumber('age') age: number){
 }
 ```
 
-## 校验参数装饰器
+## Validation Argument Decorators
 
-|  <div style="width:450px">修饰器</div> | <div style="width:200px">使用说明</div> |
+|  <div style="width:450px">Decorator</div> | <div style="width:200px">Description</div> |
 ---|---
-@Param(id:string) | 动态路由参数修饰
-@Query(id:string) | url参数修饰器
-@Body(id?:string or Function or string[] or class) | POST请求参数修饰器 `@Body() body:class`  or `@Body('id') id:any` or  `@Body(['name','age']) user: {name:any,age:any}`
-@Require(id: string,message?:string) | url参数修饰并做必填校验
-@ToNumber(id: string,message?: string) | 参数修饰并类型转换为number类型  类型转换失败则会终止函数执行并返回提示内容
-@ToBoolean(id: string,message?: string) |参数修饰并类型转换布尔类型 类型转换失败则会终止函数执行并返回提示内容
-@ToArray(id: string, split?:string ,message?: string) |参数修饰并类型转换数组 类型转换失败则会终止函数执行并返回提示内容
-@ToDate(id: string,message?: string) | 参数修饰并类型转换为date类型  类型转换失败则会终止函数执行并返回提示内容 备注：参数接受如果为数字也会按照时间强制转换为时间格式。
-@Equals(id: string,comparison?: any) | 参数修饰并做值对比校验
-@NotNull(id: string,message?: string) | 限制必须不为null
-@AssertFalse(id: string,message?: string) | 限制必须为false
-@AssertTrue(id: string,message?: string) | 限制必须为true
-@DecimalMax(id: string,value: number,message?: string) | 限制必须为一个不大于指定值的数字
-@DecimalMin(id: string,value: number,message?: string) | 限制必须为一个不小于指定值的数字
-@Future(id: string,message?: string) | 限制必须是一个将来的日期
-@Max(id: string,value: number,message?: string) | 限制必须为一个不大于指定值的数字
-@Min(id: string,value: number,message?: string) | 限制必须为一个不小于指定值的数字
-@Past(id: string,message?: string) | 限制必须是一个过去的日期
-@Pattern(id: string,pattern: RegExp,message?: string) | 限制必须符合指定的正则表达式
-@Size(id: string,max: number,min: number,message?: string) | 限制字符长度必须在min到max之间
-@NotEmpty(id: string,message?: string) | 验证注解的元素值不为null且不为空（字符串长度不为0、集合大小不为0）
-@NotBlank(id: string,message?: string) | 验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的空格
-@Email(id: string,message?: string) | 验证注解的元素值是Email
-@Phone(id: string,message?: string) | 验证元素值是手机号 具体格式参考`https://github.com/validatorjs/validator.js/blob/master/src/lib/isMobilePhone.js`
+@Param(id:string) | Dynamic route parameter decorator
+@Query(id:string) | URL parameter decorator
+@Body(id?:string or Function or string[] or class) | POST request parameter decorator `@Body() body:class` or `@Body('id') id:any` or `@Body(['name','age']) user: {name:any,age:any}`
+@Require(id: string,message?:string) | URL parameter decorator with required validation
+@ToNumber(id: string,message?: string) | Parameter decorator converting to number type. Failure terminates execution and returns prompt.
+@ToBoolean(id: string,message?: string) | Parameter decorator converting to boolean type. Failure terminates execution and returns prompt.
+@ToArray(id: string, split?:string ,message?: string) | Parameter decorator converting to array. Failure terminates execution and returns prompt.
+@ToDate(id: string,message?: string) | Parameter decorator converting to date type. Failure terminates execution and returns prompt. Note: If input is a number, it will be coerced to date format.
+@Equals(id: string,comparison?: any) | Parameter decorator with value comparison validation.
+@NotNull(id: string,message?: string) | Restriction: must not be null.
+@AssertFalse(id: string,message?: string) | Restriction: must be false.
+@AssertTrue(id: string,message?: string) | Restriction: must be true.
+@DecimalMax(id: string,value: number,message?: string) | Restriction: must be a number not greater than the specified value.
+@DecimalMin(id: string,value: number,message?: string) | Restriction: must be a number not less than the specified value.
+@Future(id: string,message?: string) | Restriction: must be a future date.
+@Max(id: string,value: number,message?: string) | Restriction: must be a number not greater than the specified value.
+@Min(id: string,value: number,message?: string) | Restriction: must be a number not less than the specified value.
+@Past(id: string,message?: string) | Restriction: must be a past date.
+@Pattern(id: string,pattern: RegExp,message?: string) | Restriction: must match the specified regular expression.
+@Size(id: string,max: number,min: number,message?: string) | Restriction: character length must be between min and max.
+@NotEmpty(id: string,message?: string) | Validates that the annotated element is not null and not empty (string length > 0, collection size > 0).
+@NotBlank(id: string,message?: string) | Validates that the annotated element is not empty (not null, length > 0 after trimming). Unlike @NotEmpty, @NotBlank applies only to strings and trims whitespace during comparison.
+@Email(id: string,message?: string) | Validates that the annotated element is an Email.
+@Phone(id: string,message?: string) | Validates that the element is a mobile phone number. Specific format reference: `https://github.com/validatorjs/validator.js/blob/master/src/lib/isMobilePhone.js`
 
-## 非校验参数修饰器
+## Non-Validation Argument Decorators
 
-| <div style="width:450px">修饰器</div>                      | 使用说明                                                                                                               |
+| <div style="width:450px">Decorator</div> | Description |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| @Cookies(id:string)         | cookies 参数修饰器                                                                                                     |
-| @Headers(id:string)         | headers 请求头参数修饰器                                                                                               |
-| @RequestParam(id:string)    | GET/POST 通用参数修饰器，POST 请求类型时参数获取优先级为：Body < Query 相同参数 url 携带参数覆盖 body 请求体中的属性值 |
-| @RequestFile(field: string) | 文件上传时文件参数修饰器                                                                                               |
+| @Cookies(id:string)         | Cookies parameter decorator |
+| @Headers(id:string)         | Headers parameter decorator |
+| @RequestParam(id:string)    | General GET/POST parameter decorator. For POST requests, parameter retrieval priority is: Body < Query. Same parameters in URL override body property values. |
+| @RequestFile(field: string) | File parameter decorator for file uploads |
 
-## 高阶
+## Advanced
 
-### Body参数装饰器接受class类
+### Body Argument Decorator Accepting Class
 
-> 当Body传递为class类时，会将请求参数中获取到的数据作为参数调用类构造函数，同时也会进行属性类型校验，校验成功则返回实例化对象。更多class的使用请参考[`@umajs/class-validator`](https://github.com/Umajs/class-validator)
+> When Body is passed as a class, the data retrieved from the request parameters is used as arguments to call the class constructor. Property type validation is also performed. If validation succeeds, the instantiated object is returned. For more class usage, please refer to [`@umajs/class-validator`](https://github.com/Umajs/class-validator).
 
 ```ts
-// 定义class
+// Define class
 import { Type, Required, Min, Model } from '@umajs/class-validator';
 export default class UserInfo extends Model {
     constructor({ id, name, age }: UserInfo, isValid: boolean) {
@@ -98,7 +100,7 @@ export default class UserInfo extends Model {
     age?: number;
 }
 
-// 参数装饰器使用
+// Argument decorator usage
 @Path({ value: '/post', method: RequestMethod.POST })
 model(@Body(UserInfo) userInfo: user) {
     return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
@@ -108,9 +110,9 @@ model(@Body(UserInfo) userInfo: user) {
 
 ```
 
-### 自定义校验提示内容
+### Custom Validation Prompt Content
 
-框架默认修饰器提示信息可以通过配置文件`src/config/argDecorator.config.ts`进行覆盖。通过`Result`模块用户可以自定义校验失败时返回的数据格式或者方式，比如json,或者状态码。
+The framework's default decorator prompt messages can be overridden via the configuration file `src/config/argDecorator.config.ts`. Through the `Result` module, users can customize the data format or method returned when validation fails, such as JSON or status codes.
 
 ```ts
 import { Result } from '@umajs/core';
@@ -118,14 +120,14 @@ import { Result } from '@umajs/core';
 export default {
     Require: {
         err({key, ctx, tip, val}) {
-            return Result.send(tip || `请求${key} 参数不能为空。入参值为${val}`,403);
+            return Result.send(tip || `Request ${key} parameter cannot be empty. Input value is ${val}`, 403);
         },
     },
     ToNumber: {
         err({key, ctx, tip, val}) {
             return Result.json({
                 code: 0,
-                msg: tip || `请求${key} 参数必须为数字类型。入参值为${val}`,
+                msg: tip || `Request ${key} parameter must be a number type. Input value is ${val}`,
             });
         },
     },

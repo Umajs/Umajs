@@ -36,7 +36,7 @@ export default class PluginLoader {
         const uma = Uma.instance();
         const mws = [];
 
-        // 按照配置的顺序进行加载
+        // Load in the order of configuration
         // for (const [key, val] of Object.entries(plugin)) {
         for (const key of Object.keys(plugin)) {
             const val = plugin[key];
@@ -95,7 +95,7 @@ export default class PluginLoader {
 
         if (!pluginConfig) return;
 
-        // 尝试在以下目录找到匹配的插件
+        // Try to find matching plugins in the following directories
         //  -> {ROOT}/plugins
         //      -> {ROOT}/node_modules
         const dirs = [
@@ -107,7 +107,7 @@ export default class PluginLoader {
         for (const [name, config] of Object.entries(pluginConfig)) {
             if (config.enable === false) continue;
 
-            // 插件类型支持
+            // Plugin type support
             const { type, handler } = config;
 
             if (type === 'middleware') {
@@ -124,19 +124,19 @@ export default class PluginLoader {
             let isDirExist = false;
 
             for (const dir of dirs) {
-                // 已经配置 path，读取文件是否存在，不存在则移除
+                // If path is configured, check if the file exists, if not, remove it
                 if (config.path) {
                     if (!fs.existsSync(config.path)) config.path = null;
                 }
 
-                // path 不存在，则从 name 和 packageName 规则上生成 path，读取文件是否存在，存在则赋值
+                // If path does not exist, generate path from name and packageName rules, check if file exists, if so, assign it
                 if (!config.path) {
                     const target = path.join(dir, dir.indexOf('node_modules') > -1 ? packageName : name);
 
                     config.path = fs.existsSync(target) ? target : null;
                 }
 
-                // path 存在则加载插件
+                // If path exists, load the plugin
                 if (config.path) {
                     await PluginLoader.loadPlugin(config);
                     isDirExist = true;

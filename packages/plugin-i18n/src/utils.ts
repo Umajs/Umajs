@@ -14,9 +14,9 @@ export function requireDefault(p: string) {
 }
 
 /**
- * 多语言字符串模板处理
- * @param strings  字符串数组
- * @param keys  变量数组
+ * Multilingual string template processing
+ * @param strings  string array
+ * @param keys  variable array
  * return Function;
  * eg:
  *  const tmp = template`HAHA, ${0} ${'name'}!`;
@@ -46,8 +46,8 @@ export function template(strings: ReadonlyArray<string>, ...keys: paramType[]): 
 }
 
 /**
- * 格式化语言名称代码
- * @param locale 语言名称代码
+ * Format language code
+ * @param locale language code
  * zh_CN, en_US => zh-cn, en-us
  */
 export function formatLocale(locale: string): string {
@@ -55,8 +55,8 @@ export function formatLocale(locale: string): string {
 }
 
 /**
- * 加载 i18n 配置
- * @param i18nDir 文件夹
+ * Load i18n configuration
+ * @param i18nDir folder
  */
 export function loadI18nDir(i18nDir: string) {
     if (!fs.existsSync(i18nDir)) {

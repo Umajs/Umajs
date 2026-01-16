@@ -4,7 +4,7 @@ import * as http from 'http';
 import * as https from 'https';
 import mapAction from '../const/mapAction';
 
-// 封装loading效果
+// Encapsulate loading effect
 export const waitFnloading = (fn: Function, message: string) => async (...args: any) => {
     const spinner = ora(message);
 
@@ -33,7 +33,7 @@ const getHeaders = () => {
     return headers;
 };
 
-// 封装ajax
+// Encapsulate ajax
 export const xhr = (method: string, url: string) => {
     const urlObj = URL.parse(url);
     const { protocol } = urlObj;

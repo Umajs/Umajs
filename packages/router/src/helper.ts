@@ -14,8 +14,8 @@ export function replaceTailSlash(url: string) {
 }
 
 /**
- * 正则类型的url匹配
- * @param reqPath 请求地址
+ * Regex type url matching
+ * @param reqPath request address
  */
 export function MatchRegexp(regexpRouterMap: Map<RegExp, TPathInfo>, reqPath: string) {
     for (const [reg, { clazz, methodName, keys, methodTypes }] of regexpRouterMap) {

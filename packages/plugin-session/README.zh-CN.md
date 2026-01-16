@@ -1,8 +1,8 @@
-[中文](./README.zh-CN.md)
+[English](./README.md)
 
 # plugin-session
 
-This framework provides a simple and lightweight session plugin.
+本框架提供简单轻量级session插件
 
 ### Usage
 

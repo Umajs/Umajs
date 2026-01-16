@@ -27,7 +27,7 @@ describe('test @Body', () => {
     it('@Body.isRequire(string,message)', async () => {
         const index = await post('/isRequire');
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '年龄为空' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Age is empty' });
     });
     it('@Body.isRequire(string,message)', async () => {
         const index = await post('/isRequire', { age: 18 });
@@ -38,7 +38,7 @@ describe('test @Body', () => {
     it('@Body.Equals(string,value,message) throw error', async () => {
         const index = await post('/Equals', { age: 12 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '不是18岁！' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Not 18 years old!' });
     });
     it('@Body.Equals(string,value,message) sucecss', async () => {
         const index = await post('/Equals', { age: '18' });
@@ -49,7 +49,7 @@ describe('test @Body', () => {
     it('@Body.AssertFalse(string,message) throw error', async () => {
         const index = await post('/AssertFalse', { AssertFalse: true });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '参数必须是布尔类型false' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Parameter must be boolean type false' });
     });
     it('@Body.AssertFalse(string,message)  sucecss', async () => {
         const index = await post('/AssertFalse', { AssertFalse: false });
@@ -60,7 +60,7 @@ describe('test @Body', () => {
     it('@Body.AssertTrue(string,message)', async () => {
         const index = await post('/AssertTrue', { AssertTrue: false });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '参数必须是布尔类型true' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Parameter must be boolean type true' });
     });
     it('@Body.AssertTrue(string,message)', async () => {
         const index = await post('/AssertTrue', { AssertTrue: true });
@@ -71,7 +71,7 @@ describe('test @Body', () => {
     it('@Body.DecimalMax(string,value,message)', async () => {
         const index = await post('/DecimalMax', { DecimalMax: 20.43 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '入参值不能大于10.0' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Input value cannot be greater than 10.0' });
     });
     it('@Body.DecimalMax(string,value,message)', async () => {
         const index = await post('/DecimalMax', { DecimalMax: 8 });
@@ -82,7 +82,7 @@ describe('test @Body', () => {
     it('@Body.DecimalMin(string,value,message)', async () => {
         const index = await post('/DecimalMin', { DecimalMin: 2.332 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '入参值不能小于10.0' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Input value cannot be less than 10.0' });
     });
     it('@Body.DecimalMin(string,value,message)', async () => {
         const index = await post('/DecimalMin', { DecimalMin: 12.08 });
@@ -93,7 +93,7 @@ describe('test @Body', () => {
     it('@Body.Max(string,value,message)', async () => {
         const index = await post('/Max', { Max: 12 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '入参值不能大于10' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Input value cannot be greater than 10' });
     });
     it('@Body.Max(string,value,message)', async () => {
         const index = await post('/Max', { Max: 9 });
@@ -104,7 +104,7 @@ describe('test @Body', () => {
     it('@Body.Min(string,value,message)', async () => {
         const index = await post('/Min', { Min: 2 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '入参值不能小于10' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Input value cannot be less than 10' });
     });
     it('@Body.Min(string,value,message)', async () => {
         const index = await post('/Min', { Min: 20 });
@@ -115,7 +115,7 @@ describe('test @Body', () => {
     it('@Body.Future(string,message)', async () => {
         const index = await post('/Future', { Future: `${new Date().getTime()}` });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Future 参数必须为未来的时间格式' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Future parameter must be a future date format' });
     });
     it('@Body.Future(string,message)', async () => {
         const index = await post('/Future', { Future: '2221-07-08' });
@@ -126,7 +126,7 @@ describe('test @Body', () => {
     it('@Body.Past(string,message)', async () => {
         const index = await post('/Past', { Past: new Date() });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Past 参数必须为过去的时间格式' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Past parameter must be a past date format' });
     });
     it('@Body.Past(string,message)', async () => {
         const index = await post('/Past', { Past: '1221-07-08' });
@@ -137,7 +137,7 @@ describe('test @Body', () => {
     it('@Body.Pattern(string,pattern,message)', async () => {
         const index = await post('/Pattern', { Pattern: 1123232 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Pattern必须为111开头' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Pattern must start with 111' });
     });
     it('@Body.Pattern(string,pattern,message)', async () => {
         const index = await post('/Pattern', { Pattern: 11123232 });
@@ -148,7 +148,7 @@ describe('test @Body', () => {
     it('@Body.Size(string,min,max,message)', async () => {
         const index = await post('/Size', { Size: 45 });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Size 参数必须大于10小于20。入参值45' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Size parameter must be greater than 10 and less than 20. Input value45' });
     });
     it('@Body.Size(string,min,max,message)', async () => {
         const index = await post('/Size', { Size: 15 });
@@ -159,7 +159,7 @@ describe('test @Body', () => {
     it('@Body.NotEmpty(string,message)', async () => {
         const index = await post('/NotEmpty');
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'id 参数不能为空。入参值undefined' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'id parameter cannot be empty. Input valueundefined' });
     });
     it('@Body.NotEmpty(string,message)', async () => {
         const index = await post('/NotEmpty', { id: 'id' });
@@ -170,7 +170,7 @@ describe('test @Body', () => {
     it('@Body.NotBlank(string,message)', async () => {
         const index = await post('/NotBlank', { id: ' ' });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'id 参数不能为空。入参值 ' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'id parameter cannot be empty. Input value ' });
     });
     it('@Body.NotBlank(string,message)', async () => {
         const index = await post('/NotBlank', { id: 'id' });
@@ -181,7 +181,7 @@ describe('test @Body', () => {
     it('@Body.Email(string,message)', async () => {
         const index = await post('/Email', { Email: ' ' });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Email 参数必须为邮件格式。入参值 ' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Email parameter must be in email format. Input value ' });
     });
     it('@Body.Email(string,message)', async () => {
         const index = await post('/Email', { Email: 'zunyi_zjj@163.com' });
@@ -191,7 +191,7 @@ describe('test @Body', () => {
     it('@Body.Phone(string,message)', async () => {
         const index = await post('/Phone', { Phone: '123' });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '参数必须是电话号码格式' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Parameter must be in phone number format' });
     });
     it('@Body.Phone(string,message)', async () => {
         const index = await post('/Phone', { Phone: '08618612987750' });
@@ -202,7 +202,7 @@ describe('test @Body', () => {
     it('@Body.ToDate(string,message)', async () => {
         const index = await post('/ToDate', { date: new Date().getTime() });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '参数必须为时间格式字符串' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Parameter must be a date format string' });
     });
     it('@Body.ToDate(string,message)', async () => {
         const index = await post('/ToDate', { date: '2020-08-06' });
@@ -213,7 +213,7 @@ describe('test @Body', () => {
     it('@Body.ToBoolean(string,message)', async () => {
         const index = await post('/ToBoolean', { is: new Date().getTime() });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: '参数必须是布尔类型' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'Parameter must be a boolean type' });
     });
     it('@Body.ToBoolean(string,ToBoolean)', async () => {
         const index = await post('/ToBoolean', { is: 0 });
@@ -224,7 +224,7 @@ describe('test @Body', () => {
     it('@Body.ToNumber(string,message)', async () => {
         const index = await post('/ToNumber', { number: 'n' });
 
-        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'number 参数必须为数据类型。入参值n' });
+        expect(JSON.parse(index.text)).toMatchObject({ code: 0, msg: 'number parameter must be a number type. Input valuen' });
     });
     it('@Body.ToNumber(string,ToBoolean)', async () => {
         const index = await post('/ToNumber', { number: 0 });

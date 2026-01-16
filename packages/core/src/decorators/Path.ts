@@ -8,10 +8,10 @@ export type TPathObjArgs = {
 };
 
 /**
- * 路由装饰器
- * 可以装饰 class，作为跟路由，只装饰 class 不生效，必须和 method 装饰配合使用
- * 可以装饰 method，没有跟路由的时候直接作为路由使用，有跟路由的时候和跟路由组合使用
- * @param args 路由参数
+ * Route decorator
+ * Can decorate class as root route. Decorating only class does not take effect, must be used with method decoration
+ * Can decorate method. Used directly as route when no root route, or combined with root route when present
+ * @param args route parameters
  * eg:
  * Path('/p1')
  * Path('/p1', 'p2')

@@ -1,6 +1,8 @@
+[中文](./README.zh-CN.md)
+
 # @umajs/plugin-status
 
-为了方便用户对response`不同状态码`情况和`错误`进行处理，`Uma`提供了状态处理插件plugin-status
+In order to facilitate users to handle `different status codes` and `errors` in response, `Uma` provides a status processing plugin: plugin-status.
 
 ### Usage
 

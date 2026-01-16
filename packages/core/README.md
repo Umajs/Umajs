@@ -1,20 +1,22 @@
+[中文](./README.zh-CN.md)
+
 # @umajs/core
 
-## 特性
+## Features
 
-* 基于 Koa2，兼容 middleware
-* 装饰器 (decorator)，代码组织更优雅方便
-* 依赖注入 (IOC)，模块依赖不再需要引入和实例化
-* 面向切面 (AOP)，基于装饰器的 AOP 可以很方便的使用在各种方法上
-* 统一返回 (Result) 让编码更简单清晰
-* 自定义装饰器 (createArgDecorator) 可以快速的扩展参数装饰器，用于参数校验、参数转换、参数聚合等。
-* 插件、切面形式让中间件使用更优雅
-* 高稳定高性能，单元测试覆盖全
-* 路由分层，优化路由寻址
-* 推荐 TS 开发，开发维护更清晰，对于依赖注入的方法使用也更便捷
-* 统一约束和规范
+* Based on Koa2, compatible with middleware.
+* Decorators, making code organization more elegant and convenient.
+* Dependency Injection (IOC), module dependencies no longer need to be imported and instantiated manually.
+* Aspect-Oriented Programming (AOP), decorator-based AOP can be easily used on various methods.
+* Unified Return (Result) makes coding simpler and clearer.
+* Custom Decorators (createArgDecorator) can quickly extend argument decorators for parameter validation, transformation, aggregation, etc.
+* Plugins and Aspects make middleware usage more elegant.
+* High stability and high performance, with full unit test coverage.
+* Route layering, optimizing route addressing.
+* TS development is recommended, making development and maintenance clearer, and usage of dependency injection methods more convenient.
+* Unified constraints and specifications.
 
 
 ### Usage
 
-[使用文档](https://umajs.github.io/)
+[Documentation](https://umajs.github.io/)

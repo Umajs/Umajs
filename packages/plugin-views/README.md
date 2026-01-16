@@ -1,6 +1,8 @@
+[中文](./README.zh-CN.md)
+
 # views
 
-为了满足用户对于多模板的需求，本框架提供了模板支持
+In order to meet the user's demand for multiple templates, this framework provides template support.
 
 ### Usage
 

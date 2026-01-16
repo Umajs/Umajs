@@ -1,6 +1,8 @@
+[中文](./README.zh-CN.md)
+
 # i18n
 
-为了满足用户对于多语言应用的需求，本框架内置了国际化(I18n)支持
+To meet the user's demand for multi-language applications, this framework has built-in Internationalization (I18n) support.
 
 ### Usage
 

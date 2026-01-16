@@ -2,10 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
- * 加载目录
- * @param dirPath 文件夹地址
- * @param loadFn 加载方法
- * @param ignoreDirs 忽略的文件夹
+ * Load directory
+ * @param dirPath folder path
+ * @param loadFn load method
+ * @param ignoreDirs ignored folders
  */
 export default function loadDir(dirPath: string, loadFn: (filePath: string) => void, ignoreDirs: string[] = []) {
     if (!fs.existsSync(dirPath)) return;
@@ -21,7 +21,7 @@ export default function loadDir(dirPath: string, loadFn: (filePath: string) => v
                 loadDir(filePath, loadFn, ignoreDirs);
             }
         } else if (stat.isFile()) {
-            // 仅加载 .ts, .js, .json 文件，忽略 .d.ts 和其他文件
+            // Only load .ts, .js, .json files, ignore .d.ts and other files
             const ext = path.extname(file);
             if (['.ts', '.js', '.json'].includes(ext) && !file.endsWith('.d.ts')) {
                 loadFn(filePath);

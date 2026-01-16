@@ -10,34 +10,34 @@ type user = {
 export default class Modify extends BaseController {
     @Path('/query')
     index(@Require('userid') userId: string, @ToNumber('age') age: number) {
-        // 测试路由@Path修饰冲突覆盖case
+        // Test router @Path decoration conflict coverage case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
     @Path('/queryIsRequire')
     queryIsRequire(@Query.Require('userid') userId: string, @Query.Size('age',0,10) age: number) {
-        // 测试路由@Path修饰冲突覆盖case
+        // Test router @Path decoration conflict coverage case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
 
     @Path('/query/Equals')
     queryEquals(@Equals('userid', 0) userId: string, @ToNumber('age') age: number) {
-        // 测试路由@Path修饰冲突覆盖case
+        // Test router @Path decoration conflict coverage case
         return Result.send(`This router queryParms is ${userId} ${age}`);
     }
 
     @Path('/get')
     @Path({ value: '/post', method: RequestMethod.POST })
-    test2(@Body.isRequire('age', '年龄为空') userInfo: user) {
+    test2(@Body.isRequire('age', 'Age is empty') userInfo: user) {
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
 
     @Path({ value: '/bodyCheck', method: RequestMethod.POST })
-    testValidated(@isRequire('用户id必填') userInfo: user) {
+    testValidated(@isRequire('User ID required') userInfo: user) {
        
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
     @Path({ value: '/equals', method: RequestMethod.POST })
-    equals(@Body.Equals('age', 18, '不是18岁！') @Body.isRequire('age') userInfo: user) {
+    equals(@Body.Equals('age', 18, 'Not 18 years old!') @Body.isRequire('age') userInfo: user) {
         return Result.send(`This Post body info is ${JSON.stringify(userInfo)}`);
     }
 
@@ -57,12 +57,12 @@ export default class Modify extends BaseController {
     }
 
     @Path({ value: '/AssertTrue', method: RequestMethod.POST })
-    AssertTrue(@Body.AssertTrue('tru', '参数必须为true') tru: Boolean) {
+    AssertTrue(@Body.AssertTrue('tru', 'Parameter must be true') tru: Boolean) {
         return Result.send(`This Post body info is ${tru}`);
     }
 
     @Path({ value: '/DecimalMax', method: RequestMethod.POST })
-    DecimalMax(@Body.DecimalMax('DecimalMax', 10, '入参值不能超过10') DecimalMax: number) {
+    DecimalMax(@Body.DecimalMax('DecimalMax', 10, 'Input value cannot exceed 10') DecimalMax: number) {
         return Result.send(`This Post body info is ${DecimalMax}`);
     }
 
@@ -115,7 +115,7 @@ export default class Modify extends BaseController {
         return Result.send(`This Post body info is ${Email}`);
     }
     @Path({ value: '/Phone', method: RequestMethod.POST })
-    Phone(@Body.Phone('Phone') Phone: number) {
+    Phone(@Body.Phone('Phone') Phone: string) {
         return Result.send(`This Post body info is ${Phone}`);
     }
 

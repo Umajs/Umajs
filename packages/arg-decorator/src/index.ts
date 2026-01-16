@@ -18,17 +18,17 @@ export const fn = (ctx: IContext, argKey?: string) => ctx.query[argKey];
 export const fn1 = (ctx: IContext, argKey?: string) => ctx.param[argKey];
 
 /**
- * param 装饰器
+ * param decorator
  */
 export const Param: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string):ParameterDecorator => fn1(ctx, argKey));
 
 /**
- * query 装饰器
+ * query decorator
  */
 export const Query: TQueryDecorator = createArgDecorator((ctx: IContext, argKey: string) => fn(ctx, argKey));
 
 /**
- * 参数必传
+ * Parameter required
  */
 export const Require: (key: string, tip?: string) => ParameterDecorator = createArgDecorator((ctx: IContext, key: string, tip: string) => {
     const val = fn(ctx, key);
@@ -38,7 +38,7 @@ export const Require: (key: string, tip?: string) => ParameterDecorator = create
 });
 
 /**
- * 布尔类型转换校验
+ * Boolean type conversion validation
  */
 export const ToBoolean: (key: string, tip?: string) => ParameterDecorator = createArgDecorator((ctx: IContext, key: string, tip: string) => {
     const val = fn(ctx, key);
@@ -213,28 +213,28 @@ Query.ToBoolean = isBoolean;
 Query.ToArray = ToArray;
 Query.ToDate = ToDate;
 // @AssertFalse(id,message)
-Query.AssertFalse = AssertFalse; //  限制必须为false
-// @AssertTrue(id,message)限制必须为true
+Query.AssertFalse = AssertFalse; //  Must be false
+// @AssertTrue(id,message) Must be true
 Query.AssertTrue = AssertTrue;
-// @DecimalMax(id,value,message)限制必须为一个不大于指定值的数字
+// @DecimalMax(id,value,message) Must be a number not greater than the specified value
 Query.DecimalMax = DecimalMax;
-// @DecimalMin(id,value,message)限制必须为一个不小于指定值的数字
+// @DecimalMin(id,value,message) Must be a number not less than the specified value
 Query.DecimalMin = DecimalMin;
-// @Max(id,value,message)限制必须为一个不大于指定值的数字
+// @Max(id,value,message) Must be a number not greater than the specified value
 Query.Max = Max;
-// @Min(id,value,message)限制必须为一个不小于指定值的数字
+// @Min(id,value,message) Must be a number not less than the specified value
 Query.Min = Min;
-// @Future(id,message)限制必须是一个将来的日期
+// @Future(id,message) Must be a future date
 Query.Future = Future;
-// @Past(id,message)限制必须是一个过去的日期
+// @Past(id,message) Must be a past date
 Query.Past = Past;
-// @Pattern(id,value,message)限制必须符合指定的正则表达式
+// @Pattern(id,value,message) Must match the specified regular expression
 Query.Pattern = Pattern;
-// @Size(id,max,min,message)限制字符长度必须在min到max之间
+// @Size(id,max,min,message) Character length must be between min and max
 Query.Size = Size;
-// @NotBlank(id,message)验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的空格
+// @NotBlank(id,message) Validates that the annotated element value is not empty (not null, length is 0 after removing leading and trailing spaces). Unlike @NotEmpty, @NotBlank applies only to strings and removes spaces during comparison.
 Query.NotBlank = NotBlank;
-// @Email(id,message)验证注解的元素值是Email，也可以通过正则表达式和flag指定自定义的email格式
+// @Email(id,message) Validates that the annotated element value is an Email. Custom email formats can also be specified via regex and flags.
 Query.Email = Email;
-// @Phone(id,message)验证元素值是手机号
+// @Phone(id,message) Validates that the element value is a mobile phone number
 Query.Phone = Phone;

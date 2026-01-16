@@ -4,7 +4,7 @@ import { IRequest } from '../types/IRequest';
 import { IResponse } from '../types/IResponse';
 
 /**
- * controller 自带方法在 ctx 中也有相同实现
+ * controller methods also have the same implementation in ctx
  */
 export class BaseController implements BaseContext {
     constructor(readonly ctx: IContext) {

@@ -6,7 +6,7 @@
  */
 import { createArgDecorator, IContext } from '@umajs/core';
 
-/** 装饰器 RequestFile
+/** Decorator RequestFile
  * @RequestFile(field:string)
  */
 export const RequestFile: (field: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => {

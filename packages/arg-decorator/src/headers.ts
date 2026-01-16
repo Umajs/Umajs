@@ -6,7 +6,7 @@
  */
 import { createArgDecorator, IContext } from '@umajs/core';
 
-/** 装饰器 Headers
+/** Decorator Headers
  * @Headers(key:string)
  */
 export const Headers: (key: string) => ParameterDecorator = createArgDecorator((ctx: IContext, argKey: string) => ctx.get(argKey));

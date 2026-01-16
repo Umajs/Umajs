@@ -36,59 +36,59 @@ export default class Modify extends BaseController {
         return Result.send(`${userInfo.userid}-${userInfo.age}`);
     }
 
-    @Path('/get') // 待解决bugs：接口同时提供get 和post时 get请求404
+    @Path('/get') // Bugs to be fixed: 404 on get request when interface provides both get and post
     @Path({ value: '/isRequire', method: RequestMethod.POST })
-    isRequire(@Body.isRequire('age', '年龄为空') userInfo: user) {
+    isRequire(@Body.isRequire('age', 'Age is empty') userInfo: user) {
         return Result.send(`${JSON.stringify(userInfo)}`);
     }
 
     @Path({ value: '/Equals', method: RequestMethod.POST })
-    equals(@Body.Equals('age', '18', '不是18岁！') @Body.isRequire('age') age: number) {
+    equals(@Body.Equals('age', '18', 'Not 18 years old!') @Body.isRequire('age') age: number) {
         return Result.send(`${age}`);
     }
 
     @Path({ value: '/AssertFalse', method: RequestMethod.POST })
-    AssertFalse(@Body.AssertFalse('AssertFalse', '参数必须是布尔类型false') fls:Boolean) {
+    AssertFalse(@Body.AssertFalse('AssertFalse', 'Parameter must be boolean type false') fls:Boolean) {
         return Result.send(`${fls}`);
     }
 
     @Path({ value: '/AssertTrue', method: RequestMethod.POST })
-    AssertTrue(@Body.AssertTrue('AssertTrue', '参数必须是布尔类型true') tru:Boolean) {
+    AssertTrue(@Body.AssertTrue('AssertTrue', 'Parameter must be boolean type true') tru:Boolean) {
         return Result.send(`${tru}`);
     }
 
     @Path({ value: '/DecimalMax', method: RequestMethod.POST })
-    DecimalMax(@Body.DecimalMax('DecimalMax', 10.0, '入参值不能大于10.0') DecimalMax:number) {
+    DecimalMax(@Body.DecimalMax('DecimalMax', 10.0, 'Input value cannot be greater than 10.0') DecimalMax:number) {
         return Result.send(`${DecimalMax}`);
     }
 
     @Path({ value: '/DecimalMin', method: RequestMethod.POST })
-    DecimalMin(@Body.DecimalMin('DecimalMin', 10.0, '入参值不能小于10.0') DecimalMin:number) {
+    DecimalMin(@Body.DecimalMin('DecimalMin', 10.0, 'Input value cannot be less than 10.0') DecimalMin:number) {
         return Result.send(`${DecimalMin}`);
     }
 
     @Path({ value: '/Max', method: RequestMethod.POST })
-    Max(@Body.Max('Max', 10, '入参值不能大于10') Max:number) {
+    Max(@Body.Max('Max', 10, 'Input value cannot be greater than 10') Max:number) {
         return Result.send(`${Max}`);
     }
 
     @Path({ value: '/Min', method: RequestMethod.POST })
-    Min(@Body.Min('Min', 10, '入参值不能小于10') Min:number) {
+    Min(@Body.Min('Min', 10, 'Input value cannot be less than 10') Min:number) {
         return Result.send(`${Min}`);
     }
 
     @Path({ value: '/Future', method: RequestMethod.POST })
-    Future(@Body.Future('Future', 'Future 参数必须为未来的时间格式') Future:Date) {
+    Future(@Body.Future('Future', 'Future parameter must be a future date format') Future:Date) {
         return Result.send(`${Future}`);
     }
 
     @Path({ value: '/Past', method: RequestMethod.POST })
-    Past(@Body.Past('Past', 'Past 参数必须为过去的时间格式') Past:Date) {
+    Past(@Body.Past('Past', 'Past parameter must be a past date format') Past:Date) {
         return Result.send(`${Past}`);
     }
 
     @Path({ value: '/Pattern', method: RequestMethod.POST })
-    Pattern(@Body.Pattern('Pattern', /^111/, 'Pattern必须为111开头') Pattern:any) {
+    Pattern(@Body.Pattern('Pattern', /^111/, 'Pattern must start with 111') Pattern:any) {
         return Result.send(`${Pattern}`);
     }
 
@@ -113,17 +113,17 @@ export default class Modify extends BaseController {
     }
 
     @Path({ value: '/Phone', method: RequestMethod.POST })
-    Phone(@Body.Phone('Phone', '参数必须是电话号码格式') Phone:number) {
+    Phone(@Body.Phone('Phone', 'Parameter must be in phone number format') Phone:number) {
         return Result.send(`${Phone}`);
     }
 
     @Path({ value: '/ToDate', method: RequestMethod.POST })
-    ToDate(@Body.ToDate('date', '参数必须为时间格式字符串') date:Date) {
+    ToDate(@Body.ToDate('date', 'Parameter must be a date format string') date:Date) {
         return Result.send(`${date}`);
     }
 
     @Path({ value: '/ToBoolean', method: RequestMethod.POST })
-    ToBoolean(@Body.ToBoolean('is', '参数必须是布尔类型') is:Boolean) {
+    ToBoolean(@Body.ToBoolean('is', 'Parameter must be a boolean type') is:Boolean) {
         return Result.send(`${is}`);
     }
 

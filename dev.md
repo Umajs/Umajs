@@ -1,22 +1,24 @@
+[中文](./dev.zh-CN.md)
+
 # `Uma`
 
 
 ## Usage
-根目录执行：
+Run in the root directory:
 ```
 npm run init
 ```
 
 ## development
 
-开发子项目时，在子项目根目录执行
+When developing a sub-project, run in the sub-project root directory:
 ```
 npm start
 ```
 
-启动 web 工程，在 app 项目根录目执行
+To start the web project, run in the app project root directory:
 ```
 npm run app
 ```
 
-启动调试模式，在根目录按 F5 即可
+To start debugging mode, just press F5 in the root directory.

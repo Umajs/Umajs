@@ -5,29 +5,29 @@ import { IResponse } from './IResponse';
 
 export interface BaseContext {
     /**
-     * 发送内容
-     * @param data 内容
-     * @param status 状态码
+     * Send content
+     * @param data content
+     * @param status status code
      */
     send(data: string, status?: number): void;
 
     /**
-     * 发送json
-     * @param data json内容
+     * Send json
+     * @param data json content
      */
     json(data: Object): void;
 
     /**
-     * 发送 jsonp
-     * @param data json内容
-     * @param callbackField 回调字段
+     * Send jsonp
+     * @param data json content
+     * @param callbackField callback field
      */
     jsonp(data: Object, callbackField?: string): void;
 
     /**
-     * 发送模板
-     * @param viewPath 模板地址
-     * @param locals 变量
+     * Send template
+     * @param viewPath template path
+     * @param locals variables
      */
     view(viewPath: string, locals?: any): void;
 
@@ -37,20 +37,20 @@ export interface BaseContext {
     userAgent: string;
 
     /**
-     * 路由参数
+     * Route parameters
      */
     param: any;
 
     /**
-     * 设置 header
-     * @param name header 名称
-     * @param value header 值
+     * Set header
+     * @param name header name
+     * @param value header value
      */
     setHeader(name: string | any, value?: string | string[]): void;
 
     /**
-     * 获取 header
-     * @param name header 名称
+     * Get header
+     * @param name header name
      */
     getHeader(name: string | any): any;
 }

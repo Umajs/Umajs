@@ -2,10 +2,10 @@ import { IContext } from '@umajs/core';
 import { Model } from '@umajs/class-validator';
 
 export type IArgErrorTip = {
-    key:string, // 修饰参数属性名称
-    val?:string, // 参数入参值
-    ctx?:IContext, // 上下文
-    tip?:string, // 自定义提示内容
+    key:string, // Decorated parameter property name
+    val?:string, // Parameter input value
+    ctx?:IContext, // Context
+    tip?:string, // Custom tip content
     [key:string]:any
 }
 

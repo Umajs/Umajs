@@ -91,7 +91,7 @@ export default class Check {
     }
 
     /**
-     * 必须为数字
+     * Must be a number
      * @param tip
      */
     toNumber(tip?: string) {
@@ -106,7 +106,7 @@ export default class Check {
     }
 
     /**
-     * 参数类型为Boolean
+     * Parameter type is Boolean
      * @param tip
      */
     toBoolean(tip?: string) {
@@ -140,7 +140,7 @@ export default class Check {
     }
 
     /**
-     * 限制必须为false
+     * Must be false
      * @param tip
      */
     assertFalse(tip?: string) {

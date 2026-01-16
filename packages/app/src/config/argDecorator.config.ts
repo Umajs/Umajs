@@ -6,7 +6,7 @@ export default {
         err({key, ctx, tip}) {
             return Result.json({
                 code: 0,
-                msg: tip || `请求${key} 参数不能为空。`,
+                msg: tip || `Request ${key} parameter cannot be empty.`,
             });
         },
     },
@@ -14,7 +14,7 @@ export default {
         err({key, ctx, tip}) {
             return Result.json({
                 code: 0,
-                msg: tip || `请求${key} 参数必须为数字类型。`,
+                msg: tip || `Request ${key} parameter must be a number type.`,
             });
         },
     },

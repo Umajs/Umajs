@@ -6,48 +6,48 @@ import { formatLocale, i18nMap, loadI18nDir } from './utils';
 
 export type i18nOptions = {
     /**
-     * 默认语言
-     * 默认： en-US
+     * Default language
+     * Default: en-US
      */
     defaultLocale?: string,
     /**
-     * 接收的query字段
-     * 默认：locale
+     * Received query field
+     * Default: locale
      */
     queryField?: string,
     /**
-     * 存储的cookie字段
-     * 默认：locale
+     * Stored cookie field
+     * Default: locale
      */
     cookieField?: string,
     /**
-     * 是否写入cookie
-     * 默认：true
+     * Whether to write cookie
+     * Default: true
      */
     writeCookie?: boolean,
     /**
-     * cookie最大存储时间
-     * 默认：1y
+     * Cookie max age
+     * Default: 1y
      */
     cookieMaxAge?: string,
     /**
-     * cookie的域名
-     * 默认：''
+     * Cookie domain
+     * Default: ''
      */
     cookieDomain?: string,
     /**
-     * 多语言文件夹名
-     * 默认：i18n
+     * Multilingual folder name
+     * Default: i18n
      */
     defaultDirName?: string,
     /**
-     * 自定义函数名
-     * 默认：i18n
+     * Custom function name
+     * Default: i18n
      */
     functionName?: string,
 }
 
-// 默认配置
+// Default configuration
 const DEFAULT_OPTIONS: i18nOptions = {
     defaultLocale: 'en-US',
     queryField: 'i18n',
@@ -85,8 +85,8 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
             },
 
             /**
-             * 更改当前国际化，仅对当前访问有效
-             * @param locale 新国际化
+             * Change current internationalization, valid only for current access
+             * @param locale new internationalization
              */
             setLocale(locale: string) {
                 this[LOCAL] = null;
@@ -106,7 +106,7 @@ export default (uma: Uma, options?: i18nOptions): TPlugin => {
             },
 
             /**
-             * 获取一次请求的语言信息
+             * Get language information for a request
              * @return {string} locale
              *
              * 1. query: /?i18n=zh-CN

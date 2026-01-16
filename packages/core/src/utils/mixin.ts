@@ -1,9 +1,9 @@
 import typeHelper from './typeHelper';
 
 /**
- * 混入目标，暂不考虑 Map & Set
- * @param target 目标
- * @param source 资源
+ * Mixin target, Map & Set are not considered for now
+ * @param target target
+ * @param source source
  */
 export default function mixin(deep: boolean = false, target: any, ...sources: any[]) {
     if (!typeHelper.isObject(target)) return target;

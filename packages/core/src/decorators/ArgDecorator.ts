@@ -16,16 +16,16 @@ export function createArgDecorator(fn: (ctx: IContext, ...argProps: any[]) => an
 }
 
 /**
- * param 装饰器
+ * param decorator
  */
 export const Param = createArgDecorator((ctx: IContext, argKey) => ctx.param[argKey]);
 
 /**
- * query 装饰器
+ * query decorator
  */
 export const Query = createArgDecorator((ctx: IContext, argKey) => ctx.query[argKey]);
 
 /**
- * context 装饰器
+ * context decorator
  */
 export const Context = createArgDecorator((ctx: IContext) => ctx);
