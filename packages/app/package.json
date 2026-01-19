@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "private": true,
   "description": "> TODO: description",
   "author": "zhangzhihua <zzh627@126.com>",
@@ -26,14 +26,14 @@
     "prebuild": "npm run lint"
   },
   "dependencies": {
-    "@umajs/arg-decorator": "^2.0.5",
-    "@umajs/core": "^2.0.5",
+    "@umajs/arg-decorator": "^2.0.6",
+    "@umajs/core": "^2.0.6",
     "@umajs/path": "^1.2.5",
-    "@umajs/plugin-i18n": "^2.0.5",
-    "@umajs/plugin-session": "^2.0.5",
-    "@umajs/plugin-static": "^2.0.5",
-    "@umajs/plugin-status": "^2.0.5",
-    "@umajs/router": "^2.0.5",
+    "@umajs/plugin-i18n": "^2.0.6",
+    "@umajs/plugin-session": "^2.0.6",
+    "@umajs/plugin-static": "^2.0.6",
+    "@umajs/plugin-status": "^2.0.6",
+    "@umajs/router": "^2.0.6",
     "koa": "^3.1.1",
     "koa-views": "^8.1.0",
     "nunjucks": "^3.2.4"
