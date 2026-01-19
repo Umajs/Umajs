@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as compose from 'koa-compose';
+import compose = require('koa-compose');
 
 import Uma from '../core/Uma';
 import mixin from '../utils/mixin';

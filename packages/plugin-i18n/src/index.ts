@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as ms from 'humanize-ms';
+import { ms } from 'humanize-ms';
 import Uma, { TPlugin, IContext } from '@umajs/core';
 
 import { formatLocale, i18nMap, loadI18nDir } from './utils';

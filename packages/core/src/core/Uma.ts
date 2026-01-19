@@ -1,4 +1,4 @@
-import * as Koa from 'koa';
+import Koa = require('koa');
 import * as path from 'path';
 import * as http from 'http';
 import * as https from 'https';

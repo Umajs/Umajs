@@ -37,8 +37,8 @@ export const Results: IResults = {
         return LazyModules.send(ctx, downloadPath, downloadOpts);
     },
     redirect(ctx: IContext, data: TResultRedirectData) {
-        const { url, alt } = data;
+        const { url } = data;
 
-        return ctx.redirect(url, alt);
+        return ctx.redirect(url);
     },
 };

@@ -82,7 +82,7 @@ export async function cp(src: string, dest: string, options: {
 }
 
 export function reRender(dest: string, params: { [key: string]: string }) {
-    const content = fs.readFileSync(dest, 'UTF-8');
+    const content = fs.readFileSync(dest, 'utf-8');
 
-    fs.writeFileSync(dest, content.replace(/<%=(.*)%>/g, (str, name) => params[name]), 'UTF-8');
+    fs.writeFileSync(dest, content.replace(/<%=(.*)%>/g, (str, name) => params[name]), 'utf-8');
 }

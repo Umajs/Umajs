@@ -32,13 +32,13 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "commander": "^14.0.2",
-    "inquirer": "^13.2.0",
-    "ora": "^9.0.0",
+    "commander": "^9.0.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
     "simple-git": "^3.30.0"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.9",
+    "@types/inquirer": "^8.2.6",
     "@types/node": "^25.0.9",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.53.0",

@@ -1,4 +1,4 @@
-import * as program from 'commander';
+import { program } from 'commander';
 
 import mapActions from './const/mapAction';
 import project from './command/project';
