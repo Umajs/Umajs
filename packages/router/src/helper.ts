@@ -16,9 +16,14 @@ export function replaceTailSlash(url: string) {
 /**
  * Regex type url matching
  * @param reqPath request address
+ * @param methodType request method
  */
-export function MatchRegexp(regexpRouterMap: Map<RegExp, TPathInfo>, reqPath: string) {
+export function MatchRegexp(regexpRouterMap: Map<RegExp, TPathInfo>, reqPath: string, methodType: string) {
     for (const [reg, { clazz, methodName, keys, methodTypes }] of regexpRouterMap) {
+        if (methodTypes && methodTypes.indexOf(methodType) === -1) {
+            continue;
+        }
+
         const result = reg.exec(reqPath);
 
         if (result) {

@@ -10,6 +10,7 @@ import PluginLoader from '../loader/PluginLoader';
 import controllerInfo from '../info/controllerInfo';
 import { packageInfo } from '../info/packageInfo';
 import { UmaError } from './UmaError';
+import { ILogger, ConsoleLogger } from '../logger/ILogger';
 
 import { Context } from '../extends/Context';
 import { Request } from '../extends/Request';
@@ -45,6 +46,9 @@ export default class Uma {
 
         if (proxy) this.app.proxy = proxy;
         if (subdomainOffset) this.app.subdomainOffset = subdomainOffset;
+
+        // Default logger
+        this.logger = new ConsoleLogger();
     }
 
     env: string;
@@ -60,6 +64,8 @@ export default class Uma {
     routers: string[] = [];
 
     config: TConfig;
+
+    logger: ILogger;
 
     private async load() {
         this.loadConfig();
@@ -100,8 +106,8 @@ export default class Uma {
             this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
 
             this.server.listen(this.port, async () => {
-                console.log(`Uma server running at port: ${this.port} `);
-                console.log(`Uma version: ${packageInfo.version}`);
+                this.logger.info(`Uma server running at port: ${this.port} `);
+                this.logger.info(`Uma version: ${packageInfo.version}`);
 
                 if (typeof this.callback === 'function') {
                     await Promise.resolve(Reflect.apply(this.callback, this, []));
@@ -109,10 +115,11 @@ export default class Uma {
             });
         } catch (e) {
             if (e instanceof UmaError) {
-                console.error(`[UmaError]: ${e.message}`);
+                this.logger.error(`[UmaError]: ${e.message}`);
             } else {
-                console.error(e);
+                this.logger.error(e);
             }
+
             process.exit(1);
         }
     }
@@ -208,6 +215,10 @@ export default class Uma {
      */
     static get controllersInfo(): IterableIterator<TControllerInfo> {
         return controllerInfo.getControllersInfo();
+    }
+
+    static get logger(): ILogger {
+        return Uma.instance().logger;
     }
 
     /**

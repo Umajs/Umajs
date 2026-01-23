@@ -16,14 +16,15 @@ export class Container {
             // we pass ctx by default.
             // If the class doesn't accept arguments, JS simply ignores it.
             // If it expects ctx (like BaseController), it works.
+            // eslint-disable-next-line new-cap
             return new target(ctx);
         }
 
         const args = paramTypes.map((param: any) => {
             // Since interfaces don't exist at runtime, 'IContext' becomes 'Object'.
             if (param === Object || param.name === 'Object') {
-                 // Likely the 'ctx' param in BaseController/BaseService
-                 return ctx;
+                // Likely the 'ctx' param in BaseController/BaseService
+                return ctx;
             }
 
             // Recursive resolution
@@ -33,9 +34,11 @@ export class Container {
         // Ensure we pass at least ctx if we failed to resolve any arguments but the target expects one
         // This is a safety net for when metadata is missing or partial
         if (args.length === 0 && target.length > 0) {
+            // eslint-disable-next-line new-cap
             return new target(ctx);
         }
 
+        // eslint-disable-next-line new-cap
         return new target(...args);
     }
 }
