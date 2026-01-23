@@ -6,6 +6,10 @@ import typeHelper from './typeHelper';
  * @param source source
  */
 // eslint-disable-next-line default-param-last
+export default function mixin<T>(deep: boolean, target: T): T;
+export default function mixin<T, U>(deep: boolean, target: T, source?: U): T & U;
+export default function mixin<T, U, V>(deep: boolean, target: T, source1: U, source2: V): T & U & V;
+export default function mixin<T, U, V, W>(deep: boolean, target: T, source1: U, source2: V, source3: W): T & U & V & W;
 export default function mixin(deep: boolean = false, target: any, ...sources: any[]) {
     if (!typeHelper.isObject(target)) return target;
 

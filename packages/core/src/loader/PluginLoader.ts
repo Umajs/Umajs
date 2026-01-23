@@ -6,6 +6,7 @@ import Uma from '../core/Uma';
 import mixin from '../utils/mixin';
 import typeHelper from '../utils/typeHelper';
 import Require from '../utils/Require';
+import { UmaError } from '../core/UmaError';
 
 import { TPluginConfig } from '../types/TConfig';
 import { TPlugin } from '../types/TPlugin';
@@ -85,7 +86,7 @@ export default class PluginLoader {
             if (typeHelper.isFunction(pluginResult)) uma.use(pluginResult);
             else if (typeHelper.isObject(pluginResult)) PluginLoader.complexPlugin(pluginResult, options);
         } else {
-            console.error(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
+            throw new UmaError(`[Plugin] ${pluginConfig.name} type error, it must be function like function(uma, options) {}.`);
         }
     }
 
@@ -114,9 +115,9 @@ export default class PluginLoader {
                 if (typeHelper.isFunction(handler)) {
                     uma.use(handler);
                 } else {
-                    console.error(new Error(
+                    throw new UmaError(
                         `Plugin "${name}" config error, "middleware" must have "handler: Koa.Middleware". now is ${JSON.stringify(config)}`,
-                    ));
+                    );
                 }
 
                 continue;
@@ -147,7 +148,7 @@ export default class PluginLoader {
             }
 
             if (!isDirExist) {
-                throw new Error(`plugin ${name} not found`);
+                throw new UmaError(`plugin ${name} not found`);
             }
         }
     }

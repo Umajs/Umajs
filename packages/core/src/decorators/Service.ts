@@ -1,6 +1,7 @@
 import { BaseController } from '../core/BaseController';
 import { BaseService } from '../core/BaseService';
 import typeHelper from '../utils/typeHelper';
+import { Container } from '../core/Container';
 
 /**
  * Inject service
@@ -15,7 +16,7 @@ export function Service<T extends typeof BaseService>(service: T): Function {
         return {
             get() {
                 // @ts-ignore
-                return Reflect.construct(service, [this.ctx]);
+                return Container.get(service, this.ctx);
             },
         };
     };

@@ -9,6 +9,7 @@ import ConfigLoader from '../loader/ConfigLoader';
 import PluginLoader from '../loader/PluginLoader';
 import controllerInfo from '../info/controllerInfo';
 import { packageInfo } from '../info/packageInfo';
+import { UmaError } from './UmaError';
 
 import { Context } from '../extends/Context';
 import { Request } from '../extends/Request';
@@ -89,22 +90,31 @@ export default class Uma {
     }
 
     async start(port: number = 8058, callback?: (...args: any[]) => any) {
-        if (!this.port) this.port = port;
-        if (callback) this.callback = callback;
-        const { app, options: { createServer } } = this;
-        const koaCallback = app.callback();
+        try {
+            if (!this.port) this.port = port;
+            if (callback) this.callback = callback;
+            const { app, options: { createServer } } = this;
+            const koaCallback = app.callback();
 
-        await this.prepare();
-        this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
+            await this.prepare();
+            this.server = createServer ? createServer(koaCallback) : http.createServer(koaCallback);
 
-        this.server.listen(this.port, async () => {
-            console.log(`Uma server running at port: ${this.port} `);
-            console.log(`Uma version: ${packageInfo.version}`);
+            this.server.listen(this.port, async () => {
+                console.log(`Uma server running at port: ${this.port} `);
+                console.log(`Uma version: ${packageInfo.version}`);
 
-            if (typeof this.callback === 'function') {
-                await Promise.resolve(Reflect.apply(this.callback, this, []));
+                if (typeof this.callback === 'function') {
+                    await Promise.resolve(Reflect.apply(this.callback, this, []));
+                }
+            });
+        } catch (e) {
+            if (e instanceof UmaError) {
+                console.error(`[UmaError]: ${e.message}`);
+            } else {
+                console.error(e);
             }
-        });
+            process.exit(1);
+        }
     }
 
     async prepare() {

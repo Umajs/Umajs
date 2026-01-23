@@ -2,6 +2,7 @@ import Result from '../core/Result';
 import type { IContext } from '../types/IContext';
 import ControllerInfo from '../info/controllerInfo';
 import type { TMethodInfo } from '../types/TControllerInfo';
+import { Container } from './Container';
 
 /**
  * @param clazz class
@@ -23,8 +24,8 @@ export async function callMethod(clazz: Function, methodName: string, param: obj
 
     const { args: argArr = [] } = methodInfo;
     // eslint-disable-next-line new-cap
-    const instance = Reflect.construct(clazz, [ctx]);
-    const method = Reflect.get(instance, methodName);
+    const instance = Container.get(clazz, ctx);
+    const method = Reflect.get(instance as object, methodName);
 
     if (typeof method !== 'function') return next();
 

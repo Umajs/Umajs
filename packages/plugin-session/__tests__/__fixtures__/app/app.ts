@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as request from 'supertest';
-import { Uma, IResponse } from '@umajs/core';
+import { Uma } from '@umajs/core';
 import { Router } from '@umajs/router';
 
 import session from '../../../src/';
@@ -39,11 +39,11 @@ export const send = (path: string): any => new Promise((resolve, reject) => {
     const req = request(uma.app.listen())
 
     req.get(path)
-        .end((err: Error, res: IResponse) => {
+        .end((err: Error, res: request.Response) => {
             if (err) reject(err);
 
             req.get(path)
-                .end((err: Error, res: IResponse) => {
+                .end((err: Error, res: request.Response) => {
                     if (err) reject(err);
                     resolve(res);
                 });
@@ -54,7 +54,7 @@ export const post = (path: string, data?: Object): any => new Promise((resolve, 
     request(uma.app.listen())
         .post(path)
         .send(data)
-        .end((err: Error, res: Response) => {
+        .end((err: Error, res: request.Response) => {
             if (err) reject(err);
             resolve(res);
         });
