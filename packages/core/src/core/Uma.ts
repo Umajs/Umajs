@@ -213,7 +213,7 @@ export default class Uma {
     /**
      * getControllerInfo()
      */
-    static get controllersInfo(): IterableIterator<TControllerInfo> {
+    static get controllersInfo(): TControllerInfo[] {
         return controllerInfo.getControllersInfo();
     }
 

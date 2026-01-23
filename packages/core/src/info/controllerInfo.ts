@@ -1,6 +1,9 @@
+import 'reflect-metadata';
 import { TControllerInfo, TMethodInfo, TPath, THelper } from '../types/TControllerInfo';
 
-const ControllerMap: Map<Function, TControllerInfo> = new Map();
+const METADATA_KEY = 'uma:controller';
+// Internal registry to keep track of controller classes
+const ControllerRegistry: Set<Function> = new Set();
 
 export default class {
     /**
@@ -10,7 +13,11 @@ export default class {
      * @param info controller info
      */
     static setControllersInfo(clazz: Function, methodName: string, info: THelper = {}) {
-        const clazzInfo: TControllerInfo = ControllerMap.get(clazz) || {};
+        // Retrieve existing metadata or create new
+        const clazzInfo: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz) || { methodMap: new Map() };
+
+        // Register class
+        ControllerRegistry.add(clazz);
 
         /**
          * Get fields that need to be set or updated
@@ -18,7 +25,7 @@ export default class {
          * methodTypes: controller method visit method type get|post...
          */
         const { rootPath, path, methodTypes = [], argProps, argIndex, argDecorator } = info;
-        const methodMap: Map<string, TMethodInfo> = clazzInfo.methodMap || new Map();
+        const { methodMap } = clazzInfo;
 
         if (rootPath) clazzInfo.path = rootPath;
 
@@ -49,23 +56,31 @@ export default class {
             methodMap.set(methodName, methodInfo);
         }
 
-        clazzInfo.methodMap = methodMap;
-        // update controller info
-        ControllerMap.set(clazz, { clazz, ...clazzInfo });
+        // update controller info metadata
+        clazzInfo.clazz = clazz;
+        Reflect.defineMetadata(METADATA_KEY, clazzInfo, clazz);
     }
 
-    static getControllersInfo(): IterableIterator<TControllerInfo> {
-        return ControllerMap.values();
+    static getControllersInfo(): TControllerInfo[] {
+        const controllersInfo: TControllerInfo[] = [];
+
+        for (const clazz of ControllerRegistry) {
+            const info: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz);
+
+            if (info) controllersInfo.push(info);
+        }
+
+        return controllersInfo;
     }
 
     static get(clazz: Function) {
-        return ControllerMap.get(clazz);
+        return Reflect.getMetadata(METADATA_KEY, clazz);
     }
 
-    static isAspectMethod(clazz: Function, method: string) {
-        const info: TControllerInfo = ControllerMap.get(clazz);
+    static isAspectMethod(clazz: Function, method: string): boolean {
+        const info: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz);
 
-        if (!info) return true;
+        if (!info) return false;
 
         return info.methodMap.has(method);
     }
