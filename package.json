@@ -27,7 +27,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "del-cli": "^7.0.0",
     "jest": "^30.2.0",
-    "lerna": "^8.1.9",
+    "lerna": "^9.0.3",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
