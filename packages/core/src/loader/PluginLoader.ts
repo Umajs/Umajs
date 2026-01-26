@@ -14,6 +14,10 @@ import { IContext } from '../types/IContext';
 import { Results } from '../extends/Results';
 
 export default class PluginLoader {
+    /**
+     * Load plugin config
+     * @returns plugin config
+     */
     static loadPluginConfig() {
         if (!Uma.config.plugin) return;
 
@@ -33,6 +37,11 @@ export default class PluginLoader {
         return pluginConfig;
     }
 
+    /**
+     * Load complex plugin
+     * @param plugin plugin object
+     * @param options plugin options
+     */
     static complexPlugin(plugin: TPlugin, options: any) {
         const uma = Uma.instance();
         const mws = [];
@@ -72,6 +81,10 @@ export default class PluginLoader {
         if (mws.length > 0) uma.use(compose(mws));
     }
 
+    /**
+     * Load plugin
+     * @param pluginConfig plugin config
+     */
     static async loadPlugin(pluginConfig: TPluginConfig) {
         const uma = Uma.instance();
         const plugin: TPlugin | Function = Require.default(pluginConfig.path);
@@ -90,6 +103,10 @@ export default class PluginLoader {
         }
     }
 
+    /**
+     * Load plugins from directory
+     * @param rootPath root path
+     */
     static async loadDir(rootPath: string) {
         const uma = Uma.instance();
         const pluginConfig = PluginLoader.loadPluginConfig();

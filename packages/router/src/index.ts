@@ -5,6 +5,11 @@ import Uma, { IContext, TMethodInfo, callMethod } from '@umajs/core';
 import { TPathInfo } from './types/TPathInfo';
 import { replaceTailSlash, MatchRegexp } from './helper';
 
+/**
+ * Router middleware
+ * Scans controller metadata and registers routes
+ * @returns Koa middleware
+ */
 export const Router:()=>Koa.Middleware = () => {
     Uma.logger.info('======Init router start======');
 

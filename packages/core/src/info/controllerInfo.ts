@@ -5,24 +5,28 @@ const METADATA_KEY = 'uma:controller';
 // Internal registry to keep track of controller classes
 const ControllerRegistry: Set<Function> = new Set();
 
-export default class {
+export default class ControllerInfo {
     /**
-     * set controller info
-     * @param clazzName controller name
-     * @param methodName controller method name
-     * @param info controller info
+     * Set or update controller metadata
+     * This method is called by decorators (@Path, @GET, @POST, etc.) to register controller information.
+     *
+     * @param clazz The controller class constructor
+     * @param methodName The name of the method being decorated (if applicable)
+     * @param info Configuration object containing path, method types, and argument decorators
      */
     static setControllersInfo(clazz: Function, methodName: string, info: THelper = {}) {
         // Retrieve existing metadata or create new
         const clazzInfo: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz) || { methodMap: new Map() };
 
-        // Register class
+        // Register class to the internal registry so we can iterate over it later
         ControllerRegistry.add(clazz);
 
         /**
-         * Get fields that need to be set or updated
-         * rootPath: controller visit path
-         * methodTypes: controller method visit method type get|post...
+         * Extract fields that need to be set or updated
+         * rootPath: The base path for the controller (from class-level @Path)
+         * path: The sub-path for a specific method (from method-level @Path/HTTP decorators)
+         * methodTypes: HTTP methods (GET, POST, etc.) allowed for this route
+         * argDecorator: Argument decorator function (for @Query, @Body, etc.)
          */
         const { rootPath, path, methodTypes = [], argProps, argIndex, argDecorator } = info;
         const { methodMap } = clazzInfo;
@@ -37,6 +41,7 @@ export default class {
 
             methodInfo.name = methodName;
 
+            // Register route path and HTTP methods
             if (path) {
                 const pathObj: TPath = { path };
 
@@ -45,6 +50,7 @@ export default class {
                 methodInfo.paths.push(pathObj);
             }
 
+            // Register argument decorator
             if (argDecorator) {
                 methodInfo.args.push({
                     argDecorator,
@@ -56,11 +62,17 @@ export default class {
             methodMap.set(methodName, methodInfo);
         }
 
-        // update controller info metadata
+        // Update controller info metadata on the class
         clazzInfo.clazz = clazz;
         Reflect.defineMetadata(METADATA_KEY, clazzInfo, clazz);
     }
 
+    /**
+     * Get metadata for all registered controllers
+     * Used by the Router to build the routing table.
+     *
+     * @returns An array of TControllerInfo containing paths, methods, and other metadata
+     */
     static getControllersInfo(): TControllerInfo[] {
         const controllersInfo: TControllerInfo[] = [];
 
@@ -73,10 +85,23 @@ export default class {
         return controllersInfo;
     }
 
-    static get(clazz: Function) {
+    /**
+     * Get metadata for a specific controller class
+     *
+     * @param clazz The controller class
+     * @returns The controller metadata or undefined if not found
+     */
+    static get(clazz: Function): TControllerInfo | undefined {
         return Reflect.getMetadata(METADATA_KEY, clazz);
     }
 
+    /**
+     * Check if a method is a registered aspect/route handler
+     *
+     * @param clazz The controller class
+     * @param method The method name to check
+     * @returns True if the method is registered in the controller's metadata
+     */
     static isAspectMethod(clazz: Function, method: string): boolean {
         const info: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz);
 

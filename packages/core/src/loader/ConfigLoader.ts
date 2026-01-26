@@ -11,6 +11,10 @@ export default class ConfigLoader {
         plugin: {},
     };
 
+    /**
+     * Load config file
+     * @param filePath config file path
+     */
     static loadConfig(filePath: string) {
         const fileInfo = path.parse(filePath);
         const [configName, type, ...suffix] = fileInfo.name.split('.');
@@ -46,6 +50,10 @@ export default class ConfigLoader {
         }
     }
 
+    /**
+     * Load config directory
+     * @param dirPath config directory path
+     */
     static loadConfigDir(dirPath: string) {
         if (!fs.existsSync(dirPath)) return;
 

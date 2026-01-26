@@ -6,6 +6,10 @@ import loadDir from '../utils/loadDir';
 import { UmaError } from '../core/UmaError';
 
 export default class ResourceLoader {
+    /**
+     * Load resource
+     * @param filePath resource file path
+     */
     static loadResource(filePath: string) {
         try {
             Require.default(filePath);
@@ -19,6 +23,11 @@ export default class ResourceLoader {
         }
     }
 
+    /**
+     * Load resource directory
+     * @param dirPath resource directory path
+     * @param ignoreDirs ignore directories
+     */
     static loadResourceDir(dirPath: string, ignoreDirs: string[] = []) {
         if (!fs.existsSync(dirPath)) {
             return;

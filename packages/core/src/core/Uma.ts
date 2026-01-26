@@ -25,11 +25,18 @@ import type { TControllerInfo } from '../types/TControllerInfo';
 let instance: Uma | null = null;
 
 export default class Uma {
+    /**
+     * Private constructor to enforce singleton pattern
+     * Initializes the Uma instance with options and optional Koa app
+     * @param options Uma configuration options
+     * @param app Optional existing Koa instance
+     */
     private constructor(readonly options: TUmaOption, app?: Koa<Koa.DefaultState, IContext>) {
         if (!options || !options.ROOT) {
             throw new Error(`Uma options.ROOT must set value. e.g { ROOT: './src' }, now ${JSON.stringify(options)}`);
         }
 
+        // Merge default options with user provided options
         this.options = mixin(true, {
             jsonpBody: {},
             configPath: path.resolve(options.ROOT, 'config'),
@@ -67,6 +74,10 @@ export default class Uma {
 
     logger: ILogger;
 
+    /**
+     * Load core resources including config, plugins, and aspects
+     * This method is called during the preparation phase
+     */
     private async load() {
         this.loadConfig();
 
@@ -77,24 +88,42 @@ export default class Uma {
         ResourceLoader.loadResourceDir(this.options.ROOT, reservedDir);
     }
 
+    /**
+     * Load configuration from config directory
+     */
     loadConfig() {
         ConfigLoader.loadConfigDir(this.options.configPath);
         Object.freeze(ConfigLoader.config);
         this.config = ConfigLoader.config;
     }
 
+    /**
+     * Load plugins
+     */
     async loadPlugin() {
         await PluginLoader.loadDir(this.options.ROOT);
     }
 
+    /**
+     * Use Koa middleware
+     * @param mw Koa middleware
+     */
     use(mw: Koa.Middleware<any, IContext>) {
         this.app.use(mw);
     }
 
+    /**
+     * Get app context
+     */
     get context(): IContext {
         return this.app.context;
     }
 
+    /**
+     * Start the HTTP server
+     * @param port Port number to listen on (default: 8058)
+     * @param callback Optional callback function to run after server starts
+     */
     async start(port: number = 8058, callback?: (...args: any[]) => any) {
         try {
             if (!this.port) this.port = port;
@@ -124,16 +153,26 @@ export default class Uma {
         }
     }
 
+    /**
+     * Prepare the application
+     * - Mixin core extensions (Request, Response, Context)
+     * - Run beforeLoad hooks
+     * - Configure body parser
+     * - Load resources
+     * - Mount router
+     * - Run afterLoaded hooks
+     */
     async prepare() {
         const { app, options: { Router, beforeLoad, afterLoaded } } = this;
 
+        // Mixin extensions to Koa prototypes
         mixin(false, app.request, Request);
         mixin(false, app.response, Response);
         mixin(false, app.context, Context);
 
         if (typeHelper.isFunction(beforeLoad)) await Promise.resolve(Reflect.apply(beforeLoad, this, [this]));
 
-        // koa-body
+        // Configure koa-body middleware
         if (this.options.bodyParser) {
             this.app.use((ctx, next) => {
                 if (['POST', 'PUT', 'PATCH'].indexOf(ctx.method) > -1) {
@@ -184,6 +223,10 @@ export default class Uma {
         return ConfigLoader.config.plugin;
     }
 
+    /**
+     * Get list of enabled plugin names
+     * Filters out disabled plugins from configuration
+     */
     static get pluginKeys(): string[] {
         const pluginKeys = [];
 
@@ -200,6 +243,11 @@ export default class Uma {
         return pluginKeys;
     }
 
+    /**
+     * Get options for a specific plugin
+     * @param pluginName Name of the plugin
+     * @returns Plugin configuration object
+     */
     static pluginOptions(pluginName: string) {
         const pluginCfg = Uma.config.plugin[pluginName];
 
@@ -222,9 +270,9 @@ export default class Uma {
     }
 
     /**
-     * Uma instance     eg. Uma.instance({...})
-     * Uma getInstance  eg. Uma.instance()
-     * @param options Uma options
+     * Get or create the singleton Uma instance
+     * @param options Configuration options (required for the first call)
+     * @returns The Uma instance
      */
     static instance(options?: TUmaOption): Uma {
         if (instance) return instance;
@@ -239,12 +287,16 @@ export default class Uma {
     }
 
     /**
+     * Create a Koa middleware for integrating Uma into an existing Koa app
+     * This allows Uma to be used as a sub-app or middleware within another Koa application.
+     *
      * (async () => {
      *     const app = new Koa();
      *     app.use(await Uma.middleware({...}, app));
      * })();
      * @param options Uma options
      * @param app Koa instance
+     * @returns Koa middleware function
      */
     static async middleware(options: TUmaOption, app: Koa): Promise<Koa.Middleware> {
         if (instance) throw new Error('Uma can only be instantiated once, app.use(Uma.middleware({...}))');
@@ -261,6 +313,10 @@ export default class Uma {
     }
 
     /**
+     * Create a request handler callback (useful for Serverless or Express integration)
+     * This method initializes Uma and returns a callback function compatible with http.createServer
+     * or other frameworks like Express.
+     *
      * (async () => {
      *    const app = express();
      *    const callback = <any> await Uma.callback(options);
@@ -270,7 +326,8 @@ export default class Uma {
      *      }));
      * })()
      * @param options Uma options
-     * @param app Koa instance
+     * @param app Optional Koa instance
+     * @returns Request handler callback
      */
     static async callback(options: TUmaOption, app?: Koa) {
         if (instance) throw new Error('Uma can only be instantiated once, const koaCallback = Uma.callback({...})');
