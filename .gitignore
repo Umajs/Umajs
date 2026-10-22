@@ -13,3 +13,5 @@ packages/logger/__tests__/__mocks__/log/
 packages/app/logs/home.log
 yarn-error.log
 packages/app/yarn.lock
+AGENTS.md
+CLAUDE.md
