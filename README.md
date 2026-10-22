@@ -28,30 +28,49 @@ Backup site [Recommended]: [https://umajs.gitee.io/](https://umajs.gitee.io/)
 
 ## Initialize Project
 
+```sh
+nvm install
+nvm use
+npm ci
 ```
-yarn install
-yarn run init
-```
+
+With nvm installed, run these commands from the repository root. `.nvmrc` pins Node.js to `22.17.0`; npm workspaces installs dependencies for the root and all packages and links local packages automatically.
 
 ## Run Sample
 
+Build the local packages before starting the sample:
+
+```sh
+npx lerna run build
+npm run app --workspace=app
 ```
-cd packages/app && npm run app
-```
+
+The sample configures port `8058`. Currently, startup fails with `TS2351` at `new Koa()` in `packages/app/src/app.ts`: its namespace import is not constructable with the current TypeScript configuration. Resolve this compilation error before expecting the service to listen.
 
 ## Development
 
-- When developing a sub-project, run in the sub-project root directory:
-    ```
-    npm start
-    ```
-
-- To start the web project, run in the app project root directory:
-    ```
-    npm run app
+- Run the following commands from the repository root. For example, watch TypeScript compilation for the core package:
+    ```sh
+    npm run build-w --workspace=@umajs/core
     ```
 
-- To start debugging mode, just press F5 in the root directory.
+    Currently, `npm start --workspace=@umajs/core` starts both watchers, but its lint watcher reports `Invalid option '--pass-on-patterns'`. Use the compilation watcher above and run lint separately.
+
+- Check or build a package by its workspace name:
+    ```sh
+    npm run lint --workspace=@umajs/core
+    npm run build --workspace=@umajs/core
+    ```
+
+- Run the configured test suites, or only the core tests:
+    ```sh
+    npm test
+    npm run test:core
+    ```
+
+    `npm test` chains the core, router, i18n, session, and argument-decorator suites with `&&`, stopping at the first failure. Currently, four assertions in the core `Aspect.test.ts` fail, so later suites are not reached by this command.
+
+- Existing VS Code configurations in `.vscode/launch.json` point to missing package-local `ts-node` files after workspace installation. Before using F5, update each `program` to `${workspaceFolder}/node_modules/ts-node/dist/bin.js` while retaining its package-specific `cwd` and arguments. The sample compilation error above still needs to be resolved.
 
 ## Contribution
 

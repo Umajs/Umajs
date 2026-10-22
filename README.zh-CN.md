@@ -28,30 +28,49 @@ Umajs 是 58同城 推出的一款基于 Typescript 轻量级 Nodejs Web 框架�
 
 ## 初始化项目
 
+```sh
+nvm install
+nvm use
+npm ci
 ```
-yarn install
-yarn run init
-```
+
+先安装 nvm，再在仓库根目录执行以上命令。`.nvmrc` 将 Node.js 固定为 `22.17.0`；npm workspaces 会统一安装根目录及所有分包的依赖，并自动建立本地分包链接。
 
 ## 运行Sample
 
+先构建本地分包，再启动示例应用：
+
+```sh
+npx lerna run build
+npm run app --workspace=app
 ```
-cd packages/app && npm run app
-```
+
+示例源码将服务端口设置为 `8058`。当前启动会在 `packages/app/src/app.ts` 的 `new Koa()` 处报 `TS2351`：现有命名空间导入在当前 TypeScript 配置下不可构造。需要先解决此编译错误，服务才能监听端口。
 
 ## 开发
 
-- 开发子项目时，在子项目根目录执行
-    ```
-    npm start
-    ```
-
-- 启动 web 工程，在 app 项目根录目执行
-    ```
-    npm run app
+- 以下命令均在仓库根目录执行。以核心包为例，监听 TypeScript 编译：
+    ```sh
+    npm run build-w --workspace=@umajs/core
     ```
 
-- 启动调试模式，在根目录按 F5 即可
+    当前 `npm start --workspace=@umajs/core` 会启动两个监听进程，但 lint 监听会报 `Invalid option '--pass-on-patterns'`。请使用上面的编译监听命令，并单独执行 lint。
+
+- 按 workspace 名称检查或构建分包：
+    ```sh
+    npm run lint --workspace=@umajs/core
+    npm run build --workspace=@umajs/core
+    ```
+
+- 运行已配置的测试套件，或仅运行核心包测试：
+    ```sh
+    npm test
+    npm run test:core
+    ```
+
+    `npm test` 通过 `&&` 串行执行 core、router、i18n、session 和参数装饰器测试，遇到失败即停止。当前核心包 `Aspect.test.ts` 中有 4 个断言失败，因此该命令尚未执行到后续套件。
+
+- workspace 安装后，现有 `.vscode/launch.json` 指向的分包内 `ts-node` 文件不存在。使用 F5 前，需要将各配置的 `program` 改为 `${workspaceFolder}/node_modules/ts-node/dist/bin.js`，保留各自的 `cwd` 和参数；示例应用仍需先解决上述编译错误。
 
 ## 贡献
 
