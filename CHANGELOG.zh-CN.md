@@ -1,8 +1,8 @@
 [English](CHANGELOG.md) | [简体中文](CHANGELOG.zh-CN.md)
 
-## Unreleased
+## [2.0.6](https://github.com/Umajs/Umajs/compare/v2.0.5...v2.0.6) (2026-10-22)
 
-以下记录根据仓库 `2.0.6` 版本提交（[cd4bf32](https://github.com/Umajs/Umajs/commit/cd4bf3249f25316371af3fc05153f6b72549406e)）之后的代码变更整理，发布状态待确认。
+本次为 `2.0.6` 的 GitHub 源码发布，包含仓库版本提交 [cd4bf32](https://github.com/Umajs/Umajs/commit/cd4bf3249f25316371af3fc05153f6b72549406e) 及其后的更新。npm 上已存在 `@umajs/core@2.0.6`；尚未核实其与本次源码快照是否一致，本次不重新发布 npm 包。
 
 ### 新功能
 
@@ -12,22 +12,16 @@
 
 ### 缺陷修复
 
+* **core:** 恢复无控制器元数据的普通类上的类级 `@Around` 装饰器，同时保持已注册控制器仅包装已登记方法的限制。
 * **core:** `mixin` 深度合并支持循环引用与数组，并跳过 `__proto__`、`constructor`、`prototype` 属性，防止原型污染。([e6d64c9](https://github.com/Umajs/Umajs/commit/e6d64c97c0b8e7efa357bb9168055c771ab0291e))
 * **router:** 同一静态路径支持按不同 HTTP 方法注册处理器；正则路由在匹配路径前先过滤请求方法，避免被方法不匹配的路由截断；路由冲突检测同时检查路径与 HTTP 方法。([9994103](https://github.com/Umajs/Umajs/commit/9994103a8803f9e2f153b75dc0a41edfae8f85ca))
+* **core:** 首次初始化缺少配置或 `ROOT` 时抛出错误；`Result.finish()` 在响应处理器不存在时返回 `undefined`，避免调用非函数。
+* **arg-decorator:** 调整默认校验提示为英文，修正 `NotBlank` 的错误提示；移除请求体未定义时的 `@Body` 断言，保留空对象兜底。
 
 ### 不兼容变更
 
 * **core:** 控制器元数据改用 `reflect-metadata` 存储；`Uma.controllersInfo` 返回值由 `IterableIterator<TControllerInfo>` 改为 `TControllerInfo[]`，调用迭代器 `.next()` 的代码需调整。([7456e2a](https://github.com/Umajs/Umajs/commit/7456e2a1fbfa30cccd906ec7afcd1566c7d7ce82))
 * **core:** 启动初始化失败会退出进程，资源加载失败会抛出异常；依赖原有错误处理行为的应用需核对启动和异常处理逻辑。([6adcfed](https://github.com/Umajs/Umajs/commit/6adcfed4b34964d0fec1a246a17d694e77dad019))
-
-## [2.0.6](https://github.com/Umajs/Umajs/compare/v2.0.5...cd4bf3249f25316371af3fc05153f6b72549406e)
-
-根据仓库版本提交整理；版本提交日期为 2026-01-19，不代表已核实 npm 发布日期。
-
-### 缺陷修复
-
-* **core:** 首次初始化缺少配置或 `ROOT` 时抛出错误；`Result.finish()` 在响应处理器不存在时返回 `undefined`，避免调用非函数。
-* **arg-decorator:** 调整默认校验提示为英文，修正 `NotBlank` 的错误提示；移除请求体未定义时的 `@Body` 断言，保留空对象兜底。
 
 ### 依赖更新
 

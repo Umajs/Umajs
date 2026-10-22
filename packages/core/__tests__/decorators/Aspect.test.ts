@@ -1,4 +1,5 @@
 import { Around } from '../../src/decorators/Aspect'
+import { Path } from '../../src/decorators/Path';
 
 const DecoratorA = () => Around(({ proceed, args }) => {
     const result: number = proceed(...args);
@@ -38,6 +39,19 @@ class TestB {
     }
 }
 
+@DecoratorA()
+@Path('/around-regression')
+class RoutedTest {
+    @Path('/handled')
+    handled() {
+        return 1;
+    }
+
+    helper() {
+        return 2;
+    }
+}
+
 
 describe('test/decorator/Aspect.ts', () => {
     describe('around test', () => {
@@ -65,6 +79,18 @@ describe('test/decorator/Aspect.ts', () => {
             const d = await testB.d();
 
             expect(d).toEqual(8);
+        });
+    });
+
+    describe('控制器方法筛选', () => {
+        const routedTest = new RoutedTest();
+
+        it('类级切面包装已登记的控制器方法', () => {
+            expect(routedTest.handled()).toEqual(2);
+        });
+
+        it('类级切面不包装未登记的辅助方法', () => {
+            expect(routedTest.helper()).toEqual(2);
         });
     });
 });

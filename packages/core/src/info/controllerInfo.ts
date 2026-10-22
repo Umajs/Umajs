@@ -96,16 +96,17 @@ export default class ControllerInfo {
     }
 
     /**
-     * Check if a method is a registered aspect/route handler
+     * 判断类级切面是否应包装指定方法。
+     * 普通类没有控制器元数据时允许参与切面；控制器只允许已登记的方法参与。
      *
-     * @param clazz The controller class
-     * @param method The method name to check
-     * @returns True if the method is registered in the controller's metadata
+     * @param clazz 待检查的类
+     * @param method 待检查的方法名
+     * @returns 是否允许包装；调用方仍需确认目标属性是函数
      */
     static isAspectMethod(clazz: Function, method: string): boolean {
         const info: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz);
 
-        if (!info) return false;
+        if (!info) return true;
 
         return info.methodMap.has(method);
     }

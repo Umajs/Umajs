@@ -1,8 +1,8 @@
 [English](CHANGELOG.md) | [Simplified Chinese](CHANGELOG.zh-CN.md)
 
-## Unreleased
+## [2.0.6](https://github.com/Umajs/Umajs/compare/v2.0.5...v2.0.6) (2026-10-22)
 
-These entries summarize code changes after the repository version commit for `2.0.6` ([cd4bf32](https://github.com/Umajs/Umajs/commit/cd4bf3249f25316371af3fc05153f6b72549406e)). Their publication status has not been verified.
+GitHub source release for version `2.0.6`, including the repository version commit [cd4bf32](https://github.com/Umajs/Umajs/commit/cd4bf3249f25316371af3fc05153f6b72549406e) and subsequent updates. `@umajs/core@2.0.6` already exists on npm; equivalence with this source snapshot has not been verified, and this release does not republish npm packages.
 
 ### Features
 
@@ -12,22 +12,16 @@ These entries summarize code changes after the repository version commit for `2.
 
 ### Bug Fixes
 
+* **core:** Restore class-level `@Around` decorators on ordinary classes without controller metadata, while keeping registered controllers limited to their registered methods.
 * **core:** Support circular references and arrays in deep `mixin` operations, and skip the `__proto__`, `constructor`, and `prototype` properties to prevent prototype pollution. ([e6d64c9](https://github.com/Umajs/Umajs/commit/e6d64c97c0b8e7efa357bb9168055c771ab0291e))
 * **router:** Allow handlers for different HTTP methods on the same static path. Filter regular-expression routes by HTTP method before matching the path so a method mismatch does not stop route lookup. Check both path and HTTP method when detecting conflicts. ([9994103](https://github.com/Umajs/Umajs/commit/9994103a8803f9e2f153b75dc0a41edfae8f85ca))
+* **core:** Throw when configuration or `ROOT` is missing during initial setup. Return `undefined` from `Result.finish()` when no response handler exists instead of calling a non-function value.
+* **arg-decorator:** Use English default validation messages and correct the `NotBlank` error message. Remove the `@Body` assertion for an undefined request body while retaining the empty-object fallback.
 
 ### BREAKING CHANGES
 
 * **core:** Store controller metadata with `reflect-metadata`. Change the return type of `Uma.controllersInfo` from `IterableIterator<TControllerInfo>` to `TControllerInfo[]`; callers using the iterator method `.next()` must update their code. ([7456e2a](https://github.com/Umajs/Umajs/commit/7456e2a1fbfa30cccd906ec7afcd1566c7d7ce82))
 * **core:** Exit the process when startup initialization fails and throw on resource loading failures. Applications relying on the previous error handling behavior must review their startup and exception handling logic. ([6adcfed](https://github.com/Umajs/Umajs/commit/6adcfed4b34964d0fec1a246a17d694e77dad019))
-
-## [2.0.6](https://github.com/Umajs/Umajs/compare/v2.0.5...cd4bf3249f25316371af3fc05153f6b72549406e)
-
-Reconstructed from the repository version commit dated 2026-01-19. The npm publication date has not been verified.
-
-### Bug Fixes
-
-* **core:** Throw when configuration or `ROOT` is missing during initial setup. Return `undefined` from `Result.finish()` when no response handler exists instead of calling a non-function value.
-* **arg-decorator:** Use English default validation messages and correct the `NotBlank` error message. Remove the `@Body` assertion for an undefined request body while retaining the empty-object fallback.
 
 ### Dependencies
 
