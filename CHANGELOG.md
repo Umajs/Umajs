@@ -1,4 +1,45 @@
-# [](https://github.com/Umajs/Umajs/compare/v2.0.4-alpha.0...v) (2022-09-14)
+[English](CHANGELOG.md) | [Simplified Chinese](CHANGELOG.zh-CN.md)
+
+## Unreleased
+
+These entries summarize code changes after the repository version commit for `2.0.6` ([cd4bf32](https://github.com/Umajs/Umajs/commit/cd4bf3249f25316371af3fc05153f6b72549406e)). Their publication status has not been verified.
+
+### Features
+
+* **core:** Instantiate controllers and `@Service` dependencies through an internal dependency injection container, recursively resolving constructor dependencies from metadata. Throw `UmaError` when resource loading fails, a plugin is missing, or a plugin type is invalid. ([6adcfed](https://github.com/Umajs/Umajs/commit/6adcfed4b34964d0fec1a246a17d694e77dad019))
+* **core:** Add `Uma.logger` and use a shared logging interface for startup and routing. When `start()` catches an initialization error, log it and exit the process with code `1`. ([9994103](https://github.com/Umajs/Umajs/commit/9994103a8803f9e2f153b75dc0a41edfae8f85ca), [6adcfed](https://github.com/Umajs/Umajs/commit/6adcfed4b34964d0fec1a246a17d694e77dad019))
+* **core:** Load and deep-merge `<name>.config.<environment>` files matching the current `NODE_ENV`, defaulting to `development` when `NODE_ENV` is unset. ([7456e2a](https://github.com/Umajs/Umajs/commit/7456e2a1fbfa30cccd906ec7afcd1566c7d7ce82))
+
+### Bug Fixes
+
+* **core:** Support circular references and arrays in deep `mixin` operations, and skip the `__proto__`, `constructor`, and `prototype` properties to prevent prototype pollution. ([e6d64c9](https://github.com/Umajs/Umajs/commit/e6d64c97c0b8e7efa357bb9168055c771ab0291e))
+* **router:** Allow handlers for different HTTP methods on the same static path. Filter regular-expression routes by HTTP method before matching the path so a method mismatch does not stop route lookup. Check both path and HTTP method when detecting conflicts. ([9994103](https://github.com/Umajs/Umajs/commit/9994103a8803f9e2f153b75dc0a41edfae8f85ca))
+
+### BREAKING CHANGES
+
+* **core:** Store controller metadata with `reflect-metadata`. Change the return type of `Uma.controllersInfo` from `IterableIterator<TControllerInfo>` to `TControllerInfo[]`; callers using the iterator method `.next()` must update their code. ([7456e2a](https://github.com/Umajs/Umajs/commit/7456e2a1fbfa30cccd906ec7afcd1566c7d7ce82))
+* **core:** Exit the process when startup initialization fails and throw on resource loading failures. Applications relying on the previous error handling behavior must review their startup and exception handling logic. ([6adcfed](https://github.com/Umajs/Umajs/commit/6adcfed4b34964d0fec1a246a17d694e77dad019))
+
+## [2.0.6](https://github.com/Umajs/Umajs/compare/v2.0.5...cd4bf3249f25316371af3fc05153f6b72549406e)
+
+Reconstructed from the repository version commit dated 2026-01-19. The npm publication date has not been verified.
+
+### Bug Fixes
+
+* **core:** Throw when configuration or `ROOT` is missing during initial setup. Return `undefined` from `Result.finish()` when no response handler exists instead of calling a non-function value.
+* **arg-decorator:** Use English default validation messages and correct the `NotBlank` error message. Remove the `@Body` assertion for an undefined request body while retaining the empty-object fallback.
+
+### Dependencies
+
+* **core, router, cli, plugins:** Update runtime dependencies and synchronize package versions and internal dependencies. Upgrade `koa-body` from `4.x` to `7.x`, `path-to-regexp` from `3.x` to `8.x`, and `commander` from `3.x` to `9.x`. Review dependency APIs, route patterns, and Node.js version requirements when upgrading applications.
+
+## [2.0.5](https://github.com/Umajs/Umajs/compare/v2.0.4...v2.0.5) (2022-09-14)
+
+### Dependencies
+
+* **packages:** Synchronize framework, router, argument decorator, and plugin versions and internal dependencies to `2.0.5`. Keep `@umajs/cli` at `2.0.4`.
+
+## [2.0.4](https://github.com/Umajs/Umajs/compare/v2.0.4-alpha.0...v2.0.4) (2022-09-14)
 
 
 ### Features
@@ -17,7 +58,7 @@
 
 ### Features
 
-* ts插件版本升级,@umajs/router类型定义修复 ([56e2774](https://github.com/Umajs/Umajs/commit/56e2774c73524c35accc2296ab5053fdc4662fd0))
+* Upgrade TypeScript plugins and fix @umajs/router type definitions ([56e2774](https://github.com/Umajs/Umajs/commit/56e2774c73524c35accc2296ab5053fdc4662fd0))
 
 
 
