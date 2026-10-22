@@ -1,7 +1,7 @@
 [中文](./README.zh-CN.md)
 
 # `Umajs`（Launched by 58）
-> An easy-to-use framework base on Typescript
+> An easy-to-use framework based on TypeScript
 
 ## Introduction
 
