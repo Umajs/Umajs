@@ -97,11 +97,14 @@ export default class ControllerInfo {
 
     /**
      * 判断类级切面是否应包装指定方法。
+     * Determine whether a class-level aspect should wrap the specified method.
      * 普通类没有控制器元数据时允许参与切面；控制器只允许已登记的方法参与。
+     * Allow ordinary classes without controller metadata; restrict controllers to registered methods.
      *
-     * @param clazz 待检查的类
-     * @param method 待检查的方法名
+     * @param clazz 待检查的类 / Class to inspect
+     * @param method 待检查的方法名 / Method name to inspect
      * @returns 是否允许包装；调用方仍需确认目标属性是函数
+     * Whether wrapping is allowed; the caller must still check that the property is a function.
      */
     static isAspectMethod(clazz: Function, method: string): boolean {
         const info: TControllerInfo = Reflect.getMetadata(METADATA_KEY, clazz);
